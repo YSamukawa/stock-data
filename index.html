@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sector Flow Monitor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --page:#f5f5f1; --surface:#fcfcfb; --surface-2:#f0efea;
+  --ink:#141513; --ink-2:#55564f; --ink-3:#8a8a82;
+  --line:#e2e1d9; --line-2:#cfceC5;
+  --accent:#1f5f7a; --accent-ink:#ffffff;
+  --in:#2a78d6; --in-soft:#dbe9fb; --out:#e34948; --out-soft:#fbe0df; --mid:#efeeea;
+  --good:#006300; --bad:#b32d2d;
+  --shadow:0 1px 2px rgba(20,21,19,.06),0 4px 14px rgba(20,21,19,.05);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --page:#121311; --surface:#1b1c1a; --surface-2:#242522;
+    --ink:#f1f1ec; --ink-2:#b9b9ae; --ink-3:#83837b;
+    --line:#2d2e2b; --line-2:#3b3c38;
+    --accent:#6fb3d2; --accent-ink:#0d1a21;
+    --in:#3987e5; --in-soft:#1a2c44; --out:#e66767; --out-soft:#43201f; --mid:#2b2c29;
+    --good:#3fbf3f; --bad:#f07b7b;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --page:#121311; --surface:#1b1c1a; --surface-2:#242522;
+  --ink:#f1f1ec; --ink-2:#b9b9ae; --ink-3:#83837b;
+  --line:#2d2e2b; --line-2:#3b3c38;
+  --accent:#6fb3d2; --accent-ink:#0d1a21;
+  --in:#3987e5; --in-soft:#1a2c44; --out:#e66767; --out-soft:#43201f; --mid:#2b2c29;
+  --good:#3fbf3f; --bad:#f07b7b;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--page);color:var(--ink);font-family:"IBM Plex Sans JP","Noto Sans JP",system-ui,-apple-system,"Segoe UI","Hiragino Sans","Yu Gothic",sans-serif;font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.num,.mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+a{color:var(--accent)}
+button{font:inherit;color:inherit}
+.wrap{max-width:1280px;margin:0 auto;padding:20px 24px 48px}
+header.top{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 24px;padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:20px}
+header.top h1{font-size:22px;font-weight:600;margin:0;letter-spacing:-.01em}
+header.top h1 small{display:block;font-size:12px;font-weight:500;color:var(--ink-2);letter-spacing:.04em;text-transform:uppercase;margin-bottom:2px}
+.asof{margin-left:auto;text-align:right;color:var(--ink-2);font-size:12.5px;line-height:1.5}
+.asof b{color:var(--ink);font-size:16px;font-weight:600}
+.badge{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:500;letter-spacing:.03em;border:1px solid var(--line-2);color:var(--ink-2);vertical-align:middle}
+.badge.warn{border-color:#d69b1a;color:#8a5f00;background:#fff4d6}
+:root[data-theme="dark"] .badge.warn{color:#f2c25c;background:#3a2e10;border-color:#8a5f00}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .badge.warn{color:#f2c25c;background:#3a2e10;border-color:#8a5f00}}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:20px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
+.kpi .l{font-size:11.5px;color:var(--ink-2);letter-spacing:.03em}
+.kpi .v{font-size:22px;font-weight:600;margin-top:2px;line-height:1.2}
+.kpi .s{font-size:11.5px;color:var(--ink-3);margin-top:4px}
+.kpi .v.in{color:var(--in)} .kpi .v.out{color:var(--out)}
+
+.grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:16px;margin-bottom:16px}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px 12px;min-width:0}
+.panel.raised{box-shadow:var(--shadow)}
+.ph{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-bottom:8px}
+.ph h2{font-size:14.5px;font-weight:600;margin:0}
+.ph .sub{font-size:12px;color:var(--ink-2)}
+.seg{display:inline-flex;border:1px solid var(--line-2);border-radius:4px;overflow:hidden;margin-left:auto}
+.seg button{background:transparent;border:0;padding:4px 10px;font-size:12px;cursor:pointer;color:var(--ink-2)}
+.seg button+button{border-left:1px solid var(--line-2)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.legend{display:flex;gap:14px;font-size:11.5px;color:var(--ink-2);margin-top:6px;flex-wrap:wrap}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;vertical-align:-1px;margin-right:5px}
+svg{display:block;width:100%;height:auto;overflow:visible}
+svg text{font-family:"IBM Plex Sans JP","Noto Sans JP",system-ui,sans-serif;fill:var(--ink-2);font-size:11.5px}
+svg text.n{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+svg .grid{stroke:var(--line);stroke-width:1}
+svg .axis{stroke:var(--line-2);stroke-width:1}
+.bar{cursor:pointer}
+.bar:hover rect{filter:brightness(1.12)}
+.bar.sel text.lbl{fill:var(--ink);font-weight:600}
+.dot{cursor:pointer}
+.cell{cursor:pointer}
+#tip{position:fixed;pointer-events:none;z-index:50;background:var(--ink);color:var(--page);padding:7px 10px;border-radius:4px;font-size:12px;line-height:1.45;max-width:280px;opacity:0;transition:opacity .08s;box-shadow:var(--shadow)}
+#tip.on{opacity:1}
+#tip b{font-weight:600}
+.hm-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:12.5px}
+th,td{padding:5px 8px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-weight:500;color:var(--ink-2);font-size:11.5px;letter-spacing:.02em}
+th:first-child,td:first-child,th.t,td.t{text-align:left}
+td.t .nm{color:var(--ink-3);font-size:11px;margin-left:6px}
+tr.clickable{cursor:pointer}
+tr.clickable:hover td{background:var(--surface-2)}
+.pos{color:var(--in)} .neg{color:var(--out)}
+.detail-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+@media (max-width:900px){.detail-grid{grid-template-columns:1fr}}
+.tables{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:1100px){.tables{grid-template-columns:1fr}}
+.tables h3{font-size:12.5px;font-weight:600;margin:0 0 6px;color:var(--ink-2)}
+select{font:inherit;padding:4px 8px;border:1px solid var(--line-2);border-radius:4px;background:var(--surface);color:var(--ink)}
+.note{font-size:12px;color:var(--ink-2);line-height:1.65;max-width:80ch}
+.note h2{font-size:13.5px;color:var(--ink);margin:0 0 6px}
+.note dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;margin:8px 0}
+.note dt{color:var(--ink-3)}
+.note dd{margin:0}
+.fact{display:inline-block;padding:0 5px;border-radius:2px;font-size:10.5px;letter-spacing:.04em;border:1px solid var(--line-2);color:var(--ink-3);margin-right:4px;vertical-align:1px}
+.loading{padding:60px 0;text-align:center;color:var(--ink-2)}
+.err{background:var(--out-soft);border:1px solid var(--out);border-radius:6px;padding:12px 14px;color:var(--ink);margin-bottom:16px;font-size:13px}
+#app[hidden]{display:none}
+.dq{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11.5px;color:var(--ink-3);margin-top:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1><small>US Equities · S&amp;P 500 · Yahoo Finance 業種区分</small>業種別 資金フロー モニター</h1>
+    <div class="asof" id="asof">読み込み中…</div>
+  </header>
+
+  <div id="msg"></div>
+  <div class="loading" id="loading">データを読み込んでいます…</div>
+
+  <main id="app" hidden>
+    <section class="kpis" id="kpis"></section>
+
+    <div class="grid">
+      <section class="panel raised">
+        <div class="ph">
+          <h2>業種別 推定ネットフロー</h2>
+          <span class="sub" id="flowSub"></span>
+          <div class="seg" role="group" aria-label="期間" id="periodSeg">
+            <button data-p="1" aria-pressed="true">1日</button>
+            <button data-p="5" aria-pressed="false">5日</button>
+            <button data-p="20" aria-pressed="false">20日</button>
+          </div>
+          <div class="seg" role="group" aria-label="単位" id="unitSeg">
+            <button data-u="usd" aria-pressed="true">金額</button>
+            <button data-u="bp" aria-pressed="false">時価総額比</button>
+          </div>
+        </div>
+        <div id="flowChart"></div>
+        <div class="legend"><span><i style="background:var(--in)"></i>流入（＋）</span><span><i style="background:var(--out)"></i>流出（−）</span><span>棒をクリックで下の詳細を切替</span></div>
+      </section>
+
+      <section class="panel">
+        <div class="ph">
+          <h2>資金ローテーション</h2>
+          <span class="sub">横軸：20日累計 ／ 縦軸：直近5日累計（時価総額比 bp）</span>
+        </div>
+        <div id="rotChart"></div>
+        <div class="legend"><span>右上＝流入継続 ／ 左上＝流入に転換 ／ 左下＝流出継続 ／ 右下＝流出に転換</span></div>
+      </section>
+    </div>
+
+    <section class="panel" style="margin-bottom:16px">
+      <div class="ph">
+        <h2>日次ヒートマップ</h2>
+        <span class="sub">各日の推定ネットフロー ÷ 業種時価総額（bp）。行末は20日累計</span>
+      </div>
+      <div class="hm-wrap" id="heatmap"></div>
+      <div class="legend"><span><i style="background:var(--out)"></i>流出</span><span><i style="background:var(--mid);border:1px solid var(--line-2)"></i>±0</span><span><i style="background:var(--in)"></i>流入</span></div>
+    </section>
+
+    <section class="panel" style="margin-bottom:16px">
+      <div class="ph">
+        <h2 id="detailTitle">業種詳細</h2>
+        <select id="sectorSel" aria-label="業種を選択"></select>
+        <span class="sub" id="detailSub"></span>
+      </div>
+      <div class="detail-grid">
+        <div>
+          <h3 style="font-size:12.5px;color:var(--ink-2);margin:0 0 6px;font-weight:600">累積ネットフロー（60日）と日次バー</h3>
+          <div id="cumChart"></div>
+        </div>
+        <div>
+          <h3 style="font-size:12.5px;color:var(--ink-2);margin:0 0 6px;font-weight:600">業種の日次サマリー</h3>
+          <div style="overflow-x:auto"><table id="secTable"></table></div>
+        </div>
+      </div>
+      <div class="tables" style="margin-top:14px">
+        <div><h3 id="inHead">流入上位（当日）</h3><div style="overflow-x:auto"><table id="inTable"></table></div></div>
+        <div><h3 id="outHead">流出上位（当日）</h3><div style="overflow-x:auto"><table id="outTable"></table></div></div>
+      </div>
+    </section>
+
+    <section class="panel note">
+      <h2>指標の定義とデータの出所</h2>
+      <p><span class="fact">推定</span>本ページの「資金フロー」は実際のファンド資金流出入ではなく、株価と出来高から推定した近似値です。定義：<span class="mono">推定ネットフロー = sign(終値 − 前日終値) × 終値 × 出来高</span> を銘柄ごとに求め、業種ごとに合計しています。上昇日は売買代金の全額を流入、下落日は全額を流出とみなす単純化であり、実際の買い・売りの内訳は反映していません。</p>
+      <dl>
+        <dt>対象</dt><dd>S&amp;P 500 構成銘柄（Wikipedia「List of S&amp;P 500 companies」より取得、失敗時は GitHub datasets/s-and-p-500-companies）</dd>
+        <dt>業種区分</dt><dd>Yahoo Finance の11業種（Technology, Healthcare, Financial Services, Consumer Cyclical, Communication Services, Industrials, Consumer Defensive, Energy, Basic Materials, Real Estate, Utilities）。Yahoo から取得できない銘柄は GICS セクターを対応表で変換（<span id="fallbackNote"></span>）</dd>
+        <dt>株価・出来高</dt><dd>Yahoo Finance 日足（yfinance 経由）。終値は調整前の終値</dd>
+        <dt>時価総額比</dt><dd>推定ネットフロー ÷ 業種時価総額（発行済株式数 × 終値の合計）。bp = 1/10,000</dd>
+        <dt>騰落率</dt><dd>業種内の時価総額加重平均（時価総額が取れない銘柄は0ウェイト）</dd>
+        <dt>更新</dt><dd>GitHub Actions が米国市場終了後（日本時間 火〜土 07:30 頃）に自動実行</dd>
+      </dl>
+      <div class="dq" id="dq"></div>
+    </section>
+  </main>
+</div>
+<div id="tip" role="tooltip"></div>
+
+<script>
+(function(){
+'use strict';
+const $ = s => document.querySelector(s);
+const SECTOR_JA = {
+  "Technology":"テクノロジー","Healthcare":"ヘルスケア","Financial Services":"金融","Consumer Cyclical":"一般消費財",
+  "Communication Services":"通信サービス","Industrials":"資本財","Consumer Defensive":"生活必需品","Energy":"エネルギー",
+  "Basic Materials":"素材","Real Estate":"不動産","Utilities":"公益","Other":"その他"
+};
+const ja = s => SECTOR_JA[s] || s;
+let D, period = 1, unit = 'usd', selSector = null;
+
+// ---------- formatting
+function fmtUSD(v){ // compact dollars
+  if(v==null||isNaN(v)) return '—';
+  const a=Math.abs(v), s=v<0?'−':(v>0?'+':'');
+  if(a>=1e12) return s+'$'+(a/1e12).toFixed(2)+'T';
+  if(a>=1e9) return s+'$'+(a/1e9).toFixed(a>=1e10?1:2)+'B';
+  if(a>=1e6) return s+'$'+(a/1e6).toFixed(0)+'M';
+  return s+'$'+a.toFixed(0);
+}
+function fmtUSDabs(v){ return fmtUSD(Math.abs(v)).replace('+',''); }
+function fmtBp(v){ if(v==null||isNaN(v)) return '—'; return (v>0?'+':(v<0?'−':''))+Math.abs(v).toFixed(1)+'bp'; }
+function fmtPct(v){ if(v==null||isNaN(v)) return '—'; return (v>0?'+':(v<0?'−':''))+(Math.abs(v)*100).toFixed(2)+'%'; }
+function fmtDate(d){ return d ? d.slice(5).replace('-','/') : ''; }
+const cls = v => v>0?'pos':(v<0?'neg':'');
+const esc = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// ---------- tooltip
+const tip = $('#tip');
+function showTip(html,e){ tip.innerHTML=html; tip.classList.add('on'); moveTip(e); }
+function moveTip(e){ const w=tip.offsetWidth,h=tip.offsetHeight; let x=e.clientX+14,y=e.clientY+14; if(x+w>innerWidth-8)x=e.clientX-w-14; if(y+h>innerHeight-8)y=e.clientY-h-14; tip.style.left=x+'px'; tip.style.top=y+'px'; }
+function hideTip(){ tip.classList.remove('on'); }
+function bindTip(el, fn){ el.addEventListener('mouseenter',e=>showTip(fn(),e)); el.addEventListener('mousemove',moveTip); el.addEventListener('mouseleave',hideTip); }
+
+// ---------- data helpers
+function sectorList(){ return Object.keys(D.sectors); }
+function lastIdx(){ return D.dates.length-1; }
+function sumLast(arr,n){ let s=0; for(let i=Math.max(0,arr.length-n);i<arr.length;i++){ if(arr[i]!=null) s+=arr[i]; } return s; }
+function mcapLast(sec){ const m=D.sectors[sec].mcap; for(let i=m.length-1;i>=0;i--) if(m[i]!=null) return m[i]; return null; }
+function flowOf(sec,n){ return sumLast(D.sectors[sec].nf,n); }
+function bpOf(sec,n){ const m=mcapLast(sec); return m? flowOf(sec,n)/m*1e4 : null; }
+function retOf(sec,n){ const r=D.sectors[sec].ret; let c=1; for(let i=Math.max(0,r.length-n);i<r.length;i++){ if(r[i]!=null) c*=1+r[i]; } return c-1; }
+
+// ---------- header / KPIs
+function renderHeader(){
+  const gen = D.generated_at ? new Date(D.generated_at) : null;
+  const genJ = gen ? gen.toLocaleString('ja-JP',{timeZone:'Asia/Tokyo',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}) : '—';
+  const stale = gen ? (Date.now()-gen.getTime())/864e5 > 4 : false;
+  $('#asof').innerHTML = `基準日（米国市場）<b class="num">${esc(D.as_of)}</b><br>データ生成 ${esc(genJ)} JST ${D.sample?'<span class="badge warn">サンプルデータ</span>':(stale?'<span class="badge warn">更新が4日以上停止</span>':'<span class="badge">自動更新</span>')}`;
+  const secs=sectorList(); const li=lastIdx();
+  const totNF=secs.reduce((a,s)=>a+(D.sectors[s].nf[li]||0),0);
+  const totDV=secs.reduce((a,s)=>a+(D.sectors[s].dv[li]||0),0);
+  const totDV20=secs.reduce((a,s)=>a+(D.sectors[s].dv20[li]||0),0);
+  const adv=secs.reduce((a,s)=>a+(D.sectors[s].adv[li]||0),0), dec=secs.reduce((a,s)=>a+(D.sectors[s].dec[li]||0),0);
+  const secUp=secs.filter(s=>(D.sectors[s].nf[li]||0)>0).length;
+  const nf5=secs.reduce((a,s)=>a+flowOf(s,5),0);
+  const k=[
+    {l:'当日 売買代金 合計',v:fmtUSDabs(totDV),s:`20日平均比 ${totDV20?((totDV/totDV20-1)*100).toFixed(0):'—'}%`},
+    {l:'当日 推定ネットフロー 合計',v:fmtUSD(totNF),c:totNF>0?'in':'out',s:`売買代金比 ${totDV?(totNF/totDV*100).toFixed(0):'—'}%`},
+    {l:'直近5日 推定ネットフロー',v:fmtUSD(nf5),c:nf5>0?'in':'out',s:'5営業日累計'},
+    {l:'流入業種 / 流出業種',v:`${secUp} / ${secs.length-secUp}`,s:'当日の業種数'},
+    {l:'上昇 / 下落 銘柄数',v:`${adv} / ${dec}`,s:`構成 ${D.meta.n_symbols_priced} 銘柄`},
+  ];
+  $('#kpis').innerHTML=k.map(x=>`<div class="kpi"><div class="l">${x.l}</div><div class="v num ${x.c||''}">${x.v}</div><div class="s">${x.s}</div></div>`).join('');
+  $('#fallbackNote').textContent=`Yahoo業種 ${D.meta.n_sector_from_yahoo} 銘柄 / GICS変換 ${D.meta.n_sector_from_gics_fallback} 銘柄`;
+  $('#dq').innerHTML=`<span>構成銘柄の出所：${esc(D.meta.constituents_source||'—')}</span><span>株価取得 ${D.meta.n_symbols_priced} 銘柄</span><span>期間 ${esc(D.dates[0])} 〜 ${esc(D.dates[li])}（${D.dates.length}営業日）</span>`;
+}
+
+// ---------- diverging bar chart
+function renderFlow(){
+  const secs=sectorList();
+  const rows=secs.map(s=>({s, v: unit==='usd'? flowOf(s,period) : bpOf(s,period), usd:flowOf(s,period), bp:bpOf(s,period), ret:retOf(s,period)}))
+    .sort((a,b)=>(b.v??-Infinity)-(a.v??-Infinity));
+  const W=640, rowH=30, padL=150, padR=80, H=rows.length*rowH+30;
+  const maxAbs=Math.max(1e-9,...rows.map(r=>Math.abs(r.v||0)));
+  const cx=padL+(W-padL-padR)/2, half=(W-padL-padR)/2-64;
+  const x=v=>cx+(v/maxAbs)*half;
+  let ticks=[]; const t=niceTick(maxAbs); for(let v=-Math.floor(maxAbs/t)*t; v<=maxAbs; v+=t) ticks.push(Math.round(v*1e6)/1e6);
+  let g=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="業種別推定ネットフロー">`;
+  ticks.forEach(v=>{ g+=`<line class="grid" x1="${x(v)}" x2="${x(v)}" y1="8" y2="${H-22}"/><text class="n" x="${x(v)}" y="${H-8}" text-anchor="middle" font-size="10.5">${unit==='usd'?fmtUSD(v).replace(/\.\d+/,''):fmtBp(v).replace('.0','')}</text>`; });
+  g+=`<line class="axis" x1="${cx}" x2="${cx}" y1="8" y2="${H-22}"/>`;
+  rows.forEach((r,i)=>{
+    const y=12+i*rowH, v=r.v||0, w=Math.abs(x(v)-cx), pos=v>=0;
+    const rx=pos?cx+1:x(v), col=pos?'var(--in)':'var(--out)';
+    g+=`<g class="bar${r.s===selSector?' sel':''}" data-s="${esc(r.s)}" tabindex="0">
+      <rect x="${padL-4}" y="${y}" width="${W-padL-padR+8}" height="${rowH-6}" fill="transparent"/>
+      <text class="lbl" x="${padL-10}" y="${y+16}" text-anchor="end">${esc(ja(r.s))}</text>
+      <rect x="${rx}" y="${y+4}" width="${Math.max(0,w-1)}" height="${rowH-14}" rx="3" fill="${col}"/>
+      <text class="n" x="${pos?x(v)+6:x(v)-6}" y="${y+16}" text-anchor="${pos?'start':'end'}" font-size="11">${unit==='usd'?fmtUSD(v):fmtBp(v)}</text>
+      <text class="n" x="${W-4}" y="${y+16}" text-anchor="end" font-size="11" fill="${r.ret>0?'var(--good)':(r.ret<0?'var(--bad)':'var(--ink-3)')}">${fmtPct(r.ret)}</text>
+    </g>`;
+  });
+  g+=`<text x="${W-4}" y="${H-8}" text-anchor="end" font-size="10.5">騰落率（時価総額加重）</text></svg>`;
+  $('#flowChart').innerHTML=g;
+  $('#flowSub').textContent = period===1 ? `${fmtDate(D.dates[lastIdx()])} 当日` : `直近${period}営業日 累計（${fmtDate(D.dates[Math.max(0,D.dates.length-period)])}〜${fmtDate(D.dates[lastIdx()])}）`;
+  $('#flowChart').querySelectorAll('.bar').forEach(el=>{
+    const r=rows.find(q=>q.s===el.dataset.s);
+    bindTip(el,()=>`<b>${esc(ja(r.s))}</b> <span style="opacity:.7">${esc(r.s)}</span><br>推定ネットフロー ${fmtUSD(r.usd)}<br>時価総額比 ${fmtBp(r.bp)}<br>騰落率 ${fmtPct(r.ret)}<br>構成 ${D.sectors[r.s].n} 銘柄`);
+    const go=()=>{ selSector=r.s; $('#sectorSel').value=r.s; renderFlow(); renderDetail(); };
+    el.addEventListener('click',go); el.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();go();} });
+  });
+}
+function niceTick(maxAbs,n){ const raw=maxAbs/(n||3), p=Math.pow(10,Math.floor(Math.log10(raw))), m=raw/p; return (m<1.5?1:m<3.5?2:m<7.5?5:10)*p; }
+
+// ---------- rotation scatter
+function renderRot(){
+  const secs=sectorList();
+  const pts=secs.map(s=>({s,x:bpOf(s,20),y:bpOf(s,5)})).filter(p=>p.x!=null&&p.y!=null);
+  const W=460,H=360,pad={l:46,r:16,t:14,b:36};
+  const mx=Math.max(1e-9,...pts.map(p=>Math.abs(p.x)))*1.15, my=Math.max(1e-9,...pts.map(p=>Math.abs(p.y)))*1.15;
+  const sx=v=>pad.l+(v+mx)/(2*mx)*(W-pad.l-pad.r), sy=v=>pad.t+(my-v)/(2*my)*(H-pad.t-pad.b);
+  let g=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="資金ローテーション散布図">`;
+  // quadrant washes
+  g+=`<rect x="${sx(0)}" y="${pad.t}" width="${W-pad.r-sx(0)}" height="${sy(0)-pad.t}" fill="var(--in-soft)" opacity=".45"/>`;
+  g+=`<rect x="${pad.l}" y="${sy(0)}" width="${sx(0)-pad.l}" height="${H-pad.b-sy(0)}" fill="var(--out-soft)" opacity=".45"/>`;
+  g+=`<line class="axis" x1="${pad.l}" x2="${W-pad.r}" y1="${sy(0)}" y2="${sy(0)}"/><line class="axis" x1="${sx(0)}" x2="${sx(0)}" y1="${pad.t}" y2="${H-pad.b}"/>`;
+  const tx=niceTick(mx,2), ty=niceTick(my,2);
+  for(let v=-Math.floor(mx/tx)*tx; v<=mx; v+=tx){ if(Math.abs(v)<1e-9) continue; g+=`<text class="n" x="${sx(v)}" y="${H-pad.b+14}" text-anchor="middle" font-size="10.5">${fmtBp(v).replace('.0','')}</text>`; }
+  for(let v=-Math.floor(my/ty)*ty; v<=my; v+=ty){ if(Math.abs(v)<1e-9) continue; g+=`<text class="n" x="${pad.l-6}" y="${sy(v)+4}" text-anchor="end" font-size="10.5">${fmtBp(v).replace('.0','')}</text>`; }
+  g+=`<text x="${W-pad.r}" y="${H-6}" text-anchor="end" font-size="10.5">20日累計 →</text><text x="${pad.l+4}" y="${pad.t+10}" font-size="10.5">↑ 5日累計</text>`;
+  // labels with simple collision avoidance
+  const placed=[];
+  pts.forEach(p=>{
+    const cx=sx(p.x), cy=sy(p.y); const col = p.y>=0 ? 'var(--in)':'var(--out)';
+    let lx=cx+9, ly=cy+4; for(const q of placed){ if(Math.abs(q.x-lx)<70&&Math.abs(q.y-ly)<12){ ly=q.y+12; } } placed.push({x:lx,y:ly});
+    g+=`<g class="dot" data-s="${esc(p.s)}"><circle cx="${cx}" cy="${cy}" r="12" fill="transparent"/><circle cx="${cx}" cy="${cy}" r="5.5" fill="${col}" stroke="var(--surface)" stroke-width="2"/><text x="${lx}" y="${ly}" font-size="11" fill="var(--ink)">${esc(ja(p.s))}</text></g>`;
+  });
+  g+='</svg>';
+  $('#rotChart').innerHTML=g;
+  $('#rotChart').querySelectorAll('.dot').forEach(el=>{
+    const p=pts.find(q=>q.s===el.dataset.s);
+    bindTip(el,()=>`<b>${esc(ja(p.s))}</b><br>5日累計 ${fmtBp(p.y)}（${fmtUSD(flowOf(p.s,5))}）<br>20日累計 ${fmtBp(p.x)}（${fmtUSD(flowOf(p.s,20))}）`);
+    el.addEventListener('click',()=>{ selSector=p.s; $('#sectorSel').value=p.s; renderFlow(); renderDetail(); });
+  });
+}
+
+// ---------- heatmap
+function renderHeat(){
+  const secs=sectorList(); const N=20; const dates=D.dates.slice(-N); const off=D.dates.length-N;
+  const vals=secs.map(s=>{ const m=mcapLast(s); return dates.map((d,i)=>{ const v=D.sectors[s].nf[off+i]; return (v==null||!m)?null:v/m*1e4; }); });
+  const flat=vals.flat().filter(v=>v!=null).map(Math.abs).sort((a,b)=>a-b);
+  const cap=flat.length? flat[Math.floor(flat.length*0.92)] : 1;  // robust scale: 92nd percentile
+  const rowsSorted=secs.map((s,i)=>({s,vals:vals[i],tot:sumLast(D.sectors[s].nf,N)})).sort((a,b)=>b.tot-a.tot);
+  const cw=40,ch=26,padL=120,padR=90,W=padL+N*cw+padR,H=24+rowsSorted.length*ch;
+  let g=`<svg viewBox="0 0 ${W} ${H}" style="min-width:${W}px" role="img" aria-label="日次ヒートマップ">`;
+  dates.forEach((d,i)=>{ if((N-1-i)%2) return; g+=`<text class="n" x="${padL+i*cw+cw/2}" y="14" text-anchor="middle" font-size="10">${fmtDate(d)}</text>`; });
+  g+=`<text x="${padL+N*cw+8}" y="14" font-size="10.5">20日累計</text>`;
+  rowsSorted.forEach((r,ri)=>{
+    const y=24+ri*ch;
+    g+=`<text x="${padL-8}" y="${y+ch/2+4}" text-anchor="end">${esc(ja(r.s))}</text>`;
+    r.vals.forEach((v,i)=>{
+      const col=heatColor(v,cap);
+      g+=`<rect class="cell" data-s="${esc(r.s)}" data-i="${i}" x="${padL+i*cw+1}" y="${y+1}" width="${cw-2}" height="${ch-2}" rx="2" fill="${col}"/>`;
+    });
+    const m=mcapLast(r.s);
+    g+=`<text class="n" x="${padL+N*cw+8}" y="${y+ch/2+4}" font-size="11" fill="${r.tot>0?'var(--in)':'var(--out)'}">${fmtUSD(r.tot)}</text>`;
+  });
+  g+='</svg>';
+  $('#heatmap').innerHTML=g;
+  $('#heatmap').querySelectorAll('.cell').forEach(el=>{
+    const s=el.dataset.s, i=+el.dataset.i, gi=off+i;
+    bindTip(el,()=>{ const S=D.sectors[s]; const m=mcapLast(s); const v=S.nf[gi]; return `<b>${esc(ja(s))}</b> ${esc(D.dates[gi])}<br>推定ネットフロー ${fmtUSD(v)}<br>時価総額比 ${fmtBp(m&&v!=null?v/m*1e4:null)}<br>騰落率 ${fmtPct(S.ret[gi])} ／ 上昇${S.adv[gi]}・下落${S.dec[gi]}<br>売買代金 ${fmtUSDabs(S.dv[gi])}`; });
+    el.addEventListener('click',()=>{ selSector=s; $('#sectorSel').value=s; renderFlow(); renderDetail(); });
+  });
+}
+function heatColor(v,cap){
+  if(v==null) return 'var(--surface-2)';
+  const t=Math.max(-1,Math.min(1,v/cap));
+  const a=Math.pow(Math.abs(t),0.8);
+  if(Math.abs(t)<0.04) return 'var(--mid)';
+  return `color-mix(in oklab, ${t>0?'var(--in)':'var(--out)'} ${Math.round(a*100)}%, var(--mid))`;
+}
+
+// ---------- sector detail
+function renderDetail(){
+  const s=selSector||sectorList()[0]; selSector=s; const S=D.sectors[s];
+  $('#detailTitle').textContent=`業種詳細 — ${ja(s)}`;
+  $('#detailSub').textContent=`${s} · ${S.n} 銘柄 · 時価総額 ${fmtUSDabs(mcapLast(s))}`;
+  // cumulative chart + daily bars
+  const n=D.dates.length, W=620,H=260,pad={l:60,r:14,t:12,b:28};
+  let cum=[],c=0; for(let i=0;i<n;i++){ c+=S.nf[i]||0; cum.push(c); }
+  const maxBar=Math.max(1e-9,...S.nf.map(v=>Math.abs(v||0)));
+  const cmin=Math.min(0,...cum), cmax=Math.max(0,...cum);
+  const bw=(W-pad.l-pad.r)/n;
+  const barH=70; // bottom strip for daily bars
+  const lineTop=pad.t, lineBot=H-pad.b-barH-10;
+  const sx=i=>pad.l+i*bw+bw/2, sy=v=>lineTop+(cmax-v)/((cmax-cmin)||1)*(lineBot-lineTop);
+  const by0=H-pad.b-barH/2, byh=v=>Math.abs(v)/maxBar*(barH/2);
+  let g=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="累積ネットフロー">`;
+  const ty=niceTick(Math.max(Math.abs(cmin),Math.abs(cmax))||1);
+  for(let v=Math.ceil(cmin/ty)*ty; v<=cmax+1e-9; v+=ty){ g+=`<line class="grid" x1="${pad.l}" x2="${W-pad.r}" y1="${sy(v)}" y2="${sy(v)}"/><text class="n" x="${pad.l-6}" y="${sy(v)+4}" text-anchor="end" font-size="10.5">${fmtUSD(v).replace(/\.\d+/,'')}</text>`; }
+  g+=`<line class="axis" x1="${pad.l}" x2="${W-pad.r}" y1="${sy(0)}" y2="${sy(0)}"/>`;
+  const path=cum.map((v,i)=>(i?'L':'M')+sx(i).toFixed(1)+' '+sy(v).toFixed(1)).join(' ');
+  const area=path+` L${sx(n-1).toFixed(1)} ${sy(0)} L${sx(0).toFixed(1)} ${sy(0)} Z`;
+  const lastPos=cum[n-1]>=0;
+  g+=`<path d="${area}" fill="${lastPos?'var(--in)':'var(--out)'}" opacity=".12"/><path d="${path}" fill="none" stroke="${lastPos?'var(--in)':'var(--out)'}" stroke-width="2" stroke-linejoin="round"/>`;
+  g+=`<circle cx="${sx(n-1)}" cy="${sy(cum[n-1])}" r="4" fill="${lastPos?'var(--in)':'var(--out)'}" stroke="var(--surface)" stroke-width="2"/><text class="n" x="${sx(n-1)-8}" y="${sy(cum[n-1])+(lastPos?-8:16)}" text-anchor="end" font-size="11" fill="var(--ink)">${fmtUSD(cum[n-1])}</text>`;
+  g+=`<line class="axis" x1="${pad.l}" x2="${W-pad.r}" y1="${by0}" y2="${by0}"/>`;
+  S.nf.forEach((v,i)=>{ if(v==null) return; const h=byh(v); g+=`<rect x="${pad.l+i*bw+1}" y="${v>=0?by0-h:by0}" width="${Math.max(1,bw-2)}" height="${h}" fill="${v>=0?'var(--in)':'var(--out)'}"/>`; });
+  for(let i=0;i<n;i+=10){ g+=`<text class="n" x="${sx(i)}" y="${H-8}" text-anchor="middle" font-size="10">${fmtDate(D.dates[i])}</text>`; }
+  g+=`<text x="${pad.l}" y="${by0-barH/2-4}" font-size="10.5">日次</text>`;
+  // hover overlay
+  g+=`<g id="cumHover">`+D.dates.map((d,i)=>`<rect data-i="${i}" x="${pad.l+i*bw}" y="${pad.t}" width="${bw}" height="${H-pad.t-pad.b}" fill="transparent"/>`).join('')+`</g></svg>`;
+  $('#cumChart').innerHTML=g;
+  $('#cumChart').querySelectorAll('#cumHover rect').forEach(el=>{ const i=+el.dataset.i; bindTip(el,()=>`<b>${esc(D.dates[i])}</b><br>当日 ${fmtUSD(S.nf[i])}<br>累積 ${fmtUSD(cum[i])}<br>騰落率 ${fmtPct(S.ret[i])}`); });
+
+  // daily summary table (last 10 days)
+  let t=`<tr><th class="t">日付</th><th>推定NF</th><th>時価総額比</th><th>売買代金</th><th>騰落率</th><th>上昇/下落</th></tr>`;
+  const m=mcapLast(s);
+  for(let i=n-1;i>=Math.max(0,n-10);i--){
+    const v=S.nf[i]; t+=`<tr><td class="t num">${esc(D.dates[i])}</td><td class="num ${cls(v)}">${fmtUSD(v)}</td><td class="num ${cls(v)}">${fmtBp(m&&v!=null?v/m*1e4:null)}</td><td class="num">${fmtUSDabs(S.dv[i])}</td><td class="num ${S.ret[i]>0?'pos':S.ret[i]<0?'neg':''}">${fmtPct(S.ret[i])}</td><td class="num">${S.adv[i]??'—'} / ${S.dec[i]??'—'}</td></tr>`;
+  }
+  $('#secTable').innerHTML=t;
+
+  // top stocks
+  const key = period===1?'nf':(period===5?'nf5':'nf20');
+  const lab = period===1?'当日':`${period}日累計`;
+  const st=D.stocks.filter(x=>x.sec===s);
+  const ins=st.filter(x=>x[key]>0).sort((a,b)=>b[key]-a[key]).slice(0,8);
+  const outs=st.filter(x=>x[key]<0).sort((a,b)=>a[key]-b[key]).slice(0,8);
+  $('#inHead').textContent=`流入上位（${lab}）`; $('#outHead').textContent=`流出上位（${lab}）`;
+  const row=x=>`<tr><td class="t"><b>${esc(x.s)}</b><span class="nm">${esc(x.nm)}</span></td><td class="num ${cls(x[key])}">${fmtUSD(x[key])}</td><td class="num">${x.c.toFixed(2)}</td><td class="num ${x.r>0?'pos':x.r<0?'neg':''}">${fmtPct(x.r)}</td><td class="num">${fmtUSDabs(x.dv)}</td></tr>`;
+  const head=`<tr><th class="t">銘柄</th><th>推定NF（${lab}）</th><th>終値</th><th>当日騰落</th><th>当日売買代金</th></tr>`;
+  $('#inTable').innerHTML=head+(ins.map(row).join('')||'<tr><td colspan="5" class="t">該当なし</td></tr>');
+  $('#outTable').innerHTML=head+(outs.map(row).join('')||'<tr><td colspan="5" class="t">該当なし</td></tr>');
+}
+
+// ---------- controls
+function bindControls(){
+  $('#periodSeg').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; period=+b.dataset.p; $('#periodSeg').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b)); renderFlow(); renderDetail(); });
+  $('#unitSeg').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; unit=b.dataset.u; $('#unitSeg').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b)); renderFlow(); });
+  const sel=$('#sectorSel'); sel.innerHTML=sectorList().map(s=>`<option value="${esc(s)}">${esc(ja(s))} (${esc(s)})</option>`).join('');
+  sel.addEventListener('change',()=>{ selSector=sel.value; renderFlow(); renderDetail(); });
+}
+
+function renderAll(){
+  $('#loading').hidden=true; $('#app').hidden=false;
+  // default detail: sector with the largest absolute 1-day flow
+  selSector = sectorList().sort((a,b)=>Math.abs(flowOf(b,1))-Math.abs(flowOf(a,1)))[0];
+  bindControls(); $('#sectorSel').value=selSector;
+  renderHeader(); renderFlow(); renderRot(); renderHeat(); renderDetail();
+}
+
+async function load(){
+  try{
+    if(window.__DATA__){ D=window.__DATA__; }
+    else{
+      const r=await fetch('data/latest.json?t='+Date.now(),{cache:'no-store'});
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      D=await r.json();
+    }
+    if(!D||!D.sectors||!D.dates||!D.dates.length) throw new Error('データ形式が不正です');
+    renderAll();
+  }catch(e){
+    $('#loading').hidden=true;
+    $('#msg').innerHTML=`<div class="err"><b>データを読み込めませんでした</b>（${esc(e.message)}）。GitHub Actions の「Update sector flow data」がまだ一度も成功していないか、data/latest.json が存在しません。リポジトリの Actions タブから手動実行（Run workflow）してください。</div>`;
+    $('#asof').textContent='';
+  }
+}
+load();
+})();
+</script>
+</body>
+</html>
