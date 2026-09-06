@@ -121,7 +121,7 @@ select{font:inherit;padding:4px 8px;border:1px solid var(--line-2);border-radius
 <body>
 <div class="wrap">
   <header class="top">
-    <h1><small>US Equities · S&amp;P 500 · Yahoo Finance 業種区分</small>業種別 資金フロー モニター</h1>
+    <h1><small id="schemeLabel">US Equities · S&amp;P 500</small>業種別 資金フロー モニター</h1>
     <div class="asof" id="asof">読み込み中…</div>
   </header>
 
@@ -196,9 +196,9 @@ select{font:inherit;padding:4px 8px;border:1px solid var(--line-2);border-radius
       <p><span class="fact">推定</span>本ページの「資金フロー」は実際のファンド資金流出入ではなく、株価と出来高から推定した近似値です。定義：<span class="mono">推定ネットフロー = sign(終値 − 前日終値) × 終値 × 出来高</span> を銘柄ごとに求め、業種ごとに合計しています。上昇日は売買代金の全額を流入、下落日は全額を流出とみなす単純化であり、実際の買い・売りの内訳は反映していません。</p>
       <dl>
         <dt>対象</dt><dd>S&amp;P 500 構成銘柄（Wikipedia「List of S&amp;P 500 companies」より取得、失敗時は GitHub datasets/s-and-p-500-companies）</dd>
-        <dt>業種区分</dt><dd>Yahoo Finance の11業種（Technology, Healthcare, Financial Services, Consumer Cyclical, Communication Services, Industrials, Consumer Defensive, Energy, Basic Materials, Real Estate, Utilities）。Yahoo から取得できない銘柄は GICS セクターを対応表で変換（<span id="fallbackNote"></span>）</dd>
+        <dt>業種区分</dt><dd id="schemeNote"></dd>
         <dt>株価・出来高</dt><dd>Yahoo Finance 日足（yfinance 経由）。終値は調整前の終値</dd>
-        <dt>時価総額比</dt><dd>推定ネットフロー ÷ 業種時価総額（発行済株式数 × 終値の合計）。bp = 1/10,000</dd>
+        <dt>時価総額比</dt><dd>推定ネットフロー ÷ 業種時価総額（発行済株式数 × 終値の合計。発行済株式数は Yahoo Finance から取得、<span id="sharesNote"></span>）。bp = 1/10,000</dd>
         <dt>騰落率</dt><dd>業種内の時価総額加重平均（時価総額が取れない銘柄は0ウェイト）</dd>
         <dt>更新</dt><dd>GitHub Actions が米国市場終了後（日本時間 火〜土 07:30 頃）に自動実行</dd>
       </dl>
@@ -213,9 +213,13 @@ select{font:inherit;padding:4px 8px;border:1px solid var(--line-2);border-radius
 'use strict';
 const $ = s => document.querySelector(s);
 const SECTOR_JA = {
+  // GICS (S&P official)
+  "Information Technology":"情報技術","Health Care":"ヘルスケア","Financials":"金融","Consumer Discretionary":"一般消費財",
+  "Communication Services":"コミュニケーション","Industrials":"資本財","Consumer Staples":"生活必需品","Energy":"エネルギー",
+  "Materials":"素材","Real Estate":"不動産","Utilities":"公益",
+  // Yahoo Finance (Morningstar-based) — used when SECTOR_SCHEME=yahoo
   "Technology":"テクノロジー","Healthcare":"ヘルスケア","Financial Services":"金融","Consumer Cyclical":"一般消費財",
-  "Communication Services":"通信サービス","Industrials":"資本財","Consumer Defensive":"生活必需品","Energy":"エネルギー",
-  "Basic Materials":"素材","Real Estate":"不動産","Utilities":"公益","Other":"その他"
+  "Consumer Defensive":"生活必需品","Basic Materials":"素材","Other":"その他"
 };
 const ja = s => SECTOR_JA[s] || s;
 let D, period = 1, unit = 'usd', selSector = null;
@@ -273,7 +277,12 @@ function renderHeader(){
     {l:'上昇 / 下落 銘柄数',v:`${adv} / ${dec}`,s:`構成 ${D.meta.n_symbols_priced} 銘柄`},
   ];
   $('#kpis').innerHTML=k.map(x=>`<div class="kpi"><div class="l">${x.l}</div><div class="v num ${x.c||''}">${x.v}</div><div class="s">${x.s}</div></div>`).join('');
-  $('#fallbackNote').textContent=`Yahoo業種 ${D.meta.n_sector_from_yahoo} 銘柄 / GICS変換 ${D.meta.n_sector_from_gics_fallback} 銘柄`;
+  const gics = D.meta.sector_scheme!=='yahoo';
+  $('#schemeLabel').textContent = gics ? 'US Equities · S&P 500 · GICS 業種区分' : 'US Equities · S&P 500 · Yahoo Finance 業種区分';
+  $('#schemeNote').textContent = gics
+    ? 'GICS（S&P Dow Jones Indices と MSCI が策定する S&P 500 の公式セクター分類）の11セクター。構成銘柄リストに付属する GICS Sector / Sub-Industry をそのまま使用し、全銘柄が同一基準で分類されます'
+    : `Yahoo Finance の11業種（Morningstar 準拠）。Yahoo から取得できない銘柄は GICS セクターを対応表で変換（Yahoo業種 ${D.meta.n_sector_from_yahoo} 銘柄 / GICS変換 ${D.meta.n_sector_from_gics_fallback} 銘柄）`;
+  $('#sharesNote').textContent = D.meta.n_shares_missing!=null ? `取得済 ${D.meta.n_shares_from_yahoo} 銘柄・未取得 ${D.meta.n_shares_missing} 銘柄は0ウェイト` : '';
   $('#dq').innerHTML=`<span>構成銘柄の出所：${esc(D.meta.constituents_source||'—')}</span><span>株価取得 ${D.meta.n_symbols_priced} 銘柄</span><span>期間 ${esc(D.dates[0])} 〜 ${esc(D.dates[li])}（${D.dates.length}営業日）</span>`;
 }
 

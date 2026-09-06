@@ -1,6 +1,6 @@
 # Sector Flow Monitor — 米国株 業種別 資金フロー モニター
 
-S&P 500 構成銘柄を Yahoo Finance の11業種に分け、株価×出来高から推定した「資金の流入・流出」を毎日自動更新して表示する単一HTMLアプリです。
+S&P 500 構成銘柄を GICS（S&P 公式）の11セクターに分け、株価×出来高から推定した「資金の流入・流出」を毎日自動更新して表示する単一HTMLアプリです。
 データ取得は GitHub Actions（GitHub のサーバー）が毎日自動で行い、HTML は GitHub Pages で公開します。**開くだけで最新データが表示されます。**
 
 ## セットアップ手順（GitHub の Web 画面だけで完結、約5分）
@@ -60,9 +60,20 @@ S&P 500 構成銘柄を Yahoo Finance の11業種に分け、株価×出来高�
 | 項目 | 出所 |
 |---|---|
 | 構成銘柄 | Wikipedia「List of S&P 500 companies」（失敗時は GitHub `datasets/s-and-p-500-companies`） |
-| 業種区分 | Yahoo Finance quoteSummary の `sector`（yfinance 経由）。取得できない銘柄は GICS セクターを対応表で変換 |
+| 業種区分 | **GICS**（S&P Dow Jones Indices / MSCI）。構成銘柄リストの GICS Sector / Sub-Industry 列をそのまま使用（既定）。`SECTOR_SCHEME=yahoo` を環境変数で指定すると Yahoo Finance の11業種（Morningstar 準拠）に切替可能（取得できない銘柄は GICS を対応表で変換） |
 | 株価・出来高 | Yahoo Finance 日足（yfinance 経由、調整前終値） |
 | 発行済株式数 | Yahoo Finance `sharesOutstanding`（時価総額計算用、45日ごとに更新） |
+
+## 業種分類の切り替え
+既定は GICS です。Yahoo Finance の分類に切り替えたい場合は `.github/workflows/update.yml` の「Fetch prices and compute sector flows」ステップに次を追加します。
+```yaml
+        env:
+          SECTOR_SCHEME: yahoo
+```
+Yahoo 分類は銘柄ごとに Yahoo への問い合わせが必要なため、初回は約500件の取得に10分前後かかります（`MAX_INFO_PER_RUN` 既定 600）。
+
+## 更新履歴
+- v1.1: 業種分類を GICS に統一（旧版は `MAX_INFO_PER_RUN=120` の制限により初回実行で 383 銘柄が GICS フォールバックになり、Yahoo 分類と混在していた）。指数から外れた銘柄のキャッシュ自動削除、Wikipedia 取得時の User-Agent 明示、発行済株式数の取得上限撤廃。
 
 ## 注意
 - Yahoo Finance は非公式API（yfinance）経由の取得です。Yahoo 側の仕様変更で取得に失敗することがあります。その場合は Actions のログを確認し、`requirements.txt` の yfinance を最新版に更新してください

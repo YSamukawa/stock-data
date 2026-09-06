@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 """
-S&P 500 constituents -> Yahoo Finance sector classification -> daily OHLCV
+S&P 500 constituents -> sector classification -> daily OHLCV
 -> estimated sector money flow. Writes data/latest.json for the HTML app.
 
 Data sources
-  * Constituents : Wikipedia "List of S&P 500 companies" (fallback: datasets/s-and-p-500-companies on GitHub)
-  * Sector       : Yahoo Finance quoteSummary (via yfinance Ticker.info["sector"]) — Yahoo's 11-sector scheme
+  * Constituents + GICS sector / sub-industry :
+        Wikipedia "List of S&P 500 companies" (fallback: datasets/s-and-p-500-companies on GitHub)
+  * Sector scheme : SECTOR_SCHEME = "gics"  -> GICS (S&P official, from the constituents list; no API calls)
+                    SECTOR_SCHEME = "yahoo" -> Yahoo Finance quoteSummary sector (Morningstar-based),
+                                               GICS mapped to Yahoo names for symbols Yahoo cannot supply
+  * Shares outstanding (for market-cap normalisation) : Yahoo Finance via yfinance Ticker.info
   * Prices       : Yahoo Finance daily OHLCV (via yfinance.download)
 
 Flow definition (ESTIMATE, not actual fund flows)
@@ -24,7 +28,17 @@ OUT_PATH = os.path.join(DATA_DIR, "latest.json")
 HISTORY_DAYS = 60          # trading days kept in the output
 DOWNLOAD_PERIOD = "6mo"    # enough history for 60 trading days + 20-day averages
 CACHE_TTL_DAYS = 45        # refresh shares outstanding / sector after this many days
-MAX_INFO_PER_RUN = 120     # cap on Ticker.info calls per run (rate-limit safety)
+# Sector scheme: "gics" (default, S&P official — complete on day one) or "yahoo".
+SECTOR_SCHEME = os.environ.get("SECTOR_SCHEME", "gics").lower()
+# Ticker.info calls per run. Set high so the first run fills the whole universe; later runs
+# only touch entries older than CACHE_TTL_DAYS (~12/day) or symbols new to the index.
+MAX_INFO_PER_RUN = int(os.environ.get("MAX_INFO_PER_RUN", "600"))
+
+GICS_SECTORS = [
+    "Information Technology", "Health Care", "Financials", "Consumer Discretionary",
+    "Communication Services", "Industrials", "Consumer Staples", "Energy",
+    "Materials", "Real Estate", "Utilities",
+]
 
 YAHOO_SECTORS = [
     "Technology", "Healthcare", "Financial Services", "Consumer Cyclical",
@@ -53,7 +67,13 @@ def log(*a):
 # ---------------------------------------------------------------- constituents
 def load_constituents() -> pd.DataFrame:
     try:
-        tables = pd.read_html("https://en.wikipedia.org/wiki/List_of_S%26P_500_companies")
+        import io, urllib.request
+        req = urllib.request.Request(
+            "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies",
+            headers={"User-Agent": "sector-flow-monitor/1.0 (GitHub Actions; contact via repo issues)"})
+        with urllib.request.urlopen(req, timeout=60) as r:
+            html = r.read().decode("utf-8")
+        tables = pd.read_html(io.StringIO(html), match="Symbol")
         df = tables[0]
         df = df.rename(columns={"Symbol": "symbol", "Security": "name",
                                 "GICS Sector": "gics_sector", "GICS Sub-Industry": "gics_sub"})
@@ -89,12 +109,20 @@ def save_cache(cache: dict):
 
 
 def refresh_cache(cons: pd.DataFrame, cache: dict) -> dict:
-    """Fetch Yahoo sector/industry/sharesOutstanding for symbols missing or stale in cache."""
+    """Fetch Yahoo sector/industry/sharesOutstanding for symbols missing or stale in cache.
+    Cache keys are Yahoo-style symbols (BRK-B). Entries for symbols no longer in the index are dropped."""
     today = dt.date.today()
+    current = set(cons["yf_symbol"])
+    stale_keys = [k for k in cache if k not in current]
+    for k in stale_keys:
+        del cache[k]
+    if stale_keys:
+        log(f"sector cache: removed {len(stale_keys)} symbols no longer in index: {stale_keys}")
     todo = []
     for sym in cons["yf_symbol"]:
         ent = cache.get(sym)
-        if ent is None or not ent.get("sector"):
+        need = (ent is None) or (SECTOR_SCHEME == "yahoo" and not ent.get("sector")) or (not ent.get("shares"))
+        if need:
             todo.append(sym)
         else:
             try:
@@ -106,10 +134,12 @@ def refresh_cache(cons: pd.DataFrame, cache: dict) -> dict:
     # missing entries first, then stale ones
     todo = sorted(todo, key=lambda s: 0 if s not in cache else 1)[:MAX_INFO_PER_RUN]
     log(f"sector cache: {len(todo)} symbols to (re)fetch")
+    consecutive_fail = 0
     for i, sym in enumerate(todo):
         for attempt in range(3):
             try:
                 info = yf.Ticker(sym).info or {}
+                consecutive_fail = 0
                 sector = info.get("sector")
                 ent = cache.get(sym, {})
                 ent.update({
@@ -123,8 +153,13 @@ def refresh_cache(cons: pd.DataFrame, cache: dict) -> dict:
                 break
             except Exception as e:
                 log(f"  info {sym} attempt {attempt+1} failed: {e}")
-                time.sleep(2 + 3 * attempt)
-        time.sleep(0.4)
+                time.sleep(3 + 5 * attempt)
+        else:
+            consecutive_fail += 1
+            if consecutive_fail >= 10:
+                log("  10 consecutive failures — probably rate limited; stopping info fetch for this run")
+                break
+        time.sleep(0.5)
         if (i + 1) % 25 == 0:
             save_cache(cache)
             log(f"  ... {i+1}/{len(todo)}")
@@ -181,12 +216,23 @@ def compute(cons: pd.DataFrame, cache: dict, px: pd.DataFrame) -> dict:
     px["nf"] = np.sign(px["close"] - px["prev_close"]) * px["dv"]     # estimated net flow
 
     def sector_of(sym):
+        g = meta.loc[sym, "gics_sector"] if sym in meta.index else None
+        if SECTOR_SCHEME == "gics":
+            return (g if g in GICS_SECTORS else "Other"), "gics"
         ent = cache.get(sym) or {}
         s = ent.get("sector")
         if s in YAHOO_SECTORS:
             return s, "yahoo"
-        g = meta.loc[sym, "gics_sector"] if sym in meta.index else None
         return GICS_TO_YAHOO.get(g, "Other"), "gics_fallback"
+
+    def industry_of(sym):
+        if SECTOR_SCHEME == "yahoo":
+            ind = (cache.get(sym) or {}).get("industry")
+            if ind:
+                return ind
+        return meta.loc[sym, "gics_sub"] if sym in meta.index else None
+
+    SECTOR_ORDER = GICS_SECTORS if SECTOR_SCHEME == "gics" else YAHOO_SECTORS
 
     sec = {s: sector_of(s) for s in px["symbol"].unique()}
     px["sector"] = px["symbol"].map(lambda s: sec[s][0])
@@ -217,7 +263,7 @@ def compute(cons: pd.DataFrame, cache: dict, px: pd.DataFrame) -> dict:
     agg = agg.merge(full[["sector", "date", "dv20"]], on=["sector", "date"], how="left")
 
     sectors_out = {}
-    for s in YAHOO_SECTORS + (["Other"] if (agg["sector"] == "Other").any() else []):
+    for s in SECTOR_ORDER + (["Other"] if (agg["sector"] == "Other").any() else []):
         a = agg[agg["sector"] == s].set_index("date").reindex(dates)
         if a["n"].isna().all():
             continue
@@ -249,7 +295,7 @@ def compute(cons: pd.DataFrame, cache: dict, px: pd.DataFrame) -> dict:
             "s": m["symbol"] if m is not None else sym,
             "nm": (m["name"] if m is not None else ent.get("name")) or sym,
             "sec": r["sector"],
-            "ind": ent.get("industry") or (m["gics_sub"] if m is not None else None),
+            "ind": industry_of(sym),
             "src": sec[sym][1],
             "c": round(float(r["close"]), 2),
             "r": round(float(r["ret"]), 5),
@@ -263,6 +309,7 @@ def compute(cons: pd.DataFrame, cache: dict, px: pd.DataFrame) -> dict:
     stocks.sort(key=lambda x: -abs(x["nf"]))
 
     n_yahoo = sum(1 for v in sec.values() if v[1] == "yahoo")
+    n_shares = sum(1 for sym in px["symbol"].unique() if (cache.get(sym) or {}).get("shares"))
     return {
         "as_of": last,
         "generated_at": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -273,9 +320,13 @@ def compute(cons: pd.DataFrame, cache: dict, px: pd.DataFrame) -> dict:
             "universe": "S&P 500 constituents",
             "constituents_source": cons.attrs.get("source"),
             "n_symbols_priced": int(px["symbol"].nunique()),
+            "sector_scheme": "gics" if SECTOR_SCHEME == "gics" else "yahoo",
+            "sector_scheme_label": ("GICS (S&P Dow Jones Indices / MSCI) — from constituents list"
+                                    if SECTOR_SCHEME == "gics" else "Yahoo Finance (11 sectors)"),
             "n_sector_from_yahoo": n_yahoo,
-            "n_sector_from_gics_fallback": len(sec) - n_yahoo,
-            "sector_scheme": "Yahoo Finance (11 sectors)",
+            "n_sector_from_gics_fallback": (len(sec) - n_yahoo) if SECTOR_SCHEME == "yahoo" else 0,
+            "n_shares_from_yahoo": n_shares,
+            "n_shares_missing": int(px["symbol"].nunique()) - n_shares,
             "flow_definition": "sign(close - prev_close) * close * volume, summed per sector (estimate)",
             "price_source": "Yahoo Finance via yfinance",
         },
