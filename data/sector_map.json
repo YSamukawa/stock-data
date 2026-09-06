@@ -1,0 +1,842 @@
+{
+"A": {
+"industry": "Diagnostics & Research",
+"name": "Agilent Technologies, Inc.",
+"sector": "Healthcare",
+"shares": 281965813,
+"updated": "2026-09-06"
+},
+"AAPL": {
+"industry": "Consumer Electronics",
+"name": "Apple Inc.",
+"sector": "Technology",
+"shares": 14594180000,
+"updated": "2026-09-06"
+},
+"ABBV": {
+"industry": "Drug Manufacturers - General",
+"name": "AbbVie Inc.",
+"sector": "Healthcare",
+"shares": 1767117285,
+"updated": "2026-09-06"
+},
+"ABNB": {
+"industry": "Travel Services",
+"name": "Airbnb, Inc.",
+"sector": "Consumer Cyclical",
+"shares": 419529556,
+"updated": "2026-09-06"
+},
+"ABT": {
+"industry": "Medical Devices",
+"name": "Abbott Laboratories",
+"sector": "Healthcare",
+"shares": 1730383296,
+"updated": "2026-09-06"
+},
+"ACGL": {
+"industry": "Insurance - Diversified",
+"name": "Arch Capital Group Ltd.",
+"sector": "Financial Services",
+"shares": 341229126,
+"updated": "2026-09-06"
+},
+"ACN": {
+"industry": "Information Technology Services",
+"name": "Accenture plc",
+"sector": "Technology",
+"shares": 611942109,
+"updated": "2026-09-06"
+},
+"ADBE": {
+"industry": "Software - Application",
+"name": "Adobe Inc.",
+"sector": "Technology",
+"shares": 397500000,
+"updated": "2026-09-06"
+},
+"ADI": {
+"industry": "Semiconductors",
+"name": "Analog Devices, Inc.",
+"sector": "Technology",
+"shares": 484565465,
+"updated": "2026-09-06"
+},
+"ADM": {
+"industry": "Farm Products",
+"name": "Archer-Daniels-Midland Company",
+"sector": "Consumer Defensive",
+"shares": 481959583,
+"updated": "2026-09-06"
+},
+"ADP": {
+"industry": "Software - Application",
+"name": "Automatic Data Processing, Inc.",
+"sector": "Technology",
+"shares": 397262737,
+"updated": "2026-09-06"
+},
+"ADSK": {
+"industry": "Software - Application",
+"name": "Autodesk, Inc.",
+"sector": "Technology",
+"shares": 209000000,
+"updated": "2026-09-06"
+},
+"AEE": {
+"industry": "Utilities - Regulated Electric",
+"name": "Ameren Corporation",
+"sector": "Utilities",
+"shares": 276843251,
+"updated": "2026-09-06"
+},
+"AEP": {
+"industry": "Utilities - Regulated Electric",
+"name": "American Electric Power Company",
+"sector": "Utilities",
+"shares": 544397352,
+"updated": "2026-09-06"
+},
+"AES": {
+"industry": "Utilities - Diversified",
+"name": "The AES Corporation",
+"sector": "Utilities",
+"shares": 713438630,
+"updated": "2026-09-06"
+},
+"AFL": {
+"industry": "Insurance - Life",
+"name": "AFLAC Incorporated",
+"sector": "Financial Services",
+"shares": 501343298,
+"updated": "2026-09-06"
+},
+"AIG": {
+"industry": "Insurance - Diversified",
+"name": "American International Group, I",
+"sector": "Financial Services",
+"shares": 522893169,
+"updated": "2026-09-06"
+},
+"AIZ": {
+"industry": "Insurance - Property & Casualty",
+"name": "Assurant, Inc.",
+"sector": "Financial Services",
+"shares": 49323767,
+"updated": "2026-09-06"
+},
+"AJG": {
+"industry": "Insurance Brokers",
+"name": "Arthur J. Gallagher & Co.",
+"sector": "Financial Services",
+"shares": 256341000,
+"updated": "2026-09-06"
+},
+"AKAM": {
+"industry": "Software - Infrastructure",
+"name": "Akamai Technologies, Inc.",
+"sector": "Technology",
+"shares": 143716609,
+"updated": "2026-09-06"
+},
+"ALB": {
+"industry": "Specialty Chemicals",
+"name": "Albemarle Corporation",
+"sector": "Basic Materials",
+"shares": 118005057,
+"updated": "2026-09-06"
+},
+"ALGN": {
+"industry": "Medical Instruments & Supplies",
+"name": "Align Technology, Inc.",
+"sector": "Healthcare",
+"shares": 71039852,
+"updated": "2026-09-06"
+},
+"ALL": {
+"industry": "Insurance - Property & Casualty",
+"name": "Allstate Corporation (The)",
+"sector": "Financial Services",
+"shares": 252857950,
+"updated": "2026-09-06"
+},
+"ALLE": {
+"industry": "Security & Protection Services",
+"name": "Allegion plc",
+"sector": "Industrials",
+"shares": 85036786,
+"updated": "2026-09-06"
+},
+"AMAT": {
+"industry": "Semiconductor Equipment & Materials",
+"name": "Applied Materials, Inc.",
+"sector": "Technology",
+"shares": 793597443,
+"updated": "2026-09-06"
+},
+"AMCR": {
+"industry": "Packaging & Containers",
+"name": "Amcor plc",
+"sector": "Consumer Cyclical",
+"shares": 462345690,
+"updated": "2026-09-06"
+},
+"AMD": {
+"industry": "Semiconductors",
+"name": "Advanced Micro Devices, Inc.",
+"sector": "Technology",
+"shares": 1632475042,
+"updated": "2026-09-06"
+},
+"AME": {
+"industry": "Specialty Industrial Machinery",
+"name": "AMETEK, Inc.",
+"sector": "Industrials",
+"shares": 229261244,
+"updated": "2026-09-06"
+},
+"AMGN": {
+"industry": "Drug Manufacturers - General",
+"name": "Amgen Inc.",
+"sector": "Healthcare",
+"shares": 540632005,
+"updated": "2026-09-06"
+},
+"AMP": {
+"industry": "Asset Management",
+"name": "Ameriprise Financial, Inc.",
+"sector": "Financial Services",
+"shares": 88333219,
+"updated": "2026-09-06"
+},
+"AMT": {
+"industry": "REIT - Specialty",
+"name": "American Tower Corporation (REI",
+"sector": "Real Estate",
+"shares": 465960048,
+"updated": "2026-09-06"
+},
+"AMZN": {
+"industry": "Internet Retail",
+"name": "Amazon.com, Inc.",
+"sector": "Consumer Cyclical",
+"shares": 10786313572,
+"updated": "2026-09-06"
+},
+"ANET": {
+"industry": "Computer Hardware",
+"name": "Arista Networks, Inc.",
+"sector": "Technology",
+"shares": 1261224648,
+"updated": "2026-09-06"
+},
+"AON": {
+"industry": "Insurance Brokers",
+"name": "Aon plc",
+"sector": "Financial Services",
+"shares": 212125434,
+"updated": "2026-09-06"
+},
+"AOS": {
+"industry": "Specialty Industrial Machinery",
+"name": "A.O. Smith Corporation",
+"sector": "Industrials",
+"shares": 110047214,
+"updated": "2026-09-06"
+},
+"APA": {
+"industry": "Oil & Gas E&P",
+"name": "APA Corporation",
+"sector": "Energy",
+"shares": 350351510,
+"updated": "2026-09-06"
+},
+"APD": {
+"industry": "Specialty Chemicals",
+"name": "Air Products and Chemicals, Inc",
+"sector": "Basic Materials",
+"shares": 222685530,
+"updated": "2026-09-06"
+},
+"APH": {
+"industry": "Electronic Components",
+"name": "Amphenol Corporation",
+"sector": "Technology",
+"shares": 2465966914,
+"updated": "2026-09-06"
+},
+"APO": {
+"industry": "Asset Management",
+"name": "Apollo Global Management, Inc. ",
+"sector": "Financial Services",
+"shares": 590543159,
+"updated": "2026-09-06"
+},
+"APP": {
+"industry": "Advertising Agencies",
+"name": "Applovin Corporation",
+"sector": "Communication Services",
+"shares": 305732000,
+"updated": "2026-09-06"
+},
+"APTV": {
+"industry": "Auto Parts",
+"name": "Aptiv PLC",
+"sector": "Consumer Cyclical",
+"shares": 207633331,
+"updated": "2026-09-06"
+},
+"ARE": {
+"industry": "REIT - Office",
+"name": "Alexandria Real Estate Equities",
+"sector": "Real Estate",
+"shares": 172095277,
+"updated": "2026-09-06"
+},
+"ARES": {
+"industry": "Asset Management",
+"name": "Ares Management Corporation",
+"sector": "Financial Services",
+"shares": 222028421,
+"updated": "2026-09-06"
+},
+"ATO": {
+"industry": "Utilities - Regulated Gas",
+"name": "Atmos Energy Corporation",
+"sector": "Utilities",
+"shares": 168988553,
+"updated": "2026-09-06"
+},
+"AVGO": {
+"industry": "Semiconductors",
+"name": "Broadcom Inc.",
+"sector": "Technology",
+"shares": 4757580198,
+"updated": "2026-09-06"
+},
+"AVY": {
+"industry": "Packaging & Containers",
+"name": "Avery Dennison Corporation",
+"sector": "Consumer Cyclical",
+"shares": 75788142,
+"updated": "2026-09-06"
+},
+"AWK": {
+"industry": "Utilities - Regulated Water",
+"name": "American Water Works Company, I",
+"sector": "Utilities",
+"shares": 198728989,
+"updated": "2026-09-06"
+},
+"AXON": {
+"industry": "Aerospace & Defense",
+"name": "Axon Enterprise, Inc.",
+"sector": "Industrials",
+"shares": 81237415,
+"updated": "2026-09-06"
+},
+"AXP": {
+"industry": "Credit Services",
+"name": "American Express Company",
+"sector": "Financial Services",
+"shares": 675309833,
+"updated": "2026-09-06"
+},
+"AZO": {
+"industry": "Auto Parts",
+"name": "AutoZone, Inc.",
+"sector": "Consumer Cyclical",
+"shares": null,
+"updated": "2026-09-06"
+},
+"BA": {
+"industry": "Aerospace & Defense",
+"name": "Boeing Company (The)",
+"sector": "Industrials",
+"shares": 790370020,
+"updated": "2026-09-06"
+},
+"BAC": {
+"industry": "Banks - Diversified",
+"name": "Bank of America Corporation",
+"sector": "Financial Services",
+"shares": 6992748365,
+"updated": "2026-09-06"
+},
+"BALL": {
+"industry": "Packaging & Containers",
+"name": "Ball Corporation",
+"sector": "Consumer Cyclical",
+"shares": 264703357,
+"updated": "2026-09-06"
+},
+"BAX": {
+"industry": "Medical Instruments & Supplies",
+"name": "Baxter International Inc.",
+"sector": "Healthcare",
+"shares": 516995999,
+"updated": "2026-09-06"
+},
+"BBY": {
+"industry": "Specialty Retail",
+"name": "Best Buy Co., Inc.",
+"sector": "Consumer Cyclical",
+"shares": 210767126,
+"updated": "2026-09-06"
+},
+"BDX": {
+"industry": "Medical Instruments & Supplies",
+"name": "Becton, Dickinson and Company",
+"sector": "Healthcare",
+"shares": 272386800,
+"updated": "2026-09-06"
+},
+"BF-B": {
+"industry": "Beverages - Wineries & Distilleries",
+"name": "Brown Forman Inc",
+"sector": "Consumer Defensive",
+"shares": 290383416,
+"updated": "2026-09-06"
+},
+"BG": {
+"industry": "Farm Products",
+"name": "Bunge Limited",
+"sector": "Consumer Defensive",
+"shares": 192119123,
+"updated": "2026-09-06"
+},
+"BIIB": {
+"industry": "Drug Manufacturers - General",
+"name": "Biogen Inc.",
+"sector": "Healthcare",
+"shares": 147753998,
+"updated": "2026-09-06"
+},
+"BKNG": {
+"industry": "Travel Services",
+"name": "Booking Holdings Inc. Common St",
+"sector": "Consumer Cyclical",
+"shares": 751380500,
+"updated": "2026-09-06"
+},
+"BKR": {
+"industry": "Oil & Gas Equipment & Services",
+"name": "Baker Hughes Company",
+"sector": "Energy",
+"shares": 992674071,
+"updated": "2026-09-06"
+},
+"BLDR": {
+"industry": "Building Products & Equipment",
+"name": "Builders FirstSource, Inc.",
+"sector": "Industrials",
+"shares": 107596457,
+"updated": "2026-09-06"
+},
+"BLK": {
+"industry": "Asset Management",
+"name": "BlackRock, Inc.",
+"sector": "Financial Services",
+"shares": 154869259,
+"updated": "2026-09-06"
+},
+"BMY": {
+"industry": "Drug Manufacturers - General",
+"name": "Bristol-Myers Squibb Company",
+"sector": "Healthcare",
+"shares": 2042714656,
+"updated": "2026-09-06"
+},
+"BNY": {
+"industry": "Banks - Diversified",
+"name": "The Bank of New York Mellon Cor",
+"sector": "Financial Services",
+"shares": 678504142,
+"updated": "2026-09-06"
+},
+"BR": {
+"industry": "Information Technology Services",
+"name": "Broadridge Financial Solutions,",
+"sector": "Technology",
+"shares": 114021798,
+"updated": "2026-09-06"
+},
+"BRK-B": {
+"industry": "Insurance - Diversified",
+"name": "Berkshire Hathaway Inc. New",
+"sector": "Financial Services",
+"shares": 1408035161,
+"updated": "2026-09-06"
+},
+"BRO": {
+"industry": "Insurance Brokers",
+"name": "Brown & Brown, Inc.",
+"sector": "Financial Services",
+"shares": 334610357,
+"updated": "2026-09-06"
+},
+"BSX": {
+"industry": "Medical Devices",
+"name": "Boston Scientific Corporation",
+"sector": "Healthcare",
+"shares": 1449229526,
+"updated": "2026-09-06"
+},
+"BX": {
+"industry": "Asset Management",
+"name": "Blackstone Inc.",
+"sector": "Financial Services",
+"shares": 750625114,
+"updated": "2026-09-06"
+},
+"BXP": {
+"industry": "REIT - Office",
+"name": "BXP, Inc.",
+"sector": "Real Estate",
+"shares": 159661556,
+"updated": "2026-09-06"
+},
+"C": {
+"industry": "Banks - Diversified",
+"name": "Citigroup, Inc.",
+"sector": "Financial Services",
+"shares": 1677436783,
+"updated": "2026-09-06"
+},
+"CAH": {
+"industry": "Medical Distribution",
+"name": "Cardinal Health, Inc.",
+"sector": "Healthcare",
+"shares": 232575728,
+"updated": "2026-09-06"
+},
+"CARR": {
+"industry": "Building Products & Equipment",
+"name": "Carrier Global Corporation",
+"sector": "Industrials",
+"shares": 824325057,
+"updated": "2026-09-06"
+},
+"CASY": {
+"industry": "Specialty Retail",
+"name": "Caseys General Stores, Inc.",
+"sector": "Consumer Cyclical",
+"shares": 37004914,
+"updated": "2026-09-06"
+},
+"CAT": {
+"industry": "Farm & Heavy Construction Machinery",
+"name": "Caterpillar, Inc.",
+"sector": "Industrials",
+"shares": 459674889,
+"updated": "2026-09-06"
+},
+"CB": {
+"industry": "Insurance - Property & Casualty",
+"name": "Chubb Limited",
+"sector": "Financial Services",
+"shares": 385799859,
+"updated": "2026-09-06"
+},
+"CBOE": {
+"industry": "Financial Data & Stock Exchanges",
+"name": "Cboe Global Markets, Inc.",
+"sector": "Financial Services",
+"shares": 104431019,
+"updated": "2026-09-06"
+},
+"CBRE": {
+"industry": "Real Estate Services",
+"name": "CBRE Group Inc",
+"sector": "Real Estate",
+"shares": 289575298,
+"updated": "2026-09-06"
+},
+"CCL": {
+"industry": "Travel Services",
+"name": "Carnival Corporation Ltd.",
+"sector": "Consumer Cyclical",
+"shares": 1369649119,
+"updated": "2026-09-06"
+},
+"CDNS": {
+"industry": "Software - Application",
+"name": "Cadence Design Systems, Inc.",
+"sector": "Technology",
+"shares": 275393000,
+"updated": "2026-09-06"
+},
+"CDW": {
+"industry": "Information Technology Services",
+"name": "CDW Corporation",
+"sector": "Technology",
+"shares": 125017426,
+"updated": "2026-09-06"
+},
+"CF": {
+"industry": "Agricultural Inputs",
+"name": "CF Industries Holdings, Inc.",
+"sector": "Basic Materials",
+"shares": 151338130,
+"updated": "2026-09-06"
+},
+"CFG": {
+"industry": "Banks - Regional",
+"name": "Citizens Financial Group, Inc.",
+"sector": "Financial Services",
+"shares": 421176788,
+"updated": "2026-09-06"
+},
+"CHD": {
+"industry": "Household & Personal Products",
+"name": "Church & Dwight Company, Inc.",
+"sector": "Consumer Defensive",
+"shares": 237203907,
+"updated": "2026-09-06"
+},
+"CHRW": {
+"industry": "Integrated Freight & Logistics",
+"name": "C.H. Robinson Worldwide, Inc.",
+"sector": "Industrials",
+"shares": 116851258,
+"updated": "2026-09-06"
+},
+"CHTR": {
+"industry": "Telecom Services",
+"name": "Charter Communications, Inc.",
+"sector": "Communication Services",
+"shares": 119277492,
+"updated": "2026-09-06"
+},
+"CI": {
+"industry": "Healthcare Plans",
+"name": "The Cigna Group",
+"sector": "Healthcare",
+"shares": 264240486,
+"updated": "2026-09-06"
+},
+"CIEN": {
+"industry": "Communication Equipment",
+"name": "Ciena Corporation",
+"sector": "Technology",
+"shares": 141808525,
+"updated": "2026-09-06"
+},
+"CINF": {
+"industry": "Insurance - Property & Casualty",
+"name": "Cincinnati Financial Corporatio",
+"sector": "Financial Services",
+"shares": 153478045,
+"updated": "2026-09-06"
+},
+"CL": {
+"industry": "Household & Personal Products",
+"name": "Colgate-Palmolive Company",
+"sector": "Consumer Defensive",
+"shares": 797172829,
+"updated": "2026-09-06"
+},
+"CLX": {
+"industry": "Household & Personal Products",
+"name": "Clorox Company (The)",
+"sector": "Consumer Defensive",
+"shares": 120931005,
+"updated": "2026-09-06"
+},
+"CMCSA": {
+"industry": "Telecom Services",
+"name": "Comcast Corporation",
+"sector": "Communication Services",
+"shares": 3539192198,
+"updated": "2026-09-06"
+},
+"CME": {
+"industry": "Financial Data & Stock Exchanges",
+"name": "CME Group Inc.",
+"sector": "Financial Services",
+"shares": 359576125,
+"updated": "2026-09-06"
+},
+"CMG": {
+"industry": "Restaurants",
+"name": "Chipotle Mexican Grill, Inc.",
+"sector": "Consumer Cyclical",
+"shares": 1265418000,
+"updated": "2026-09-06"
+},
+"CMS": {
+"industry": "Utilities - Regulated Electric",
+"name": "CMS Energy Corporation",
+"sector": "Utilities",
+"shares": 313577136,
+"updated": "2026-09-06"
+},
+"CNC": {
+"industry": "Healthcare Plans",
+"name": "Centene Corporation",
+"sector": "Healthcare",
+"shares": 493995000,
+"updated": "2026-09-06"
+},
+"CNP": {
+"industry": "Utilities - Regulated Electric",
+"name": "CenterPoint Energy, Inc (Holdin",
+"sector": "Utilities",
+"shares": 658720288,
+"updated": "2026-09-06"
+},
+"COF": {
+"industry": "Credit Services",
+"name": "Capital One Financial Corporati",
+"sector": "Financial Services",
+"shares": 613484836,
+"updated": "2026-09-06"
+},
+"COHR": {
+"industry": "Scientific & Technical Instruments",
+"name": "Coherent Corp.",
+"sector": "Technology",
+"shares": 195832246,
+"updated": "2026-09-06"
+},
+"COIN": {
+"industry": "Financial Data & Stock Exchanges",
+"name": "Coinbase Global, Inc.",
+"sector": "Financial Services",
+"shares": 222803032,
+"updated": "2026-09-06"
+},
+"COR": {
+"industry": "Medical Distribution",
+"name": "Cencora, Inc.",
+"sector": "Healthcare",
+"shares": 190827165,
+"updated": "2026-09-06"
+},
+"CPT": {
+"industry": "REIT - Residential",
+"name": "Camden Property Trust",
+"sector": "Real Estate",
+"shares": 115732578,
+"updated": "2026-09-06"
+},
+"CRL": {
+"industry": "Diagnostics & Research",
+"name": "Charles River Laboratories Inte",
+"sector": "Healthcare",
+"shares": 48167730,
+"updated": "2026-09-06"
+},
+"CSCO": {
+"industry": "Communication Equipment",
+"name": "Cisco Systems, Inc.",
+"sector": "Technology",
+"shares": 3942586873,
+"updated": "2026-09-06"
+},
+"CTAS": {
+"industry": "Specialty Business Services",
+"name": "Cintas Corporation",
+"sector": "Industrials",
+"shares": 400169561,
+"updated": "2026-09-06"
+},
+"CTSH": {
+"industry": "Information Technology Services",
+"name": "Cognizant Technology Solutions ",
+"sector": "Technology",
+"shares": 450444209,
+"updated": "2026-09-06"
+},
+"CVNA": {
+"industry": "Auto & Truck Dealerships",
+"name": "Carvana Co.",
+"sector": "Consumer Cyclical",
+"shares": 719916415,
+"updated": "2026-09-06"
+},
+"CVX": {
+"industry": "Oil & Gas Integrated",
+"name": "Chevron Corporation",
+"sector": "Energy",
+"shares": 1961603274,
+"updated": "2026-09-06"
+},
+"FIX": {
+"industry": "Engineering & Construction",
+"name": "Comfort Systems USA, Inc.",
+"sector": "Industrials",
+"shares": 35194329,
+"updated": "2026-09-06"
+},
+"GOOG": {
+"industry": "Internet Content & Information",
+"name": "Alphabet Inc.",
+"sector": "Communication Services",
+"shares": 5527000000,
+"updated": "2026-09-06"
+},
+"GOOGL": {
+"industry": "Internet Content & Information",
+"name": "Alphabet Inc.",
+"sector": "Communication Services",
+"shares": 5867155790,
+"updated": "2026-09-06"
+},
+"KO": {
+"industry": "Beverages - Non-Alcoholic",
+"name": "Coca-Cola Company (The)",
+"sector": "Consumer Defensive",
+"shares": 4302549243,
+"updated": "2026-09-06"
+},
+"LNT": {
+"industry": "Utilities - Regulated Electric",
+"name": "Alliant Energy Corporation",
+"sector": "Utilities",
+"shares": 259284699,
+"updated": "2026-09-06"
+},
+"MMM": {
+"industry": "Conglomerates",
+"name": "3M Company",
+"sector": "Industrials",
+"shares": 515722417,
+"updated": "2026-09-06"
+},
+"MO": {
+"industry": "Tobacco",
+"name": "Altria Group, Inc.",
+"sector": "Consumer Defensive",
+"shares": 1669743926,
+"updated": "2026-09-06"
+},
+"SCHW": {
+"industry": "Capital Markets",
+"name": "Charles Schwab Corporation (The",
+"sector": "Financial Services",
+"shares": 1729335714,
+"updated": "2026-09-06"
+},
+"T": {
+"industry": "Telecom Services",
+"name": "AT&T Inc.",
+"sector": "Communication Services",
+"shares": 6852385650,
+"updated": "2026-09-06"
+},
+"TECH": {
+"industry": "Biotechnology",
+"name": "Bio-Techne Corp",
+"sector": "Healthcare",
+"shares": 156818238,
+"updated": "2026-09-06"
+},
+"XYZ": {
+"industry": "Software - Infrastructure",
+"name": "Block, Inc.",
+"sector": "Technology",
+"shares": 540816000,
+"updated": "2026-09-06"
+}
+}
