@@ -7,7 +7,8 @@ source is kept and its status is marked "stale" (so one broken site never blanks
 
 Sources
   * ETFs / indices (daily)   : Yahoo Finance via yfinance  — SPY QQQ IWM RSP HYG LQD TLT GLD UUP ^VIX ^VIX3M + sector ETFs
-  * Credit spreads, Fed      : FRED CSV  — BAMLH0A0HYM2 (HY OAS), BAMLC0A0CM (IG OAS), WALCL, RRPONTSYD, WTREGEN, VIXCLS
+  * Credit spreads, Fed      : FRED CSV  — BAMLH0A0HYM2 (HY OAS), BAMLC0A0CM (IG OAS), WALCL, RRPONTSYD, WTREGEN, VIXCLS,
+                               DGS10, DGS2, DFII10, T10YIE, DTWEXBGS, WRESBAL
   * Fund flows (weekly)      : ICI combined estimated long-term flows (HTML table / xls)
   * Money market assets      : ICI weekly MMF assets (HTML table)
   * Margin debt (monthly)    : FINRA margin-statistics.xlsx
@@ -28,13 +29,16 @@ ETFSH_PATH = os.path.join(DATA_DIR, "etf_shares.json")
 UA = {"User-Agent": "Mozilla/5.0 (compatible; sector-flow-monitor/1.0; +https://github.com)"}
 DAYS = 130   # trading days of daily series kept
 
-ETFS = ["SPY", "QQQ", "IWM", "RSP", "HYG", "LQD", "TLT", "GLD", "UUP", "^VIX", "^VIX3M"]
+ETFS = ["SPY", "QQQ", "IWM", "RSP", "HYG", "LQD", "TLT", "GLD", "UUP", "^VIX", "^VIX3M",
+        "^SKEW", "^VVIX", "JPY=X", "CL=F", "HG=F"]   # + options gauges, USD/JPY, WTI crude, copper (continuous futures)
 SECTOR_ETFS = {"XLK": "Information Technology", "XLV": "Health Care", "XLF": "Financials",
                "XLY": "Consumer Discretionary", "XLC": "Communication Services", "XLI": "Industrials",
                "XLP": "Consumer Staples", "XLE": "Energy", "XLB": "Materials", "XLRE": "Real Estate",
                "XLU": "Utilities"}
 FRED = {"hy_oas": "BAMLH0A0HYM2", "ig_oas": "BAMLC0A0CM", "fed_assets": "WALCL",
-        "rrp": "RRPONTSYD", "tga": "WTREGEN", "vix": "VIXCLS"}
+        "rrp": "RRPONTSYD", "tga": "WTREGEN", "vix": "VIXCLS",
+        "dgs10": "DGS10", "dgs2": "DGS2", "dfii10": "DFII10", "t10yie": "T10YIE",   # nominal / real yields, breakeven
+        "dtwex": "DTWEXBGS", "reserves": "WRESBAL"}                                # broad dollar index, bank reserves
 
 
 def log(*a):
