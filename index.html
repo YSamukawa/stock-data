@@ -173,7 +173,7 @@ nav.tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:-2p
       <section class="kpis" id="mkKpis"></section>
 
       <section class="panel raised" style="margin-bottom:16px">
-        <div class="ph"><h2>Risk-on / Risk-off 方向一致メーター</h2><span class="sub">終値ベース。各指標の当日変化が Risk-on 方向なら青、Risk-off 方向なら赤</span>
+        <div class="ph"><h2>Risk-on / Risk-off 方向一致メーター</h2><span class="sub">終値ベース、10指標。広がり2・クレジット2・ボラ1・Breadth 2・金利1・為替1・商品1</span>
           <div class="seg" role="group" aria-label="期間" id="mkPeriodSeg"><button data-p="1" aria-pressed="true">1日</button><button data-p="5" aria-pressed="false">5日</button><button data-p="20" aria-pressed="false">20日</button></div>
         </div>
         <div class="meter" id="meter"></div>
@@ -194,6 +194,16 @@ nav.tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:-2p
       </section>
 
       <section class="panel" style="margin-bottom:16px">
+        <div class="ph"><h2>オプション市場（60日）</h2><span class="sub">警戒・ヘッジ需要。4指標は同じ現象を別角度から見るため、方向一致メーターには VIX/VIX3M のみ算入</span></div>
+        <div class="sm" id="options"></div>
+      </section>
+
+      <section class="panel" style="margin-bottom:16px">
+        <div class="ph"><h2>金利・為替・商品（60日）</h2><span class="sub">株式から出た資金の行き先と、バリュエーション圧力。FRED 系列は1営業日遅れ、先物は連続限月（限月交代時に段差あり）</span></div>
+        <div class="sm" id="cross"></div>
+      </section>
+
+      <section class="panel" style="margin-bottom:16px">
         <div class="ph"><h2>公表統計（週次・月次）</h2><span class="sub">実際のファンドフロー・ポジション・レバレッジ。公表にタイムラグあり</span></div>
         <div class="sm" id="published"></div>
       </section>
@@ -206,10 +216,12 @@ nav.tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:-2p
       <section class="panel note">
         <h2>市場全体タブの指標定義と出所</h2>
         <dl>
-          <dt>方向一致メーター</dt><dd>RSP/SPY・IWM/SPY・HYG/LQD の比率変化、HY OAS の変化（低下＝Risk-on）、VIX の変化（低下＝Risk-on）、S&amp;P 500 の A/D（上昇銘柄数＞下落銘柄数）、Up/Down Volume（上昇銘柄の売買代金＞下落銘柄）の7指標について、選択期間の変化方向を数えたもの。<span class="fact">推測</span>指標間の相関（広がり系・クレジット系）は考慮していない単純集計</dd>
+          <dt>方向一致メーター</dt><dd>RSP/SPY・IWM/SPY・HYG/LQD の比率変化、HY OAS（低下＝Risk-on）、VIX/VIX3M（低下＝Risk-on）、S&amp;P 500 の A/D、Up/Down Volume、10年実質金利（低下＝Risk-on）、ドル（UUP、下落＝Risk-on）、銅/金レシオ（上昇＝Risk-on）の10指標について、選択期間の変化方向を数えたもの。<span class="fact">推測</span>群内の相関は残るため、同一群の指標は1〜2本に絞っている</dd>
+          <dt>オプション指標</dt><dd>VIX/VIX3M（期間構造、1超＝短期の警戒が強い）、SKEW（Cboe、S&amp;P 500 のテールリスク保険料。100 中立、130 超で高警戒）、VVIX（VIX のインプライド・ボラティリティ）、Put/Call（Cboe、Total／Equity＝個別株・個人の投機熱／Index＝機関のヘッジ）</dd>
+          <dt>金利・為替・商品</dt><dd>10年名目 `DGS10`、10年実質 `DFII10`（TIPS）、期待インフレ `T10YIE`、2年 `DGS2`（FRED）。ドル指数は FRED の貿易加重広義ドル指数 `DTWEXBGS`（週次更新で遅れあり）を表示し、メーターは日次の UUP を使用。USD/JPY `JPY=X`、WTI 原油 `CL=F`、銅 `HG=F`（Yahoo、連続限月）。銅/金レシオ＝銅先物 ÷ GLD（水準に意味はなく方向のみ）</dd>
           <dt>参考スコア</dt><dd>添付資料の Risk Flow Score に準拠：Z(ΔHYG/LQD)+Z(ΔRSP/SPY)+Z(ΔIWM/SPY)+Z(Breadth)−Z(ΔVIX)。Z は各指標の当期間変化を過去60日の同期間変化の標準偏差で割ったもの。合成 = ΣZ ÷ √5 を ×40 して ±100 に丸めています。<span class="fact">仮置き</span>閾値・重みはバックテスト未実施</dd>
           <dt>HY / IG OAS</dt><dd>ICE BofA US High Yield / US Corporate Index Option-Adjusted Spread（FRED: BAMLH0A0HYM2, BAMLC0A0CM、％、日次・1営業日遅れ）</dd>
-          <dt>FRB ネット流動性</dt><dd>FRB 総資産（WALCL、週次）− 翌日物リバースレポ（RRPONTSYD、日次）− 財務省一般口座（WTREGEN、週次）。市場でよく参照される近似式で、公式の定義ではありません</dd>
+          <dt>FRB ネット流動性</dt><dd>FRB 総資産（WALCL、週次）− 翌日物リバースレポ（RRPONTSYD、日次）− 財務省一般口座（WTREGEN、週次）。市場でよく参照される近似式で、公式の定義ではありません。銀行の準備預金残高（WRESBAL、週次）も併記</dd>
           <dt>ICI フロー</dt><dd>Investment Company Institute「Combined Estimated Long-Term Fund Flows」（投信＋ETF 合算、週次、百万ドル）および「Money Market Fund Assets」（週次）。ページに表示される直近5週分を毎回取得し、蓄積しています</dd>
           <dt>FINRA Margin Debt</dt><dd>FINRA Margin Statistics（月次、百万ドル、翌月中旬〜下旬公表）</dd>
           <dt>CFTC COT</dt><dd>Disaggregated Commitments of Traders、E-mini S&amp;P 500 先物（火曜時点のポジション、金曜公表）。Asset Manager / Leveraged Funds / Dealer の ロング−ショート（枚）</dd>
@@ -673,16 +685,19 @@ function renderMarket(){
     {k:'IWM/SPY', s:ratioSeries('IWM','SPY'), desc:'小型 ÷ 大型。上昇＝小型株へ拡散'},
     {k:'HYG/LQD', s:ratioSeries('HYG','LQD'), desc:'HY ÷ IG 社債ETF。上昇＝信用リスク選好'},
     {k:'HY OAS', s:alignFred('hy_oas'), invert:true, desc:'HYスプレッド。低下＝Risk-on', fmt:v=>v.toFixed(2)+'%'},
-    {k:'VIX', s:etfSeries('^VIX'), invert:true, desc:'低下＝Risk-on', fmt:v=>v.toFixed(1)},
+    {k:'VIX/VIX3M', s:ratioSeries('^VIX','^VIX3M')||etfSeries('^VIX'), invert:true, desc:'VIX 期間構造。低下＝Risk-on', fmt:v=>v.toFixed(3)},
     {k:'A/D', s:adv&&dec? adv.map((a,i)=>(a==null||dec[i]==null)?null:a-dec[i]) : null, level:true, desc:'上昇銘柄数−下落銘柄数（期間合計）', fmt:v=>(v>0?'+':'')+v.toFixed(0)},
     {k:'Up/Down Vol', s:up&&dn? up.map((a,i)=>(a==null||dn[i]==null)?null:a-dn[i]) : null, level:true, desc:'上昇銘柄売買代金−下落銘柄売買代金（期間合計）', fmt:v=>fmtUSD(v)},
+    {k:'実質金利10y', s:alignFred('dfii10'), invert:true, desc:'10年 TIPS 利回り。低下＝Risk-on（グロース株に追い風）', fmt:v=>v.toFixed(2)+'%'},
+    {k:'ドル(UUP)', s:etfSeries('UUP'), invert:true, desc:'ドル安＝Risk-on（新興国・商品へ資金）'},
+    {k:'銅/金', s:ratioSeries('HG=F','GLD'), desc:'景気敏感（銅）÷ 安全資産（金）。上昇＝Risk-on'},
   ];
   let on=0, off=0, html='';
   ind.forEach(x=>{
     let delta=null, txt='—';
     if(x.s){
       if(x.level){ let sum=0,ok=false; for(let i=Math.max(0,n-mkPeriod);i<n;i++){ if(x.s[i]!=null){sum+=x.s[i];ok=true;} } delta=ok?sum:null; txt=delta==null?'—':(x.fmt||(v=>v.toFixed(0)))(delta); }
-      else{ const a=x.s[li], b=x.s[li-mkPeriod]; if(a!=null&&b!=null){ delta=a-b; txt = x.fmt? (delta>0?'+':'')+ (x.fmt(a)) + ' ('+(delta>0?'+':'')+delta.toFixed(2)+')' : fmtPct(a/b-1); } }
+      else{ const a=x.s[li], b=x.s[li-mkPeriod]; if(a!=null&&b!=null){ delta=a-b; txt = x.fmt? (delta>0?'+':'')+ (x.fmt(a)) + ' ('+(delta>0?'+':'')+delta.toFixed(3)+')' : fmtPct(a/b-1); } }
     }
     let state='na'; if(delta!=null && delta!==0){ const riskOn = x.invert? delta<0 : delta>0; state=riskOn?'on':'off'; if(riskOn) on++; else off++; }
     html+=`<span class="chip ${state}" title="${esc(x.desc)}"><b>${x.k}</b><span class="v">${txt}</span>${state==='on'?'▲':state==='off'?'▼':'·'}</span>`;
@@ -690,11 +705,11 @@ function renderMarket(){
   $('#meter').innerHTML=html;
   const spyS=etfSeries('SPY'); const spyChg=spyS? pct(spyS[li],spyS[li-mkPeriod]) : null;
   const lab={1:'当日',5:'5日',20:'20日'}[mkPeriod];
-  $('#meterSum').innerHTML=`${lab}：<b style="color:var(--in)">Risk-on ${on}</b> ／ <b style="color:var(--out)">Risk-off ${off}</b>（7指標中）　SPY ${lab}騰落 <b class="num ${spyChg>0?'pos':spyChg<0?'neg':''}">${fmtPct(spyChg)}</b>`;
+  $('#meterSum').innerHTML=`${lab}：<b style="color:var(--in)">Risk-on ${on}</b> ／ <b style="color:var(--out)">Risk-off ${off}</b>（10指標中）　SPY ${lab}騰落 <b class="num ${spyChg>0?'pos':spyChg<0?'neg':''}">${fmtPct(spyChg)}</b>`;
   let dv='';
   if(spyChg!=null){
-    if(spyChg>0 && off>=4) dv=`<div class="alert"><b>ダイバージェンス注意：</b>SPY は上昇していますが、内部指標の多数（${off}/7）が Risk-off 方向です。少数の大型株主導の可能性があります。</div>`;
-    else if(spyChg<0 && on>=4) dv=`<div class="alert"><b>逆ダイバージェンス：</b>SPY は下落していますが、内部指標の多数（${on}/7）が Risk-on 方向です。</div>`;
+    if(spyChg>0 && off>=6) dv=`<div class="alert"><b>ダイバージェンス注意：</b>SPY は上昇していますが、内部指標の多数（${off}/10）が Risk-off 方向です。少数の大型株主導の可能性があります。</div>`;
+    else if(spyChg<0 && on>=6) dv=`<div class="alert"><b>逆ダイバージェンス：</b>SPY は下落していますが、内部指標の多数（${on}/10）が Risk-on 方向です。</div>`;
     else dv=`<div class="alert calm">指数の方向と内部指標の多数派は概ね一致しています。</div>`;
   }
   $('#diverge').innerHTML=dv;
@@ -726,7 +741,7 @@ function renderMarket(){
   $('#mkKpis').innerHTML=k.map(x=>`<div class="kpi"><div class="l">${x.l}</div><div class="v num ${x.c||''}">${x.v}</div><div class="s">${x.s}</div></div>`).join('');
 
   // --- ETF table
-  const names={SPY:'S&P 500',QQQ:'Nasdaq-100',IWM:'Russell 2000',RSP:'S&P 500 等金額',HYG:'米HY社債',LQD:'米IG社債',TLT:'米長期国債',GLD:'金',UUP:'ドル指数',"^VIX":'VIX',"^VIX3M":'VIX 3か月'};
+  const names={SPY:'S&P 500',QQQ:'Nasdaq-100',IWM:'Russell 2000',RSP:'S&P 500 等金額',HYG:'米HY社債',LQD:'米IG社債',TLT:'米長期国債',GLD:'金',UUP:'ドル指数',"^VIX":'VIX',"^VIX3M":'VIX 3か月',"^SKEW":'SKEW',"^VVIX":'VVIX',"JPY=X":'USD/JPY',"CL=F":'WTI 原油',"HG=F":'銅'};
   let t=`<tr><th class="t">銘柄</th><th>終値</th><th>1日</th><th>5日</th><th>20日</th><th>売買代金/20日平均</th><th class="t">60日</th></tr>`;
   Object.keys(names).forEach(sym=>{ const S=M.etf.series[sym]; if(!S) return; const c=S.c, v=S.v; const dv=c[li]*(v[li]||0); const avg=(()=>{ let s=0,m=0; for(let i=Math.max(0,li-20);i<li;i++){ if(c[i]!=null&&v[i]!=null){ s+=c[i]*v[i]; m++; } } return m?s/m:null; })();
     const r1=pct(c[li],c[li-1]), r5=pct(c[li],c[li-5]), r20=pct(c[li],c[li-20]);
@@ -743,14 +758,38 @@ function renderMarket(){
   add('HY OAS','ICE BofA US HY スプレッド（％）'+srcBadge('fred'),alignFred('hy_oas'),{fmt:v=>v.toFixed(2),invert:true});
   add('IG OAS','ICE BofA US Corporate スプレッド（％）',alignFred('ig_oas'),{fmt:v=>v.toFixed(2),invert:true});
   add('VIX','恐怖指数（低下＝Risk-on）',etfSeries('^VIX'),{fmt:v=>v.toFixed(1),invert:true});
-  const v3=ratioSeries('^VIX','^VIX3M'); add('VIX / VIX3M','期間構造。1 超＝短期の警戒が強い',v3,{fmt:v=>v.toFixed(3),invert:true});
   const adl=(()=>{ if(!adv||!dec) return null; let c=0; return adv.map((a,i)=>{ if(a==null||dec[i]==null) return null; c+=a-dec[i]; return c; }); })(); add('A/D ライン','S&P 500 累積（上昇−下落 銘柄数）',adl,{fmt:v=>(v>0?'+':'')+v.toFixed(0)});
   const udr=up&&dn? up.map((a,i)=>(a==null||dn[i]==null||!(a+dn[i]))?null:a/(a+dn[i])):null; add('Up Volume 比率','上昇銘柄の売買代金 ÷ 全体',udr,{fmt:v=>(v*100).toFixed(0)+'%'});
   add('50日線 上回り比率','S&P 500 構成銘柄',breadthAligned('pct50'),{fmt:v=>(v*100).toFixed(0)+'%'});
   add('200日線 上回り比率','S&P 500 構成銘柄',breadthAligned('pct200'),{fmt:v=>(v*100).toFixed(0)+'%'});
   const nhnl=(()=>{ const h=breadthAligned('nh'),l=breadthAligned('nl'); return h&&l? h.map((a,i)=>(a==null||l[i]==null)?null:a-l[i]):null; })(); add('新高値 − 新安値','52週（構成銘柄数）',nhnl,{fmt:v=>(v>0?'+':'')+v.toFixed(0),zero:true,bars:true});
   add('空売り比率（S&P 500）','FINRA 取引所外・売買代金加重',breadthAligned('sr'),{fmt:v=>(v*100).toFixed(1)+'%',invert:true});
-  const pc=M.putcall; if(pc&&pc.dates&&pc.dates.length){ const map={}; pc.dates.forEach((d,i)=>map[d]=pc.total[i]); const ser=dates.map(d=>map[d]==null?null:map[d]); if(ser.some(v=>v!=null)) add('Put/Call（Total）','Cboe。上昇＝ヘッジ需要増'+srcBadge('putcall'),ser,{fmt:v=>v.toFixed(2),invert:true}); }
+
+  // --- options section
+  const O=$('#options'); O.innerHTML='';
+  const addTo=(container)=>(title,sub,series,opts={},lastFmt)=>{ if(!series||!series.some(v=>v!=null)) return; const lv=series.filter(v=>v!=null).slice(-1)[0]; const c=card(title,sub,(lastFmt||opts.fmt||(v=>v.toFixed(3)))(lv)); container.appendChild(c); lineChart(c.querySelector('.ch'),d60,last60(series),opts); };
+  const addO=addTo(O);
+  addO('VIX / VIX3M','期間構造。1 超＝短期の警戒が強い（メーター算入）',ratioSeries('^VIX','^VIX3M'),{fmt:v=>v.toFixed(3),invert:true});
+  addO('SKEW','Cboe。テールリスク保険料。130 超で高警戒',etfSeries('^SKEW'),{fmt:v=>v.toFixed(1),invert:true});
+  addO('VVIX','VIX のインプライド・ボラティリティ',etfSeries('^VVIX'),{fmt:v=>v.toFixed(1),invert:true});
+  const pc=M.putcall; if(pc&&pc.dates&&pc.dates.length){ const mk=key=>{ const map={}; pc.dates.forEach((d,i)=>map[d]=pc[key]?pc[key][i]:null); return dates.map(d=>map[d]==null?null:map[d]); };
+    addO('Put/Call — Total','Cboe 全体。上昇＝ヘッジ需要増'+srcBadge('putcall'),mk('total'),{fmt:v=>v.toFixed(2),invert:true});
+    addO('Put/Call — Equity','個別株オプション。低下＝個人の投機熱',mk('equity'),{fmt:v=>v.toFixed(2),invert:true});
+    addO('Put/Call — Index','指数オプション。上昇＝機関のヘッジ',mk('index'),{fmt:v=>v.toFixed(2),invert:true}); }
+  if(!O.children.length) O.innerHTML='<div class="d" style="color:var(--ink-3)">オプション指標は次回のパイプライン実行後に表示されます</div>';
+
+  // --- rates / FX / commodities section
+  const C=$('#cross'); C.innerHTML=''; const addC=addTo(C);
+  addC('10年 実質金利','TIPS 利回り（％）。低下＝グロース株に追い風（メーター算入）'+srcBadge('fred'),alignFred('dfii10'),{fmt:v=>v.toFixed(2)+'%',invert:true});
+  addC('10年 名目金利','％',alignFred('dgs10'),{fmt:v=>v.toFixed(2)+'%',invert:true});
+  addC('期待インフレ（10年 BEI）','名目 − 実質（％）',alignFred('t10yie'),{fmt:v=>v.toFixed(2)+'%'});
+  const c10=alignFred('dgs10'), c2=alignFred('dgs2'); addC('イールドカーブ 10年−2年','％pt。マイナス＝逆イールド',c10&&c2?c10.map((a,i)=>(a==null||c2[i]==null)?null:a-c2[i]):null,{fmt:v=>(v>0?'+':'')+v.toFixed(2),zero:true});
+  addC('ドル指数（貿易加重・広義）','FRED DTWEXBGS。週次更新のため遅れあり',alignFred('dtwex'),{fmt:v=>v.toFixed(1),invert:true});
+  addC('USD/JPY','円安＝数値上昇',etfSeries('JPY=X'),{fmt:v=>v.toFixed(2)});
+  addC('WTI 原油','連続限月（$/bbl）',etfSeries('CL=F'),{fmt:v=>'$'+v.toFixed(2)});
+  addC('銅','連続限月（$/lb）',etfSeries('HG=F'),{fmt:v=>'$'+v.toFixed(3)});
+  addC('銅 / 金 レシオ','景気敏感 ÷ 安全資産（メーター算入）。方向のみ意味あり',ratioSeries('HG=F','GLD'),{fmt:v=>v.toFixed(4)});
+  const gl=etfSeries('GLD'); addC('金（GLD）','安全資産・実質金利の逆相関',gl,{fmt:v=>'$'+v.toFixed(2)});
 
   // --- published stats
   const P=$('#published'); P.innerHTML='';
@@ -764,6 +803,7 @@ function renderMarket(){
   if(M.aaii&&M.aaii.dates){ const sp=M.aaii.bull.map((b,i)=>(b==null||M.aaii.bear[i]==null)?null:b-M.aaii.bear[i]); addP('AAII 強気 − 弱気','個人投資家センチメント（％pt、週次）'+srcBadge('aaii'),M.aaii.dates,sp,{fmt:v=>(v>0?'+':'')+v.toFixed(1),zero:true,bars:true}); }
   if(M.fred&&M.fred.fed_assets){ const f=M.fred.fed_assets; const dts=f.dates.slice(-52); const at=(key,d)=>{ const s=M.fred[key]; if(!s) return null; let j=-1; for(let i=0;i<s.dates.length;i++){ if(s.dates[i]<=d) j=i; else break; } return j<0?null:s.values[j]; };
     const nl=dts.map((d,i)=>{ const a=f.values[f.values.length-dts.length+i], r=at('rrp',d), t=at('tga',d); return (a==null||r==null||t==null)?null:(a-r-t)*1e6; }); addP('FRB ネット流動性','総資産 − RRP − TGA（週次、近似）'+srcBadge('fred'),dts,nl,{fmt:v=>fmtUSDabs(v)}); }
+  if(M.fred&&M.fred.reserves){ const r=M.fred.reserves; addP('銀行 準備預金残高','FRB WRESBAL（週次）',r.dates.slice(-52),r.values.slice(-52).map(v=>v==null?null:v*1e6),{fmt:v=>fmtUSDabs(v)}); }
   if(M.etf_flows&&M.etf_flows.flows&&M.etf_flows.flows.SPY){ addP('SPY フロー推定','Δ発行済口数 × 終値（実験的・蓄積型）'+srcBadge('etf_flows'),M.etf_flows.dates,M.etf_flows.flows.SPY,{fmt:fmtUSD,zero:true,bars:true}); }
 
   // --- sector ETF cross-check
