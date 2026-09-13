@@ -25,8 +25,10 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(ROOT, "data")
 CACHE_PATH = os.path.join(DATA_DIR, "sector_map.json")
 OUT_PATH = os.path.join(DATA_DIR, "latest.json")
+STOCKS_PATH = os.path.join(DATA_DIR, "stocks.json")
+SHORT_PATH = os.path.join(DATA_DIR, "short_history.json")
 HISTORY_DAYS = 60          # trading days kept in the output
-DOWNLOAD_PERIOD = "6mo"    # enough history for 60 trading days + 20-day averages
+DOWNLOAD_PERIOD = "1y"     # 60 trading days of output + 200-day moving average
 CACHE_TTL_DAYS = 45        # refresh shares outstanding / sector after this many days
 # Sector scheme: "gics" (default, S&P official — complete on day one) or "yahoo".
 SECTOR_SCHEME = os.environ.get("SECTOR_SCHEME", "gics").lower()
@@ -206,7 +208,9 @@ def download_prices(symbols: list) -> pd.DataFrame:
 
 
 # ---------------------------------------------------------------- metrics
-def compute(cons: pd.DataFrame, cache: dict, px: pd.DataFrame) -> dict:
+def compute(cons: pd.DataFrame, cache: dict, px: pd.DataFrame, short_hist: dict = None, spy: pd.DataFrame = None):
+    """Returns (latest_dict, stocks_series_dict)."""
+    short_hist = short_hist or {}
     meta = cons.set_index("yf_symbol")
     px = px.sort_values(["symbol", "date"]).copy()
     px["prev_close"] = px.groupby("symbol")["close"].shift(1)
@@ -238,6 +242,20 @@ def compute(cons: pd.DataFrame, cache: dict, px: pd.DataFrame) -> dict:
     px["sector"] = px["symbol"].map(lambda s: sec[s][0])
     px["shares"] = px["symbol"].map(lambda s: (cache.get(s) or {}).get("shares") or np.nan)
     px["mcap"] = px["shares"] * px["close"]
+    gs = px.groupby("symbol")
+    px["ma50"] = gs["close"].transform(lambda c: c.rolling(50, min_periods=50).mean())
+    px["ma200"] = gs["close"].transform(lambda c: c.rolling(200, min_periods=200).mean())
+    px["hi252"] = gs["close"].transform(lambda c: c.rolling(252, min_periods=60).max())
+    px["lo252"] = gs["close"].transform(lambda c: c.rolling(252, min_periods=60).min())
+    px["v20"] = gs["volume"].transform(lambda v: v.rolling(20, min_periods=5).mean())
+    px["ret5"] = gs["close"].transform(lambda c: c / c.shift(5) - 1)
+    px["ret20"] = gs["close"].transform(lambda c: c / c.shift(20) - 1)
+    # FINRA off-exchange short volume ratio (0-1), keyed by display symbol (BRK.B) in short_hist
+    def sr_of(row):
+        d = short_hist.get(row["symbol"].replace("-", "."), {})
+        v = d.get(row["date"])
+        return np.nan if v is None else v
+    px["sr"] = px.apply(sr_of, axis=1) if short_hist else np.nan
 
     dates_all = sorted(px["date"].unique())
     dates = dates_all[-HISTORY_DAYS:]
@@ -278,6 +296,39 @@ def compute(cons: pd.DataFrame, cache: dict, px: pd.DataFrame) -> dict:
             "dec": [None if pd.isna(v) else int(v) for v in a["dec"]],
         }
 
+    # sector short-volume ratio (dollar-weighted mean of per-stock ratio)
+    if short_hist:
+        for s_name in sectors_out:
+            a = p[p["sector"] == s_name]
+            srs = a.groupby("date").apply(lambda d: float(np.average(d["sr"].fillna(0), weights=d["dv"] * d["sr"].notna()))
+                                          if (d["dv"] * d["sr"].notna()).sum() > 0 else np.nan).reindex(dates)
+            sectors_out[s_name]["sr"] = [None if pd.isna(v) else round(float(v), 4) for v in srs]
+
+    # market breadth over the S&P 500 universe
+    gb = p.groupby("date")
+    breadth = pd.DataFrame({
+        "adv": gb["ret"].apply(lambda r: int((r > 0).sum())),
+        "dec": gb["ret"].apply(lambda r: int((r < 0).sum())),
+        "upvol": gb.apply(lambda d: float(d.loc[d["ret"] > 0, "dv"].sum())),
+        "downvol": gb.apply(lambda d: float(d.loc[d["ret"] < 0, "dv"].sum())),
+        "pct50": gb.apply(lambda d: float((d["close"] > d["ma50"]).sum() / max(1, d["ma50"].notna().sum()))),
+        "pct200": gb.apply(lambda d: float((d["close"] > d["ma200"]).sum() / max(1, d["ma200"].notna().sum()))),
+        "nh": gb.apply(lambda d: int((d["close"] >= d["hi252"]).sum())),
+        "nl": gb.apply(lambda d: int((d["close"] <= d["lo252"]).sum())),
+        "n": gb["ret"].size(),
+        "sr": gb.apply(lambda d: float(np.average(d["sr"].fillna(0), weights=d["dv"] * d["sr"].notna()))
+                       if (d["dv"] * d["sr"].notna()).sum() > 0 else np.nan),
+    }).reindex(dates)
+    breadth_out = {k: [None if pd.isna(v) else (round(float(v), 4) if k in ("pct50", "pct200", "sr") else round(float(v)))
+                       for v in breadth[k]] for k in breadth.columns}
+
+    # SPY returns for relative strength
+    spy_ret5 = spy_ret20 = None
+    if spy is not None and len(spy) > 21:
+        sc = spy.set_index("date")["close"].reindex(dates_all).ffill()
+        spy_ret5 = float(sc.iloc[-1] / sc.iloc[-6] - 1)
+        spy_ret20 = float(sc.iloc[-1] / sc.iloc[-21] - 1)
+
     # per-stock rows for the latest date (for drill-down)
     last = dates[-1]
     pl = p[p["date"] == last].copy()
@@ -305,8 +356,33 @@ def compute(cons: pd.DataFrame, cache: dict, px: pd.DataFrame) -> dict:
             "nf5": round(float(nf5.get(sym, 0))),
             "nf20": round(float(nf20.get(sym, 0))),
             "mc": None if pd.isna(r["mcap"]) else round(float(r["mcap"])),
+            "r5": None if pd.isna(r["ret5"]) else round(float(r["ret5"]), 5),
+            "r20": None if pd.isna(r["ret20"]) else round(float(r["ret20"]), 5),
+            "rs20": None if (pd.isna(r["ret20"]) or spy_ret20 is None) else round(float(r["ret20"]) - spy_ret20, 5),
+            "a50": None if pd.isna(r["ma50"]) else bool(r["close"] > r["ma50"]),
+            "a200": None if pd.isna(r["ma200"]) else bool(r["close"] > r["ma200"]),
+            "vr": None if (pd.isna(r["v20"]) or not r["v20"]) else round(float(r["volume"] / r["v20"]), 2),
+            "hi": None if pd.isna(r["hi252"]) else round(float(r["close"] / r["hi252"] - 1), 4),
+            "sr": None if pd.isna(r["sr"]) else round(float(r["sr"]), 4),
         })
     stocks.sort(key=lambda x: -abs(x["nf"]))
+
+    # per-stock 60-day series (separate file, loaded lazily by the app)
+    series = {}
+    for sym, d in p.groupby("symbol"):
+        d = d.set_index("date").reindex(dates)
+        disp = meta.loc[sym, "symbol"] if sym in meta.index else sym
+        series[disp] = {
+            "c": [None if pd.isna(v) else round(float(v), 2) for v in d["close"]],
+            "v": [None if pd.isna(v) else int(v) for v in d["volume"]],
+            "nf": [None if pd.isna(v) else round(float(v)) for v in d["nf"]],
+            "sr": [None if pd.isna(v) else round(float(v), 4) for v in d["sr"]],
+            "m50": [None if pd.isna(v) else round(float(v), 2) for v in d["ma50"]],
+            "m200": [None if pd.isna(v) else round(float(v), 2) for v in d["ma200"]],
+        }
+    stocks_series = {"as_of": last, "dates": dates, "series": series,
+                     "spy": None if spy is None else {"c": [None if pd.isna(v) else round(float(v), 2)
+                                                             for v in spy.set_index("date")["close"].reindex(dates)]}}
 
     n_yahoo = sum(1 for v in sec.values() if v[1] == "yahoo")
     n_shares = sum(1 for sym in px["symbol"].unique() if (cache.get(sym) or {}).get("shares"))
@@ -315,6 +391,8 @@ def compute(cons: pd.DataFrame, cache: dict, px: pd.DataFrame) -> dict:
         "generated_at": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "dates": dates,
         "sectors": sectors_out,
+        "breadth": breadth_out,
+        "spy": {"ret5": spy_ret5, "ret20": spy_ret20},
         "stocks": stocks,
         "meta": {
             "universe": "S&P 500 constituents",
@@ -329,19 +407,37 @@ def compute(cons: pd.DataFrame, cache: dict, px: pd.DataFrame) -> dict:
             "n_shares_missing": int(px["symbol"].nunique()) - n_shares,
             "flow_definition": "sign(close - prev_close) * close * volume, summed per sector (estimate)",
             "price_source": "Yahoo Finance via yfinance",
+            "short_volume_source": "FINRA Reg SHO daily consolidated NMS short sale volume (off-exchange only)" if short_hist else None,
+            "n_short_symbols": sum(1 for d in short_hist.values() if d.get(last)) if short_hist else 0,
         },
-    }
+    }, stocks_series
 
 
 def main():
     cons = load_constituents()
     cache = refresh_cache(cons, load_cache())
-    px = download_prices(list(cons["yf_symbol"]))
+    px = download_prices(list(cons["yf_symbol"]) + ["SPY"])
+    spy = px[px["symbol"] == "SPY"][["date", "close"]].copy()
+    px = px[px["symbol"] != "SPY"]
     log(f"prices: {px['symbol'].nunique()} symbols, {px['date'].nunique()} dates")
-    out = compute(cons, cache, px)
+    short_hist = {}
+    try:
+        import shortvol
+        short_hist = shortvol.update(SHORT_PATH, sorted(px["date"].unique())[-HISTORY_DAYS:],
+                                     set(cons["symbol"]))
+    except Exception as e:
+        log(f"short volume update failed (continuing without): {e}")
+        if os.path.exists(SHORT_PATH):
+            try:
+                short_hist = json.load(open(SHORT_PATH))
+            except Exception:
+                short_hist = {}
+    out, series = compute(cons, cache, px, short_hist, spy)
     os.makedirs(DATA_DIR, exist_ok=True)
     with open(OUT_PATH, "w") as f:
         json.dump(out, f, separators=(",", ":"))
+    with open(STOCKS_PATH, "w") as f:
+        json.dump(series, f, separators=(",", ":"))
     log(f"wrote {OUT_PATH}: as_of={out['as_of']} sectors={len(out['sectors'])} stocks={len(out['stocks'])}")
 
 

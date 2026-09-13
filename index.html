@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sector Flow Monitor</title>
+<title>US Money Flow Monitor</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -102,6 +102,7 @@ tr.clickable:hover td{background:var(--surface-2)}
 .detail-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
 @media (max-width:900px){.detail-grid{grid-template-columns:1fr}}
 .tables{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tables>div,.detail-grid>div{min-width:0}
 @media (max-width:1100px){.tables{grid-template-columns:1fr}}
 .tables h3{font-size:12.5px;font-weight:600;margin:0 0 6px;color:var(--ink-2)}
 select{font:inherit;padding:4px 8px;border:1px solid var(--line-2);border-radius:4px;background:var(--surface);color:var(--ink)}
@@ -116,12 +117,44 @@ select{font:inherit;padding:4px 8px;border:1px solid var(--line-2);border-radius
 #app[hidden]{display:none}
 .dq{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11.5px;color:var(--ink-3);margin-top:10px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* tabs */
+nav.tabs{display:flex;gap:4px;margin:-6px 0 18px;border-bottom:1px solid var(--line)}
+nav.tabs button{background:transparent;border:0;border-bottom:2px solid transparent;padding:8px 14px;font-size:13.5px;cursor:pointer;color:var(--ink-2);margin-bottom:-1px}
+nav.tabs button[aria-pressed="true"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+nav.tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.tab[hidden]{display:none}
+/* market */
+.meter{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 4px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:4px;border:1px solid var(--line-2);font-size:12px;background:var(--surface)}
+.chip.on{border-color:var(--in);background:var(--in-soft)} .chip.off{border-color:var(--out);background:var(--out-soft)} .chip.na{opacity:.55}
+.chip b{font-weight:600}.chip .v{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;color:var(--ink-2);font-size:11.5px}
+.gauge{display:flex;align-items:center;gap:12px;margin-top:8px}
+.gauge .bar{flex:1;height:10px;border-radius:5px;background:linear-gradient(90deg,var(--out),var(--mid) 50%,var(--in));position:relative}
+.gauge .pin{position:absolute;top:-4px;width:4px;height:18px;background:var(--ink);border-radius:2px;transform:translateX(-2px)}
+.alert{border-left:3px solid #d69b1a;background:var(--surface-2);padding:8px 12px;border-radius:0 4px 4px 0;font-size:12.5px;margin-top:10px}
+.alert.calm{border-left-color:var(--line-2);color:var(--ink-2)}
+.sm{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.sm .card{border:1px solid var(--line);border-radius:5px;padding:8px 10px 6px;background:var(--surface)}
+.sm .card .t{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;color:var(--ink-2);gap:6px}
+.sm .card .t b{color:var(--ink);font-weight:600}
+.sm .card .t .num{font-size:12px}
+.sm .card .d{font-size:10.5px;color:var(--ink-3);margin-top:2px}
+.src{display:inline-block;font-size:10.5px;padding:1px 6px;border-radius:3px;border:1px solid var(--line-2);color:var(--ink-3);margin-left:6px;vertical-align:1px}
+.src.ok{border-color:#0ca30c;color:#0a7a0a} .src.stale{border-color:#d69b1a;color:#8a5f00} .src.missing{border-color:var(--out);color:var(--out)}
+.spark{width:110px;height:26px;display:block}
+.search{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.search input{font:inherit;padding:6px 10px;border:1px solid var(--line-2);border-radius:4px;background:var(--surface);color:var(--ink);min-width:260px}
+.stockhead{display:flex;flex-wrap:wrap;gap:6px 22px;align-items:baseline;margin:6px 0 10px}
+.stockhead .sym{font-size:22px;font-weight:600}
+.stockhead .kv{font-size:12px;color:var(--ink-2)} .stockhead .kv b{color:var(--ink);font-weight:600}
+.pill{display:inline-block;padding:1px 7px;border-radius:10px;font-size:11px;border:1px solid var(--line-2);color:var(--ink-2)}
+.pill.up{border-color:var(--in);color:var(--in)} .pill.dn{border-color:var(--out);color:var(--out)}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="top">
-    <h1><small id="schemeLabel">US Equities · S&amp;P 500</small>業種別 資金フロー モニター</h1>
+    <h1><small id="schemeLabel">US Equities · S&amp;P 500</small>米国株 資金フロー モニター</h1>
     <div class="asof" id="asof">読み込み中…</div>
   </header>
 
@@ -129,6 +162,67 @@ select{font:inherit;padding:4px 8px;border:1px solid var(--line-2);border-radius
   <div class="loading" id="loading">データを読み込んでいます…</div>
 
   <main id="app" hidden>
+    <nav class="tabs" id="tabs" aria-label="表示切替">
+      <button data-t="market" aria-pressed="false">市場全体</button>
+      <button data-t="sector" aria-pressed="true">業種別</button>
+      <button data-t="stock" aria-pressed="false">個別株</button>
+    </nav>
+
+    <!-- ===================== 市場全体 ===================== -->
+    <div id="tab-market" class="tab" hidden>
+      <section class="kpis" id="mkKpis"></section>
+
+      <section class="panel raised" style="margin-bottom:16px">
+        <div class="ph"><h2>Risk-on / Risk-off 方向一致メーター</h2><span class="sub">終値ベース。各指標の当日変化が Risk-on 方向なら青、Risk-off 方向なら赤</span>
+          <div class="seg" role="group" aria-label="期間" id="mkPeriodSeg"><button data-p="1" aria-pressed="true">1日</button><button data-p="5" aria-pressed="false">5日</button><button data-p="20" aria-pressed="false">20日</button></div>
+        </div>
+        <div class="meter" id="meter"></div>
+        <div id="meterSum" style="font-size:13px;margin-top:6px"></div>
+        <div id="diverge"></div>
+        <div class="gauge" id="zgauge"></div>
+        <div class="legend" id="zNote"></div>
+      </section>
+
+      <section class="panel" style="margin-bottom:16px">
+        <div class="ph"><h2>主要 ETF・指数</h2><span class="sub">終値、騰落率、当日売買代金の20日平均比、60日推移</span><span id="etfStatus"></span></div>
+        <div style="overflow-x:auto"><table id="etfTable"></table></div>
+      </section>
+
+      <section class="panel" style="margin-bottom:16px">
+        <div class="ph"><h2>市場内部の強弱（60日）</h2><span class="sub">比率・スプレッド・Breadth。Breadth は S&amp;P 500 構成銘柄から自前計算（NYSE 全体ではない）</span></div>
+        <div class="sm" id="internals"></div>
+      </section>
+
+      <section class="panel" style="margin-bottom:16px">
+        <div class="ph"><h2>公表統計（週次・月次）</h2><span class="sub">実際のファンドフロー・ポジション・レバレッジ。公表にタイムラグあり</span></div>
+        <div class="sm" id="published"></div>
+      </section>
+
+      <section class="panel" style="margin-bottom:16px">
+        <div class="ph"><h2>セクター ETF（SPDR）と本アプリの業種推定フローの照合</h2><span class="sub">ETF は GICS 準拠。騰落率は ETF 終値ベース</span></div>
+        <div style="overflow-x:auto"><table id="secEtfTable"></table></div>
+      </section>
+
+      <section class="panel note">
+        <h2>市場全体タブの指標定義と出所</h2>
+        <dl>
+          <dt>方向一致メーター</dt><dd>RSP/SPY・IWM/SPY・HYG/LQD の比率変化、HY OAS の変化（低下＝Risk-on）、VIX の変化（低下＝Risk-on）、S&amp;P 500 の A/D（上昇銘柄数＞下落銘柄数）、Up/Down Volume（上昇銘柄の売買代金＞下落銘柄）の7指標について、選択期間の変化方向を数えたもの。<span class="fact">推測</span>指標間の相関（広がり系・クレジット系）は考慮していない単純集計</dd>
+          <dt>参考スコア</dt><dd>添付資料の Risk Flow Score に準拠：Z(ΔHYG/LQD)+Z(ΔRSP/SPY)+Z(ΔIWM/SPY)+Z(Breadth)−Z(ΔVIX)。Z は各指標の当期間変化を過去60日の同期間変化の標準偏差で割ったもの。合成 = ΣZ ÷ √5 を ×40 して ±100 に丸めています。<span class="fact">仮置き</span>閾値・重みはバックテスト未実施</dd>
+          <dt>HY / IG OAS</dt><dd>ICE BofA US High Yield / US Corporate Index Option-Adjusted Spread（FRED: BAMLH0A0HYM2, BAMLC0A0CM、％、日次・1営業日遅れ）</dd>
+          <dt>FRB ネット流動性</dt><dd>FRB 総資産（WALCL、週次）− 翌日物リバースレポ（RRPONTSYD、日次）− 財務省一般口座（WTREGEN、週次）。市場でよく参照される近似式で、公式の定義ではありません</dd>
+          <dt>ICI フロー</dt><dd>Investment Company Institute「Combined Estimated Long-Term Fund Flows」（投信＋ETF 合算、週次、百万ドル）および「Money Market Fund Assets」（週次）。ページに表示される直近5週分を毎回取得し、蓄積しています</dd>
+          <dt>FINRA Margin Debt</dt><dd>FINRA Margin Statistics（月次、百万ドル、翌月中旬〜下旬公表）</dd>
+          <dt>CFTC COT</dt><dd>Disaggregated Commitments of Traders、E-mini S&amp;P 500 先物（火曜時点のポジション、金曜公表）。Asset Manager / Leveraged Funds / Dealer の ロング−ショート（枚）</dd>
+          <dt>AAII</dt><dd>AAII Investor Sentiment Survey（週次、木曜公表）。強気％−弱気％</dd>
+          <dt>Put/Call</dt><dd>Cboe Daily Market Statistics ページの Total / Equity / Index Put/Call Ratio。<span class="fact">注意</span>ページを毎日取得して蓄積するため、パイプライン開始以降の履歴のみ。取得失敗日は欠損</dd>
+          <dt>ETF フロー推定</dt><dd>Yahoo Finance の発行済口数の日次スナップショット差分 × 終値。<span class="fact">実験的</span>口数データの更新遅れにより実際の設定解約と一致しない場合があります</dd>
+        </dl>
+        <div class="dq" id="mkStatus"></div>
+      </section>
+    </div>
+
+    <!-- ===================== 業種別 ===================== -->
+    <div id="tab-sector" class="tab">
     <section class="kpis" id="kpis"></section>
 
     <div class="grid">
@@ -204,6 +298,42 @@ select{font:inherit;padding:4px 8px;border:1px solid var(--line-2);border-radius
       </dl>
       <div class="dq" id="dq"></div>
     </section>
+    </div>
+
+    <!-- ===================== 個別株 ===================== -->
+    <div id="tab-stock" class="tab" hidden>
+      <section class="panel raised" style="margin-bottom:16px">
+        <div class="ph"><h2>個別株</h2>
+          <div class="search"><input id="stockInput" list="stockList" placeholder="ティッカーまたは社名で検索（例：NVDA）" autocomplete="off" aria-label="銘柄検索"><datalist id="stockList"></datalist><span class="sub" id="stockLoad"></span></div>
+        </div>
+        <div id="stockHead" class="stockhead"></div>
+        <div class="detail-grid">
+          <div><h3 style="font-size:12.5px;color:var(--ink-2);margin:0 0 6px;font-weight:600">株価（50日・200日線）と推定ネットフロー（60日）</h3><div id="stockChart"></div></div>
+          <div><h3 style="font-size:12.5px;color:var(--ink-2);margin:0 0 6px;font-weight:600">対 SPY 相対パフォーマンス（60日、起点=100）と空売り比率</h3><div id="stockRel"></div></div>
+        </div>
+      </section>
+
+      <section class="panel" style="margin-bottom:16px">
+        <div class="ph"><h2>ランキング（S&amp;P 500 構成銘柄）</h2>
+          <select id="rankMetric" aria-label="指標">
+            <option value="nf">推定ネットフロー（当日）</option><option value="nf5">推定ネットフロー（5日累計）</option><option value="nf20">推定ネットフロー（20日累計）</option>
+            <option value="vr">出来高 ÷ 20日平均</option><option value="rs20">対 SPY 相対強度（20日）</option><option value="sr">空売り比率（当日）</option><option value="r">騰落率（当日）</option>
+          </select>
+          <select id="rankSector" aria-label="業種で絞り込み"><option value="">全業種</option></select>
+        </div>
+        <div class="tables"><div><h3 id="rankTopHead">上位</h3><div style="overflow-x:auto"><table id="rankTop"></table></div></div><div><h3 id="rankBotHead">下位</h3><div style="overflow-x:auto"><table id="rankBot"></table></div></div></div>
+      </section>
+
+      <section class="panel note">
+        <h2>個別株タブの指標定義</h2>
+        <dl>
+          <dt>推定ネットフロー</dt><dd>sign(終値−前日終値) × 終値 × 出来高（業種タブと同じ推定値）</dd>
+          <dt>空売り比率</dt><dd>FINRA Reg SHO 日次データの ShortVolume ÷ TotalVolume。<span class="fact">注意</span>取引所外（ATS/TRF）での約定分のみで、取引所出来高は含みません。マーケットメイクの空売りも含むため、通常 40〜60% 程度で推移し、水準よりも変化を見る指標です</dd>
+          <dt>相対強度</dt><dd>銘柄の20日騰落率 − SPY の20日騰落率</dd>
+          <dt>出来高比</dt><dd>当日出来高 ÷ 過去20日平均出来高</dd>
+        </dl>
+      </section>
+    </div>
   </main>
 </div>
 <div id="tip" role="tooltip"></div>
@@ -425,10 +555,11 @@ function renderDetail(){
   $('#cumChart').querySelectorAll('#cumHover rect').forEach(el=>{ const i=+el.dataset.i; bindTip(el,()=>`<b>${esc(D.dates[i])}</b><br>当日 ${fmtUSD(S.nf[i])}<br>累積 ${fmtUSD(cum[i])}<br>騰落率 ${fmtPct(S.ret[i])}`); });
 
   // daily summary table (last 10 days)
-  let t=`<tr><th class="t">日付</th><th>推定NF</th><th>時価総額比</th><th>売買代金</th><th>騰落率</th><th>上昇/下落</th></tr>`;
+  const hasSr = !!S.sr;
+  let t=`<tr><th class="t">日付</th><th>推定NF</th><th>時価総額比</th><th>売買代金</th><th>騰落率</th><th>上昇/下落</th>${hasSr?'<th>空売り比率</th>':''}</tr>`;
   const m=mcapLast(s);
   for(let i=n-1;i>=Math.max(0,n-10);i--){
-    const v=S.nf[i]; t+=`<tr><td class="t num">${esc(D.dates[i])}</td><td class="num ${cls(v)}">${fmtUSD(v)}</td><td class="num ${cls(v)}">${fmtBp(m&&v!=null?v/m*1e4:null)}</td><td class="num">${fmtUSDabs(S.dv[i])}</td><td class="num ${S.ret[i]>0?'pos':S.ret[i]<0?'neg':''}">${fmtPct(S.ret[i])}</td><td class="num">${S.adv[i]??'—'} / ${S.dec[i]??'—'}</td></tr>`;
+    const v=S.nf[i]; t+=`<tr><td class="t num">${esc(D.dates[i])}</td><td class="num ${cls(v)}">${fmtUSD(v)}</td><td class="num ${cls(v)}">${fmtBp(m&&v!=null?v/m*1e4:null)}</td><td class="num">${fmtUSDabs(S.dv[i])}</td><td class="num ${S.ret[i]>0?'pos':S.ret[i]<0?'neg':''}">${fmtPct(S.ret[i])}</td><td class="num">${S.adv[i]??'—'} / ${S.dec[i]??'—'}</td>${hasSr?`<td class="num">${S.sr[i]!=null?(S.sr[i]*100).toFixed(1)+'%':'—'}</td>`:''}</tr>`;
   }
   $('#secTable').innerHTML=t;
 
@@ -461,6 +592,255 @@ function renderAll(){
   renderHeader(); renderFlow(); renderRot(); renderHeat(); renderDetail();
 }
 
+// =====================================================================
+// ---------- tabs
+function setTab(t, push=true){
+  document.querySelectorAll('.tab').forEach(el=>{ el.hidden = el.id!=='tab-'+t; });
+  document.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.t===t));
+  if(t==='stock') ensureStocks();
+  if(push){ try{ history.replaceState(null,'','#'+t); }catch(e){} }
+}
+$('#tabs').addEventListener('click',e=>{ const b=e.target.closest('button'); if(b) setTab(b.dataset.t); });
+
+// ---------- generic small charts
+function sparkSvg(vals, w=110, h=26, color){
+  const v=vals.filter(x=>x!=null); if(v.length<2) return '';
+  const mn=Math.min(...v), mx=Math.max(...v), rng=(mx-mn)||1;
+  const pts=[]; vals.forEach((x,i)=>{ if(x==null) return; pts.push(((i/(vals.length-1))*(w-2)+1).toFixed(1)+','+((h-2)-(x-mn)/rng*(h-4)+1).toFixed(1)); });
+  const last=v[v.length-1], first=v[0]; const col=color||(last>=first?'var(--in)':'var(--out)');
+  const lp=pts[pts.length-1].split(',');
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><polyline points="${pts.join(' ')}" fill="none" stroke="${col}" stroke-width="1.5" vector-effect="non-scaling-stroke"/><circle cx="${lp[0]}" cy="${lp[1]}" r="2" fill="${col}"/></svg>`;
+}
+// small line chart with hover; series: [{dates, vals, color, name}], opts: {fmt, zero:boolean, bars:boolean}
+function lineChart(el, dates, vals, opts={}){
+  const W=300,H=110,pad={l:44,r:8,t:8,b:18};
+  const fmt=opts.fmt||(v=>v.toFixed(2));
+  const idx=vals.map((v,i)=>v==null?null:i).filter(i=>i!=null);
+  if(idx.length<2){ el.innerHTML='<div class="d" style="padding:20px 0;color:var(--ink-3)">データなし</div>'; return; }
+  let mn=Math.min(...idx.map(i=>vals[i])), mx=Math.max(...idx.map(i=>vals[i]));
+  if(opts.zero){ mn=Math.min(0,mn); mx=Math.max(0,mx); }
+  if(mn===mx){ mn-=1; mx+=1; }
+  const sx=i=>pad.l+i/(dates.length-1)*(W-pad.l-pad.r), sy=v=>pad.t+(mx-v)/(mx-mn)*(H-pad.t-pad.b);
+  let g=`<svg viewBox="0 0 ${W} ${H}" role="img">`;
+  [mn,(mn+mx)/2,mx].forEach(v=>{ g+=`<line class="grid" x1="${pad.l}" x2="${W-pad.r}" y1="${sy(v)}" y2="${sy(v)}"/><text class="n" x="${pad.l-4}" y="${sy(v)+3.5}" text-anchor="end" font-size="9.5">${fmt(v)}</text>`; });
+  if(opts.zero&&mn<0&&mx>0) g+=`<line class="axis" x1="${pad.l}" x2="${W-pad.r}" y1="${sy(0)}" y2="${sy(0)}"/>`;
+  const last=vals[idx[idx.length-1]], first=vals[idx[0]];
+  const col=opts.color||((opts.invert? last<=first : last>=first)?'var(--in)':'var(--out)');
+  if(opts.bars){
+    const bw=(W-pad.l-pad.r)/dates.length;
+    idx.forEach(i=>{ const v=vals[i]; g+=`<rect x="${pad.l+i*bw+0.5}" y="${v>=0?sy(v):sy(0)}" width="${Math.max(1,bw-1)}" height="${Math.abs(sy(v)-sy(0))}" fill="${v>=0?'var(--in)':'var(--out)'}"/>`; });
+  }else{
+    const path=idx.map((i,k)=>(k?'L':'M')+sx(i).toFixed(1)+' '+sy(vals[i]).toFixed(1)).join(' ');
+    g+=`<path d="${path}" fill="none" stroke="${col}" stroke-width="1.8" stroke-linejoin="round"/>`;
+    const li=idx[idx.length-1]; g+=`<circle cx="${sx(li)}" cy="${sy(vals[li])}" r="3" fill="${col}" stroke="var(--surface)" stroke-width="1.5"/>`;
+  }
+  const n=dates.length; [0,Math.floor(n/2),n-1].forEach(i=>{ g+=`<text class="n" x="${sx(i)}" y="${H-5}" text-anchor="${i===0?'start':i===n-1?'end':'middle'}" font-size="9.5">${fmtDate(dates[i])}</text>`; });
+  const bw=(W-pad.l-pad.r)/n;
+  g+=`<g class="hov">`+dates.map((d,i)=>`<rect data-i="${i}" x="${pad.l+i*bw}" y="${pad.t}" width="${bw}" height="${H-pad.t-pad.b}" fill="transparent"/>`).join('')+`</g></svg>`;
+  el.innerHTML=g;
+  el.querySelectorAll('.hov rect').forEach(r=>{ const i=+r.dataset.i; bindTip(r,()=>`<b>${esc(dates[i])}</b><br>${vals[i]==null?'—':fmt(vals[i])}`); });
+}
+function card(title, sub, lastTxt, status){
+  const d=document.createElement('div'); d.className='card';
+  d.innerHTML=`<div class="t"><b>${title}</b><span class="num">${lastTxt||''}</span></div><div class="ch"></div><div class="d">${sub||''}${status||''}</div>`;
+  return d;
+}
+const pct=(a,b)=> (a==null||b==null||!b)?null:a/b-1;
+const chg=(arr,n)=>{ const i=arr.length-1; return (arr[i]==null||arr[i-n]==null)?null:arr[i]-arr[i-n]; };
+const mean=a=>a.reduce((x,y)=>x+y,0)/a.length, sd=a=>{ const m=mean(a); return Math.sqrt(mean(a.map(x=>(x-m)*(x-m)))); };
+const srcBadge=(name)=>{ const st=(M&&M.status&&M.status[name])||{state:'missing'}; const lab={ok:'取得OK',stale:'前回値',missing:'未取得'}[st.state]||st.state; return `<span class="src ${st.state}" title="${esc(st.error||st.fetched_at||'')}">${lab}</span>`; };
+
+// ---------- market tab
+let M=null, mkPeriod=1;
+function etfSeries(sym){ const s=M.etf&&M.etf.series[sym]; return s? s.c : null; }
+function ratioSeries(a,b){ const A=etfSeries(a),B=etfSeries(b); if(!A||!B) return null; return A.map((x,i)=> (x==null||B[i]==null)?null:x/B[i]); }
+function alignFred(key){ // FRED series aligned onto M.etf.dates (last observation on/before date)
+  const f=M.fred&&M.fred[key]; if(!f) return null; const out=[]; let j=0;
+  for(const d of M.etf.dates){ while(j+1<f.dates.length && f.dates[j+1]<=d) j++; out.push(f.dates[j]<=d? f.values[j] : null); }
+  return out;
+}
+function breadthAligned(key){ // D.breadth on D.dates -> align to M.etf.dates
+  if(!D.breadth||!D.breadth[key]) return null; const map={}; D.dates.forEach((d,i)=>map[d]=D.breadth[key][i]);
+  return M.etf.dates.map(d=> map[d]==null? null : map[d]);
+}
+function renderMarket(){
+  if(!M||!M.etf){ $('#tab-market').innerHTML='<div class="err">市場全体データ（data/market.json）がまだありません。GitHub Actions の実行後に表示されます。</div>'; return; }
+  const dates=M.etf.dates, n=dates.length, li=n-1;
+  // --- indicators for the meter (value series; higher = risk-on unless invert)
+  const adv=breadthAligned('adv'), dec=breadthAligned('dec'), up=breadthAligned('upvol'), dn=breadthAligned('downvol');
+  const ind=[
+    {k:'RSP/SPY', s:ratioSeries('RSP','SPY'), desc:'等金額 ÷ 時価総額加重。上昇＝広がり改善'},
+    {k:'IWM/SPY', s:ratioSeries('IWM','SPY'), desc:'小型 ÷ 大型。上昇＝小型株へ拡散'},
+    {k:'HYG/LQD', s:ratioSeries('HYG','LQD'), desc:'HY ÷ IG 社債ETF。上昇＝信用リスク選好'},
+    {k:'HY OAS', s:alignFred('hy_oas'), invert:true, desc:'HYスプレッド。低下＝Risk-on', fmt:v=>v.toFixed(2)+'%'},
+    {k:'VIX', s:etfSeries('^VIX'), invert:true, desc:'低下＝Risk-on', fmt:v=>v.toFixed(1)},
+    {k:'A/D', s:adv&&dec? adv.map((a,i)=>(a==null||dec[i]==null)?null:a-dec[i]) : null, level:true, desc:'上昇銘柄数−下落銘柄数（期間合計）', fmt:v=>(v>0?'+':'')+v.toFixed(0)},
+    {k:'Up/Down Vol', s:up&&dn? up.map((a,i)=>(a==null||dn[i]==null)?null:a-dn[i]) : null, level:true, desc:'上昇銘柄売買代金−下落銘柄売買代金（期間合計）', fmt:v=>fmtUSD(v)},
+  ];
+  let on=0, off=0, html='';
+  ind.forEach(x=>{
+    let delta=null, txt='—';
+    if(x.s){
+      if(x.level){ let sum=0,ok=false; for(let i=Math.max(0,n-mkPeriod);i<n;i++){ if(x.s[i]!=null){sum+=x.s[i];ok=true;} } delta=ok?sum:null; txt=delta==null?'—':(x.fmt||(v=>v.toFixed(0)))(delta); }
+      else{ const a=x.s[li], b=x.s[li-mkPeriod]; if(a!=null&&b!=null){ delta=a-b; txt = x.fmt? (delta>0?'+':'')+ (x.fmt(a)) + ' ('+(delta>0?'+':'')+delta.toFixed(2)+')' : fmtPct(a/b-1); } }
+    }
+    let state='na'; if(delta!=null && delta!==0){ const riskOn = x.invert? delta<0 : delta>0; state=riskOn?'on':'off'; if(riskOn) on++; else off++; }
+    html+=`<span class="chip ${state}" title="${esc(x.desc)}"><b>${x.k}</b><span class="v">${txt}</span>${state==='on'?'▲':state==='off'?'▼':'·'}</span>`;
+  });
+  $('#meter').innerHTML=html;
+  const spyS=etfSeries('SPY'); const spyChg=spyS? pct(spyS[li],spyS[li-mkPeriod]) : null;
+  const lab={1:'当日',5:'5日',20:'20日'}[mkPeriod];
+  $('#meterSum').innerHTML=`${lab}：<b style="color:var(--in)">Risk-on ${on}</b> ／ <b style="color:var(--out)">Risk-off ${off}</b>（7指標中）　SPY ${lab}騰落 <b class="num ${spyChg>0?'pos':spyChg<0?'neg':''}">${fmtPct(spyChg)}</b>`;
+  let dv='';
+  if(spyChg!=null){
+    if(spyChg>0 && off>=4) dv=`<div class="alert"><b>ダイバージェンス注意：</b>SPY は上昇していますが、内部指標の多数（${off}/7）が Risk-off 方向です。少数の大型株主導の可能性があります。</div>`;
+    else if(spyChg<0 && on>=4) dv=`<div class="alert"><b>逆ダイバージェンス：</b>SPY は下落していますが、内部指標の多数（${on}/7）が Risk-on 方向です。</div>`;
+    else dv=`<div class="alert calm">指数の方向と内部指標の多数派は概ね一致しています。</div>`;
+  }
+  $('#diverge').innerHTML=dv;
+  // --- reference z-score composite (doc's Risk Flow Score)
+  const zs=[]; const zdef=[['HYG/LQD',ratioSeries('HYG','LQD'),1],['RSP/SPY',ratioSeries('RSP','SPY'),1],['IWM/SPY',ratioSeries('IWM','SPY'),1],['Breadth',adv&&dec? adv.map((a,i)=>(a==null||dec[i]==null)?null:(a-dec[i])/(a+dec[i]||1)):null,1,true],['VIX',etfSeries('^VIX'),-1]];
+  zdef.forEach(([k,s,sign,isLevel])=>{
+    if(!s) return; const ch=[]; for(let i=mkPeriod;i<n;i++){ if(isLevel){ let sum=0,ok=true; for(let j=i-mkPeriod+1;j<=i;j++){ if(s[j]==null){ok=false;break;} sum+=s[j]; } ch.push(ok?sum:null); } else ch.push((s[i]==null||s[i-mkPeriod]==null)?null:Math.log(s[i]/s[i-mkPeriod])); }
+    const hist=ch.slice(-61,-1).filter(v=>v!=null); const cur=ch[ch.length-1]; if(cur==null||hist.length<20) return;
+    const z=(cur-mean(hist))/(sd(hist)||1); zs.push({k,z:sign*z});
+  });
+  let score=null; if(zs.length>=3){ const comp=zs.reduce((a,b)=>a+b.z,0)/Math.sqrt(zs.length); score=Math.max(-100,Math.min(100,comp*40)); }
+  const verdict=score==null?'—':score>=70?'Strong Risk-on':score>=30?'Risk-on':score>-30?'Neutral':score>-70?'Risk-off':'Strong Risk-off';
+  $('#zgauge').innerHTML=`<span style="font-size:12px;color:var(--ink-2);white-space:nowrap">参考：Zスコア合成</span><div class="bar"><div class="pin" style="left:${score==null?50:(score+100)/2}%"></div></div><b class="num" style="min-width:110px;text-align:right">${score==null?'—':(score>0?'+':'')+score.toFixed(0)} <span style="font-weight:500;color:var(--ink-2);font-size:12px">${verdict}</span></b>`;
+  $('#zNote').innerHTML=zs.map(x=>`<span>${x.k} z=${(x.z>0?'+':'')+x.z.toFixed(2)}</span>`).join('')+'<span>（仮置きの尺度。閾値 ±30 / ±70 は資料に準拠、未検証）</span>';
+
+  // --- KPIs
+  const vix=etfSeries('^VIX'), hy=alignFred('hy_oas');
+  const ici=M.ici_flows, mmf=M.ici_mmf;
+  const iciLast= ici&&ici.equity? ici.equity[ici.equity.length-1] : null;
+  const mmfChg= mmf&&mmf.total_assets&&mmf.total_assets.length>1? mmf.total_assets[mmf.total_assets.length-1]-mmf.total_assets[mmf.total_assets.length-2] : null;
+  const k=[
+    {l:'SPY 当日騰落',v:fmtPct(spyS?pct(spyS[li],spyS[li-1]):null),c:spyS&&spyS[li]>spyS[li-1]?'in':'out',s:`終値 ${spyS?spyS[li].toFixed(2):'—'}　${dates[li]}`},
+    {l:'方向一致（当日）',v:`${on} / ${off}`,s:'Risk-on / Risk-off 指標数'},
+    {l:'VIX',v:vix?vix[li].toFixed(2):'—',c:vix&&vix[li]<vix[li-1]?'in':'out',s:`前日比 ${vix?(vix[li]-vix[li-1]>0?'+':'')+(vix[li]-vix[li-1]).toFixed(2):'—'}`},
+    {l:'HY OAS',v:hy&&hy[li]!=null?hy[li].toFixed(2)+'%':'—',c:hy&&hy[li]!=null&&hy[li-1]!=null?(hy[li]<=hy[li-1]?'in':'out'):'',s:'ICE BofA US HY（1営業日遅れ）'},
+    {l:'ICI 株式ファンドフロー（週次）',v:iciLast==null?'—':fmtUSD(iciLast*1e6),c:iciLast>0?'in':'out',s:ici?`${ici.weeks[ici.weeks.length-1]} 終了週・投信＋ETF`:'未取得'},
+    {l:'MMF 残高 週間変化',v:mmfChg==null?'—':fmtUSD(mmfChg*1e6),c:mmfChg>0?'out':'in',s:mmf?`残高 ${fmtUSDabs(mmf.total_assets[mmf.total_assets.length-1]*1e6)}（${mmf.weeks[mmf.weeks.length-1]}）`:'未取得'},
+  ];
+  $('#mkKpis').innerHTML=k.map(x=>`<div class="kpi"><div class="l">${x.l}</div><div class="v num ${x.c||''}">${x.v}</div><div class="s">${x.s}</div></div>`).join('');
+
+  // --- ETF table
+  const names={SPY:'S&P 500',QQQ:'Nasdaq-100',IWM:'Russell 2000',RSP:'S&P 500 等金額',HYG:'米HY社債',LQD:'米IG社債',TLT:'米長期国債',GLD:'金',UUP:'ドル指数',"^VIX":'VIX',"^VIX3M":'VIX 3か月'};
+  let t=`<tr><th class="t">銘柄</th><th>終値</th><th>1日</th><th>5日</th><th>20日</th><th>売買代金/20日平均</th><th class="t">60日</th></tr>`;
+  Object.keys(names).forEach(sym=>{ const S=M.etf.series[sym]; if(!S) return; const c=S.c, v=S.v; const dv=c[li]*(v[li]||0); const avg=(()=>{ let s=0,m=0; for(let i=Math.max(0,li-20);i<li;i++){ if(c[i]!=null&&v[i]!=null){ s+=c[i]*v[i]; m++; } } return m?s/m:null; })();
+    const r1=pct(c[li],c[li-1]), r5=pct(c[li],c[li-5]), r20=pct(c[li],c[li-20]);
+    t+=`<tr><td class="t"><b>${esc(sym)}</b><span class="nm">${names[sym]}</span></td><td class="num">${c[li]!=null?c[li].toFixed(2):'—'}</td><td class="num ${r1>0?'pos':r1<0?'neg':''}">${fmtPct(r1)}</td><td class="num ${r5>0?'pos':r5<0?'neg':''}">${fmtPct(r5)}</td><td class="num ${r20>0?'pos':r20<0?'neg':''}">${fmtPct(r20)}</td><td class="num">${avg&&sym[0]!=='^'?(dv/avg*100).toFixed(0)+'%':'—'}</td><td>${sparkSvg(c.slice(-60))}</td></tr>`; });
+  $('#etfTable').innerHTML=t; $('#etfStatus').innerHTML=srcBadge('etf');
+
+  // --- internals small multiples
+  const I=$('#internals'); I.innerHTML='';
+  const d60=dates.slice(-60); const last60=s=>s?s.slice(-60):null;
+  const add=(title,sub,series,opts={},lastFmt)=>{ if(!series) return; const c=card(title,sub,(lastFmt||opts.fmt||(v=>v.toFixed(3)))(series.filter(v=>v!=null).slice(-1)[0]), opts.badge||''); I.appendChild(c); lineChart(c.querySelector('.ch'),d60,last60(series),opts); };
+  add('RSP / SPY','等金額 ÷ 時価総額加重（広がり）',ratioSeries('RSP','SPY'),{fmt:v=>v.toFixed(3)});
+  add('IWM / SPY','小型 ÷ 大型',ratioSeries('IWM','SPY'),{fmt:v=>v.toFixed(3)});
+  add('HYG / LQD','ハイイールド ÷ 投資適格（クレジット）',ratioSeries('HYG','LQD'),{fmt:v=>v.toFixed(3)});
+  add('HY OAS','ICE BofA US HY スプレッド（％）'+srcBadge('fred'),alignFred('hy_oas'),{fmt:v=>v.toFixed(2),invert:true});
+  add('IG OAS','ICE BofA US Corporate スプレッド（％）',alignFred('ig_oas'),{fmt:v=>v.toFixed(2),invert:true});
+  add('VIX','恐怖指数（低下＝Risk-on）',etfSeries('^VIX'),{fmt:v=>v.toFixed(1),invert:true});
+  const v3=ratioSeries('^VIX','^VIX3M'); add('VIX / VIX3M','期間構造。1 超＝短期の警戒が強い',v3,{fmt:v=>v.toFixed(3),invert:true});
+  const adl=(()=>{ if(!adv||!dec) return null; let c=0; return adv.map((a,i)=>{ if(a==null||dec[i]==null) return null; c+=a-dec[i]; return c; }); })(); add('A/D ライン','S&P 500 累積（上昇−下落 銘柄数）',adl,{fmt:v=>(v>0?'+':'')+v.toFixed(0)});
+  const udr=up&&dn? up.map((a,i)=>(a==null||dn[i]==null||!(a+dn[i]))?null:a/(a+dn[i])):null; add('Up Volume 比率','上昇銘柄の売買代金 ÷ 全体',udr,{fmt:v=>(v*100).toFixed(0)+'%'});
+  add('50日線 上回り比率','S&P 500 構成銘柄',breadthAligned('pct50'),{fmt:v=>(v*100).toFixed(0)+'%'});
+  add('200日線 上回り比率','S&P 500 構成銘柄',breadthAligned('pct200'),{fmt:v=>(v*100).toFixed(0)+'%'});
+  const nhnl=(()=>{ const h=breadthAligned('nh'),l=breadthAligned('nl'); return h&&l? h.map((a,i)=>(a==null||l[i]==null)?null:a-l[i]):null; })(); add('新高値 − 新安値','52週（構成銘柄数）',nhnl,{fmt:v=>(v>0?'+':'')+v.toFixed(0),zero:true,bars:true});
+  add('空売り比率（S&P 500）','FINRA 取引所外・売買代金加重',breadthAligned('sr'),{fmt:v=>(v*100).toFixed(1)+'%',invert:true});
+  const pc=M.putcall; if(pc&&pc.dates&&pc.dates.length){ const map={}; pc.dates.forEach((d,i)=>map[d]=pc.total[i]); const ser=dates.map(d=>map[d]==null?null:map[d]); if(ser.some(v=>v!=null)) add('Put/Call（Total）','Cboe。上昇＝ヘッジ需要増'+srcBadge('putcall'),ser,{fmt:v=>v.toFixed(2),invert:true}); }
+
+  // --- published stats
+  const P=$('#published'); P.innerHTML='';
+  const addP=(title,sub,dts,vals,opts={},lastFmt)=>{ if(!dts||!vals||!vals.length) return; const lastV=vals.filter(v=>v!=null).slice(-1)[0]; const c=card(title,sub,lastV==null?'—':(lastFmt||opts.fmt)(lastV)); P.appendChild(c); lineChart(c.querySelector('.ch'),dts,vals,opts); };
+  if(ici&&ici.weeks){ const wk=ici.weeks.slice(-26); const eq=ici.equity.slice(-26).map(v=>v==null?null:v*1e6); addP('ICI 株式ファンドフロー','投信＋ETF 合算、週次'+srcBadge('ici_flows'),wk,eq,{fmt:fmtUSD,zero:true,bars:true});
+    if(ici.domestic_equity) addP('ICI 米国株ファンドフロー','週次',wk,ici.domestic_equity.slice(-26).map(v=>v==null?null:v*1e6),{fmt:fmtUSD,zero:true,bars:true});
+    if(ici.bond) addP('ICI 債券ファンドフロー','週次',wk,ici.bond.slice(-26).map(v=>v==null?null:v*1e6),{fmt:fmtUSD,zero:true,bars:true}); }
+  if(mmf&&mmf.weeks){ const wk=mmf.weeks.slice(-26); const ta=mmf.total_assets.slice(-26); const ch=ta.map((v,i)=> (i&&v!=null&&ta[i-1]!=null)? (v-ta[i-1])*1e6 : null); addP('MMF 残高 週間変化','ICI、週次。流入＝現金退避'+srcBadge('ici_mmf'),wk,ch,{fmt:fmtUSD,zero:true,bars:true}); addP('MMF 残高','ICI、週次',wk,ta.map(v=>v==null?null:v*1e6),{fmt:v=>fmtUSDabs(v)}); }
+  if(M.margin&&M.margin.months){ addP('FINRA Margin Debt','月次、信用買い残高'+srcBadge('margin'),M.margin.months.map(m=>m+'-01'),M.margin.debit.map(v=>v==null?null:v*1e6),{fmt:v=>fmtUSDabs(v)}); }
+  if(M.cot&&M.cot.dates){ const dts=M.cot.dates.slice(-52); addP('CFTC Asset Manager ネット','E-mini S&P 500、枚（週次）'+srcBadge('cot'),dts,M.cot.asset_mgr_net.slice(-52),{fmt:v=>(v>0?'+':'')+(v/1000).toFixed(0)+'k',zero:true}); addP('CFTC Leveraged Funds ネット','E-mini S&P 500、枚（週次）',dts,M.cot.lev_money_net.slice(-52),{fmt:v=>(v>0?'+':'')+(v/1000).toFixed(0)+'k',zero:true}); }
+  if(M.aaii&&M.aaii.dates){ const sp=M.aaii.bull.map((b,i)=>(b==null||M.aaii.bear[i]==null)?null:b-M.aaii.bear[i]); addP('AAII 強気 − 弱気','個人投資家センチメント（％pt、週次）'+srcBadge('aaii'),M.aaii.dates,sp,{fmt:v=>(v>0?'+':'')+v.toFixed(1),zero:true,bars:true}); }
+  if(M.fred&&M.fred.fed_assets){ const f=M.fred.fed_assets; const dts=f.dates.slice(-52); const at=(key,d)=>{ const s=M.fred[key]; if(!s) return null; let j=-1; for(let i=0;i<s.dates.length;i++){ if(s.dates[i]<=d) j=i; else break; } return j<0?null:s.values[j]; };
+    const nl=dts.map((d,i)=>{ const a=f.values[f.values.length-dts.length+i], r=at('rrp',d), t=at('tga',d); return (a==null||r==null||t==null)?null:(a-r-t)*1e6; }); addP('FRB ネット流動性','総資産 − RRP − TGA（週次、近似）'+srcBadge('fred'),dts,nl,{fmt:v=>fmtUSDabs(v)}); }
+  if(M.etf_flows&&M.etf_flows.flows&&M.etf_flows.flows.SPY){ addP('SPY フロー推定','Δ発行済口数 × 終値（実験的・蓄積型）'+srcBadge('etf_flows'),M.etf_flows.dates,M.etf_flows.flows.SPY,{fmt:fmtUSD,zero:true,bars:true}); }
+
+  // --- sector ETF cross-check
+  const se=M.sector_etfs||{}; let st=`<tr><th class="t">ETF</th><th class="t">GICS セクター</th><th>1日</th><th>5日</th><th>20日</th><th>本アプリ 推定NF（当日）</th><th>推定NF（5日）</th><th>推定NF（20日）</th><th class="t">ETF 60日</th></tr>`;
+  Object.keys(se).forEach(sym=>{ const S=M.etf.series[sym]; if(!S) return; const c=S.c; const sec=se[sym]; const has=D.sectors[sec]; const r1=pct(c[li],c[li-1]),r5=pct(c[li],c[li-5]),r20=pct(c[li],c[li-20]);
+    st+=`<tr><td class="t"><b>${sym}</b></td><td class="t">${esc(ja(sec))}</td><td class="num ${r1>0?'pos':r1<0?'neg':''}">${fmtPct(r1)}</td><td class="num ${r5>0?'pos':r5<0?'neg':''}">${fmtPct(r5)}</td><td class="num ${r20>0?'pos':r20<0?'neg':''}">${fmtPct(r20)}</td>${has?`<td class="num ${cls(flowOf(sec,1))}">${fmtUSD(flowOf(sec,1))}</td><td class="num ${cls(flowOf(sec,5))}">${fmtUSD(flowOf(sec,5))}</td><td class="num ${cls(flowOf(sec,20))}">${fmtUSD(flowOf(sec,20))}</td>`:'<td colspan="3">—</td>'}<td>${sparkSvg(c.slice(-60))}</td></tr>`; });
+  $('#secEtfTable').innerHTML=st;
+  // --- status line
+  $('#mkStatus').innerHTML=Object.keys(M.status||{}).map(k=>`<span>${k} ${srcBadge(k)}</span>`).join('')+`<span>market.json 生成 ${esc(M.generated_at||'')}</span>`;
+}
+$('#mkPeriodSeg').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; mkPeriod=+b.dataset.p; $('#mkPeriodSeg').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b)); renderMarket(); });
+
+// ---------- stock tab
+let ST=null, stLoading=false, curStock=null;
+async function ensureStocks(){
+  if(ST||stLoading) return; stLoading=true; $('#stockLoad').textContent='銘柄データを読み込み中…';
+  try{ const r=await fetch('data/stocks.json?t='+Date.now(),{cache:'no-store'}); if(!r.ok) throw new Error('HTTP '+r.status); ST=await r.json(); $('#stockLoad').textContent=''; if(curStock) renderStock(curStock); }
+  catch(e){ $('#stockLoad').textContent='個別株の時系列（data/stocks.json）を読み込めませんでした：'+e.message; }
+  stLoading=false;
+}
+function initStockTab(){
+  const dl=$('#stockList'); dl.innerHTML=D.stocks.slice().sort((a,b)=>a.s.localeCompare(b.s)).map(x=>`<option value="${esc(x.s)}">${esc(x.nm)} · ${esc(ja(x.sec))}</option>`).join('');
+  const inp=$('#stockInput');
+  const go=()=>{ const q=inp.value.trim().toUpperCase(); if(!q) return; let hit=D.stocks.find(x=>x.s.toUpperCase()===q)||D.stocks.find(x=>x.s.toUpperCase().startsWith(q))||D.stocks.find(x=>x.nm.toUpperCase().includes(q)); if(hit){ curStock=hit.s; renderStock(hit.s); } };
+  inp.addEventListener('change',go); inp.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); go(); } });
+  const rs=$('#rankSector'); rs.innerHTML='<option value="">全業種</option>'+sectorList().map(s=>`<option value="${esc(s)}">${esc(ja(s))}</option>`).join('');
+  $('#rankMetric').addEventListener('change',renderRank); rs.addEventListener('change',renderRank);
+  renderRank();
+  curStock=D.stocks[0].s; renderStock(curStock);
+}
+function renderStock(sym){
+  const x=D.stocks.find(s=>s.s===sym); if(!x) return; curStock=sym; $('#stockInput').value=sym;
+  const pill=(ok,lab)=> ok==null?'' : `<span class="pill ${ok?'up':'dn'}">${lab} ${ok?'上':'下'}</span>`;
+  $('#stockHead').innerHTML=`<span class="sym">${esc(x.s)}</span><span class="kv"><b>${esc(x.nm)}</b> · ${esc(ja(x.sec))} · ${esc(x.ind||'')}</span>
+    <span class="kv">終値 <b class="num">${x.c.toFixed(2)}</b></span><span class="kv">当日 <b class="num ${x.r>0?'pos':x.r<0?'neg':''}">${fmtPct(x.r)}</b></span><span class="kv">5日 <b class="num ${x.r5>0?'pos':x.r5<0?'neg':''}">${fmtPct(x.r5)}</b></span><span class="kv">20日 <b class="num ${x.r20>0?'pos':x.r20<0?'neg':''}">${fmtPct(x.r20)}</b></span>
+    <span class="kv">対SPY 20日 <b class="num ${x.rs20>0?'pos':x.rs20<0?'neg':''}">${fmtPct(x.rs20)}</b></span><span class="kv">推定NF 当日 <b class="num ${cls(x.nf)}">${fmtUSD(x.nf)}</b> ／ 5日 <b class="num ${cls(x.nf5)}">${fmtUSD(x.nf5)}</b> ／ 20日 <b class="num ${cls(x.nf20)}">${fmtUSD(x.nf20)}</b></span>
+    <span class="kv">出来高比 <b class="num">${x.vr!=null?x.vr.toFixed(2)+'×':'—'}</b></span><span class="kv">52週高値比 <b class="num">${x.hi!=null?fmtPct(x.hi):'—'}</b></span><span class="kv">空売り比率 <b class="num">${x.sr!=null?(x.sr*100).toFixed(1)+'%':'—'}</b></span><span class="kv">時価総額 <b class="num">${x.mc?fmtUSDabs(x.mc):'—'}</b></span>${pill(x.a50,'50日線')}${pill(x.a200,'200日線')}`;
+  if(!ST){ $('#stockChart').innerHTML='<div class="loading" style="padding:30px 0">時系列を読み込み中…</div>'; $('#stockRel').innerHTML=''; return; }
+  const S=ST.series[sym]; if(!S){ $('#stockChart').innerHTML='<div class="loading">時系列なし</div>'; return; }
+  const dates=ST.dates, n=dates.length;
+  // price + MAs + nf bars
+  const W=620,H=280,pad={l:56,r:14,t:10,b:26},barH=70; const lineTop=pad.t, lineBot=H-pad.b-barH-12;
+  const allv=[...S.c,...S.m50,...S.m200].filter(v=>v!=null); const mn=Math.min(...allv),mx=Math.max(...allv);
+  const bw=(W-pad.l-pad.r)/n, sx=i=>pad.l+i*bw+bw/2, sy=v=>lineTop+(mx-v)/((mx-mn)||1)*(lineBot-lineTop);
+  const maxBar=Math.max(1,...S.nf.map(v=>Math.abs(v||0))); const by0=H-pad.b-barH/2, byh=v=>Math.abs(v)/maxBar*(barH/2);
+  let g=`<svg viewBox="0 0 ${W} ${H}" role="img">`;
+  const ty=niceTick(mx-mn||1,4); for(let v=Math.ceil(mn/ty)*ty; v<=mx; v+=ty){ g+=`<line class="grid" x1="${pad.l}" x2="${W-pad.r}" y1="${sy(v)}" y2="${sy(v)}"/><text class="n" x="${pad.l-6}" y="${sy(v)+4}" text-anchor="end" font-size="10.5">${v.toFixed(v<10?2:0)}</text>`; }
+  const path=(arr,col,w,dash)=>{ const idx=arr.map((v,i)=>v==null?null:i).filter(i=>i!=null); if(idx.length<2) return ''; return `<path d="${idx.map((i,k)=>(k?'L':'M')+sx(i).toFixed(1)+' '+sy(arr[i]).toFixed(1)).join(' ')}" fill="none" stroke="${col}" stroke-width="${w}" ${dash?'stroke-dasharray="4 3"':''} stroke-linejoin="round"/>`; };
+  g+=path(S.m200,'var(--ink-3)',1.2,true)+path(S.m50,'var(--accent)',1.2,true)+path(S.c,'var(--ink)',1.8);
+  g+=`<line class="axis" x1="${pad.l}" x2="${W-pad.r}" y1="${by0}" y2="${by0}"/>`;
+  S.nf.forEach((v,i)=>{ if(v==null) return; const h=byh(v); g+=`<rect x="${pad.l+i*bw+1}" y="${v>=0?by0-h:by0}" width="${Math.max(1,bw-2)}" height="${h}" fill="${v>=0?'var(--in)':'var(--out)'}"/>`; });
+  for(let i=0;i<n;i+=10){ g+=`<text class="n" x="${sx(i)}" y="${H-8}" text-anchor="middle" font-size="10">${fmtDate(dates[i])}</text>`; }
+  g+=`<text x="${pad.l}" y="${by0-barH/2-3}" font-size="10.5">推定ネットフロー（日次）</text><text x="${W-pad.r}" y="${pad.t+10}" text-anchor="end" font-size="10.5"><tspan fill="var(--ink)">— 終値</tspan>　<tspan fill="var(--accent)">- - 50日</tspan>　<tspan fill="var(--ink-3)">- - 200日</tspan></text>`;
+  g+=`<g class="hov">`+dates.map((d,i)=>`<rect data-i="${i}" x="${pad.l+i*bw}" y="${pad.t}" width="${bw}" height="${H-pad.t-pad.b}" fill="transparent"/>`).join('')+`</g></svg>`;
+  $('#stockChart').innerHTML=g;
+  $('#stockChart').querySelectorAll('.hov rect').forEach(r=>{ const i=+r.dataset.i; bindTip(r,()=>`<b>${esc(dates[i])}</b><br>終値 ${S.c[i]??'—'}　出来高 ${S.v[i]!=null?S.v[i].toLocaleString():'—'}<br>推定NF ${fmtUSD(S.nf[i])}<br>空売り比率 ${S.sr[i]!=null?(S.sr[i]*100).toFixed(1)+'%':'—'}`); });
+  // relative to SPY + short ratio
+  const spy=ST.spy&&ST.spy.c; let rel=null;
+  if(spy){ const i0=S.c.findIndex((v,i)=>v!=null&&spy[i]!=null); if(i0>=0){ rel=S.c.map((v,i)=>(v==null||spy[i]==null)?null:(v/S.c[i0])/(spy[i]/spy[i0])*100); } }
+  const R=$('#stockRel'); R.innerHTML='<div class="sm"><div class="card"><div class="t"><b>対 SPY 相対（起点=100）</b><span class="num" id="relLast"></span></div><div class="ch" id="relCh"></div></div><div class="card"><div class="t"><b>空売り比率（FINRA 取引所外）</b><span class="num" id="srLast"></span></div><div class="ch" id="srCh"></div></div></div>';
+  if(rel){ lineChart($('#relCh'),dates,rel,{fmt:v=>v.toFixed(1)}); const lv=rel.filter(v=>v!=null).slice(-1)[0]; $('#relLast').textContent=lv?lv.toFixed(1):'—'; } else $('#relCh').innerHTML='<div class="d">SPY データなし</div>';
+  if(S.sr.some(v=>v!=null)){ lineChart($('#srCh'),dates,S.sr,{fmt:v=>(v*100).toFixed(1)+'%',invert:true}); const lv=S.sr.filter(v=>v!=null).slice(-1)[0]; $('#srLast').textContent=lv!=null?(lv*100).toFixed(1)+'%':'—'; } else $('#srCh').innerHTML='<div class="d">空売りデータなし（パイプライン初回実行後に蓄積）</div>';
+}
+function renderRank(){
+  const m=$('#rankMetric').value, sec=$('#rankSector').value;
+  const fmtM={nf:fmtUSD,nf5:fmtUSD,nf20:fmtUSD,vr:v=>v.toFixed(2)+'×',rs20:fmtPct,sr:v=>(v*100).toFixed(1)+'%',r:fmtPct}[m];
+  const label=$('#rankMetric').selectedOptions[0].textContent;
+  let rows=D.stocks.filter(x=>x[m]!=null&&(!sec||x.sec===sec));
+  const top=rows.slice().sort((a,b)=>b[m]-a[m]).slice(0,15), bot=rows.slice().sort((a,b)=>a[m]-b[m]).slice(0,15);
+  $('#rankTopHead').textContent=`${label} 上位`; $('#rankBotHead').textContent=`${label} 下位`;
+  const extra = m!=='nf';
+  const head=`<tr><th class="t">銘柄</th><th class="t">業種</th><th>${label}</th><th>終値</th><th>当日</th>${extra?'<th>推定NF 当日</th>':''}</tr>`;
+  const row=x=>`<tr class="clickable" data-s="${esc(x.s)}"><td class="t"><b>${esc(x.s)}</b><span class="nm">${esc(x.nm)}</span></td><td class="t" style="font-size:11.5px">${esc(ja(x.sec))}</td><td class="num ${['nf','nf5','nf20','rs20','r'].includes(m)?cls(x[m]):''}">${fmtM(x[m])}</td><td class="num">${x.c.toFixed(2)}</td><td class="num ${x.r>0?'pos':x.r<0?'neg':''}">${fmtPct(x.r)}</td>${extra?`<td class="num ${cls(x.nf)}">${fmtUSD(x.nf)}</td>`:''}</tr>`;
+  $('#rankTop').innerHTML=head+top.map(row).join(''); $('#rankBot').innerHTML=head+bot.map(row).join('');
+  document.querySelectorAll('#rankTop tr.clickable,#rankBot tr.clickable').forEach(tr=>tr.addEventListener('click',()=>{ renderStock(tr.dataset.s); window.scrollTo({top:0,behavior:'smooth'}); }));
+}
+
 async function load(){
   try{
     if(window.__DATA__){ D=window.__DATA__; }
@@ -470,7 +850,11 @@ async function load(){
       D=await r.json();
     }
     if(!D||!D.sectors||!D.dates||!D.dates.length) throw new Error('データ形式が不正です');
+    try{ const r2=await fetch('data/market.json?t='+Date.now(),{cache:'no-store'}); if(r2.ok) M=await r2.json(); }catch(e){ M=null; }
     renderAll();
+    try{ renderMarket(); }catch(e){ console.error(e); $('#tab-market').insertAdjacentHTML('afterbegin',`<div class="err">市場全体タブの描画でエラー：${esc(e.message)}</div>`); }
+    try{ initStockTab(); }catch(e){ console.error(e); }
+    const h=(location.hash||'').replace('#',''); setTab(['market','sector','stock'].includes(h)?h:'market', false);
   }catch(e){
     $('#loading').hidden=true;
     $('#msg').innerHTML=`<div class="err"><b>データを読み込めませんでした</b>（${esc(e.message)}）。GitHub Actions の「Update sector flow data」がまだ一度も成功していないか、data/latest.json が存在しません。リポジトリの Actions タブから手動実行（Run workflow）してください。</div>`;
