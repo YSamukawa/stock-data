@@ -217,7 +217,16 @@ def compute(cons: pd.DataFrame, cache: dict, px: pd.DataFrame, short_hist: dict 
     px = px.dropna(subset=["prev_close"])
     px["ret"] = px["close"] / px["prev_close"] - 1.0
     px["dv"] = px["close"] * px["volume"].fillna(0)                  # dollar volume
-    px["nf"] = np.sign(px["close"] - px["prev_close"]) * px["dv"]     # estimated net flow
+    px["nf"] = np.sign(px["close"] - px["prev_close"]) * px["dv"]     # estimated net flow (sign definition)
+    # Close Location Value: +1 = closed at the high, -1 = closed at the low (Chaikin)
+    rng = (px["high"] - px["low"])
+    px["clv"] = np.where(rng > 0, ((px["close"] - px["low"]) - (px["high"] - px["close"])) / rng.replace(0, np.nan), 0.0)
+    px["clv"] = px["clv"].fillna(0.0)
+    px["nf_clv"] = px["clv"] * px["dv"]                                 # CLV-weighted flow (second estimate)
+    px["tp"] = (px["high"] + px["low"] + px["close"]) / 3.0             # typical price for MFI
+    px["prev_tp"] = px.groupby("symbol")["tp"].shift(1)
+    px["mf_pos"] = np.where(px["tp"] > px["prev_tp"], px["tp"] * px["volume"].fillna(0), 0.0)
+    px["mf_neg"] = np.where(px["tp"] < px["prev_tp"], px["tp"] * px["volume"].fillna(0), 0.0)
 
     def sector_of(sym):
         g = meta.loc[sym, "gics_sector"] if sym in meta.index else None
@@ -265,6 +274,15 @@ def compute(cons: pd.DataFrame, cache: dict, px: pd.DataFrame, short_hist: dict 
     g = p.groupby(["sector", "date"])
     agg = pd.DataFrame({
         "nf": g["nf"].sum(),
+        "nf_clv": g["nf_clv"].sum(),
+        "mf_pos": g["mf_pos"].sum(),
+        "mf_neg": g["mf_neg"].sum(),
+        "vol": g["volume"].sum(),
+        "clv_vol": g.apply(lambda d: float((d["clv"] * d["volume"].fillna(0)).sum())),
+        "p50": g.apply(lambda d: float((d["close"] > d["ma50"]).sum() / max(1, d["ma50"].notna().sum()))),
+        "p200": g.apply(lambda d: float((d["close"] > d["ma200"]).sum() / max(1, d["ma200"].notna().sum()))),
+        "nh": g.apply(lambda d: int((d["close"] >= d["hi252"]).sum())),
+        "nl": g.apply(lambda d: int((d["close"] <= d["lo252"]).sum())),
         "dv": g["dv"].sum(),
         "mcap": g["mcap"].sum(min_count=1),
         "adv": g["ret"].apply(lambda r: int((r > 0).sum())),
@@ -276,9 +294,20 @@ def compute(cons: pd.DataFrame, cache: dict, px: pd.DataFrame, short_hist: dict 
     }).reset_index()
 
     # 20-day average dollar volume per sector (over full history, not just window)
-    full = px.groupby(["sector", "date"])["dv"].sum().reset_index().sort_values(["sector", "date"])
-    full["dv20"] = full.groupby("sector")["dv"].transform(lambda s: s.rolling(20, min_periods=5).mean())
-    agg = agg.merge(full[["sector", "date", "dv20"]], on=["sector", "date"], how="left")
+    gf = px.groupby(["sector", "date"])
+    full = pd.DataFrame({"dv": gf["dv"].sum(), "vol": gf["volume"].sum(),
+                         "clv_vol": gf.apply(lambda d: float((d["clv"] * d["volume"].fillna(0)).sum())),
+                         "mf_pos": gf["mf_pos"].sum(), "mf_neg": gf["mf_neg"].sum()}).reset_index().sort_values(["sector", "date"])
+    fg = full.groupby("sector")
+    full["dv20"] = fg["dv"].transform(lambda s: s.rolling(20, min_periods=5).mean())
+    # Chaikin Money Flow (20d): sum(CLV*vol) / sum(vol)
+    full["cmf20"] = fg["clv_vol"].transform(lambda s: s.rolling(20, min_periods=10).sum()) / \
+                    fg["vol"].transform(lambda s: s.rolling(20, min_periods=10).sum())
+    # Money Flow Index (14d): 100 - 100/(1 + pos/neg)
+    pos14 = fg["mf_pos"].transform(lambda s: s.rolling(14, min_periods=7).sum())
+    neg14 = fg["mf_neg"].transform(lambda s: s.rolling(14, min_periods=7).sum())
+    full["mfi14"] = 100 - 100 / (1 + pos14 / neg14.replace(0, np.nan))
+    agg = agg.merge(full[["sector", "date", "dv20", "cmf20", "mfi14"]], on=["sector", "date"], how="left")
 
     sectors_out = {}
     for s in SECTOR_ORDER + (["Other"] if (agg["sector"] == "Other").any() else []):
@@ -294,6 +323,14 @@ def compute(cons: pd.DataFrame, cache: dict, px: pd.DataFrame, short_hist: dict 
             "ret": [None if pd.isna(v) else round(float(v), 5) for v in a["ret"]],
             "adv": [None if pd.isna(v) else int(v) for v in a["adv"]],
             "dec": [None if pd.isna(v) else int(v) for v in a["dec"]],
+            # second flow estimate + oscillators + sector breadth
+            "nf_clv": [None if pd.isna(v) else round(float(v)) for v in a["nf_clv"]],
+            "cmf20": [None if pd.isna(v) else round(float(v), 4) for v in a["cmf20"]],
+            "mfi14": [None if pd.isna(v) else round(float(v), 1) for v in a["mfi14"]],
+            "p50": [None if pd.isna(v) else round(float(v), 4) for v in a["p50"]],
+            "p200": [None if pd.isna(v) else round(float(v), 4) for v in a["p200"]],
+            "nh": [None if pd.isna(v) else int(v) for v in a["nh"]],
+            "nl": [None if pd.isna(v) else int(v) for v in a["nl"]],
         }
 
     # sector short-volume ratio (dollar-weighted mean of per-stock ratio)
@@ -328,6 +365,32 @@ def compute(cons: pd.DataFrame, cache: dict, px: pd.DataFrame, short_hist: dict 
         sc = spy.set_index("date")["close"].reindex(dates_all).ffill()
         spy_ret5 = float(sc.iloc[-1] / sc.iloc[-6] - 1)
         spy_ret20 = float(sc.iloc[-1] / sc.iloc[-21] - 1)
+
+    # sub-industry (GICS Sub-Industry) snapshot: flows over 1/5/20 days, cap-weighted 20d return
+    px["sub"] = px["symbol"].map(lambda s: meta.loc[s, "gics_sub"] if s in meta.index else None)
+    p_sub = p[p["symbol"].map(lambda s: s in meta.index)].copy()
+    p_sub["sub"] = p_sub["symbol"].map(lambda s: meta.loc[s, "gics_sub"])
+    lastd = dates[-1]
+    subs = []
+    for (sec_name, sub_name), d in p_sub.groupby(["sector", "sub"]):
+        dl = d[d["date"] == lastd]
+        if dl.empty:
+            continue
+        w = dl["mcap"].fillna(0)
+        r20 = float(np.average(dl["ret20"].fillna(0), weights=w)) if w.sum() > 0 else float(dl["ret20"].mean())
+        r1 = float(np.average(dl["ret"].fillna(0), weights=w)) if w.sum() > 0 else float(dl["ret"].mean())
+        subs.append({
+            "sub": sub_name, "sec": sec_name, "n": int(dl["symbol"].nunique()),
+            "nf1": round(float(d[d["date"].isin(dates[-1:])]["nf"].sum())),
+            "nf5": round(float(d[d["date"].isin(dates[-5:])]["nf"].sum())),
+            "nf20": round(float(d[d["date"].isin(dates[-20:])]["nf"].sum())),
+            "clv20": round(float(d[d["date"].isin(dates[-20:])]["nf_clv"].sum())),
+            "dv": round(float(dl["dv"].sum())),
+            "mc": None if w.sum() == 0 else round(float(w.sum())),
+            "r1": round(r1, 5), "r20": round(r20, 5),
+            "p50": round(float((dl["close"] > dl["ma50"]).sum() / max(1, dl["ma50"].notna().sum())), 3),
+            "syms": list(dl.sort_values("dv", ascending=False)["symbol"].map(lambda s: meta.loc[s, "symbol"]).head(6)),
+        })
 
     # per-stock rows for the latest date (for drill-down)
     last = dates[-1]
@@ -392,6 +455,7 @@ def compute(cons: pd.DataFrame, cache: dict, px: pd.DataFrame, short_hist: dict 
         "dates": dates,
         "sectors": sectors_out,
         "breadth": breadth_out,
+        "subind": subs,
         "spy": {"ret5": spy_ret5, "ret20": spy_ret20},
         "stocks": stocks,
         "meta": {
@@ -406,6 +470,7 @@ def compute(cons: pd.DataFrame, cache: dict, px: pd.DataFrame, short_hist: dict 
             "n_shares_from_yahoo": n_shares,
             "n_shares_missing": int(px["symbol"].nunique()) - n_shares,
             "flow_definition": "sign(close - prev_close) * close * volume, summed per sector (estimate)",
+            "flow_definition_clv": "CLV * close * volume, CLV = ((close-low)-(high-close))/(high-low); cmf20 = sum(CLV*vol)/sum(vol) over 20d; mfi14 = Money Flow Index 14d on sector-aggregated typical-price flows",
             "price_source": "Yahoo Finance via yfinance",
             "short_volume_source": "FINRA Reg SHO daily consolidated NMS short sale volume (off-exchange only)" if short_hist else None,
             "n_short_symbols": sum(1 for d in short_hist.values() if d.get(last)) if short_hist else 0,

@@ -30,7 +30,9 @@ UA = {"User-Agent": "Mozilla/5.0 (compatible; sector-flow-monitor/1.0; +https://
 DAYS = 130   # trading days of daily series kept
 
 ETFS = ["SPY", "QQQ", "IWM", "RSP", "HYG", "LQD", "TLT", "GLD", "UUP", "^VIX", "^VIX3M",
-        "^SKEW", "^VVIX", "JPY=X", "CL=F", "HG=F"]   # + options gauges, USD/JPY, WTI crude, copper (continuous futures)
+        "^SKEW", "^VVIX", "JPY=X", "CL=F", "HG=F",   # + options gauges, USD/JPY, WTI crude, copper (continuous futures)
+        "IWF", "IWD", "MTUM", "QUAL", "USMV", "SPHB", "SPLV",   # factors: growth, value, momentum, quality, min-vol, high beta, low vol
+        "EFA", "EEM", "EWJ"]                                     # regions: developed ex-US, emerging, Japan
 SECTOR_ETFS = {"XLK": "Information Technology", "XLV": "Health Care", "XLF": "Financials",
                "XLY": "Consumer Discretionary", "XLC": "Communication Services", "XLI": "Industrials",
                "XLP": "Consumer Staples", "XLE": "Energy", "XLB": "Materials", "XLRE": "Real Estate",
