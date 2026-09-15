@@ -123,6 +123,10 @@ nav.tabs button{background:transparent;border:0;border-bottom:2px solid transpar
 nav.tabs button[aria-pressed="true"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
 nav.tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
 .tab[hidden]{display:none}
+.brief{border-left:3px solid var(--accent);background:var(--surface);border:1px solid var(--line);border-left-width:3px;border-radius:0 6px 6px 0;padding:10px 14px;margin-bottom:14px;font-size:13.5px;line-height:1.7}
+.brief b{font-weight:600}
+.h3s{font-size:12.5px;color:var(--ink-2);margin:0 0 6px;font-weight:600}
+.brief .d{font-size:11px;color:var(--ink-3);margin-top:2px}
 /* market */
 .meter{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 4px}
 .chip{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:4px;border:1px solid var(--line-2);font-size:12px;background:var(--surface)}
@@ -170,6 +174,7 @@ nav.tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:-2p
 
     <!-- ===================== 市場全体 ===================== -->
     <div id="tab-market" class="tab" hidden>
+      <div class="brief" id="briefMarket"></div>
       <section class="kpis" id="mkKpis"></section>
 
       <section class="panel raised" style="margin-bottom:16px">
@@ -241,6 +246,7 @@ nav.tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:-2p
 
     <!-- ===================== 業種別 ===================== -->
     <div id="tab-sector" class="tab">
+    <div class="brief" id="briefSector"></div>
     <section class="kpis" id="kpis"></section>
 
     <div class="grid">
@@ -329,6 +335,14 @@ nav.tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:-2p
       <div class="tables"><div><h3 id="subTopHead">上位</h3><div style="overflow-x:auto"><table id="subTop"></table></div></div><div><h3 id="subBotHead">下位</h3><div style="overflow-x:auto"><table id="subBot"></table></div></div></div>
     </section>
 
+    <section class="panel" style="margin-bottom:16px">
+      <div class="ph"><h2 id="subDetailTitle">サブ産業詳細</h2><select id="subDetailSel" aria-label="サブ産業を選択"></select><span class="sub" id="subDetailSub"></span></div>
+      <div class="detail-grid">
+        <div><h3 class="h3s">累積推定ネットフロー（60日）と日次バー（構成銘柄の合計）</h3><div id="subCum"></div></div>
+        <div><h3 class="h3s">構成銘柄（推定NF 当日の順）</h3><div style="overflow-x:auto"><table id="subMembers"></table></div></div>
+      </div>
+    </section>
+
     <section class="panel note">
       <h2>指標の定義とデータの出所</h2>
       <p><span class="fact">推定</span>本ページの「資金フロー」は実際のファンド資金流出入ではなく、株価と出来高から推定した近似値です。定義：<span class="mono">推定ネットフロー = sign(終値 − 前日終値) × 終値 × 出来高</span> を銘柄ごとに求め、業種ごとに合計しています。上昇日は売買代金の全額を流入、下落日は全額を流出とみなす単純化であり、実際の買い・売りの内訳は反映していません。</p>
@@ -350,6 +364,7 @@ nav.tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:-2p
 
     <!-- ===================== 個別株 ===================== -->
     <div id="tab-stock" class="tab" hidden>
+      <div class="brief" id="briefStock"></div>
       <section class="panel raised" style="margin-bottom:16px">
         <div class="ph"><h2>個別株</h2>
           <div class="search"><input id="stockInput" list="stockList" placeholder="ティッカーまたは社名で検索（例：NVDA）" autocomplete="off" aria-label="銘柄検索"><datalist id="stockList"></datalist><span class="sub" id="stockLoad"></span></div>
@@ -628,7 +643,7 @@ function renderDetail(){
 function bindControls(){
   $('#periodSeg').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; period=+b.dataset.p; $('#periodSeg').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b)); renderFlow(); renderDetail(); });
   $('#unitSeg').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; unit=b.dataset.u; $('#unitSeg').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b)); renderFlow(); });
-  $('#defSeg').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; flowKey=b.dataset.d; $('#defSeg').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b)); renderFlow(); renderRot(); renderHeat(); });
+  $('#defSeg').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; flowKey=b.dataset.d; $('#defSeg').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b)); renderFlow(); renderRot(); renderHeat(); briefSector(); });
   const sel=$('#sectorSel'); sel.innerHTML=sectorList().map(s=>`<option value="${esc(s)}">${esc(ja(s))} (${esc(s)})</option>`).join('');
   sel.addEventListener('change',()=>{ selSector=sel.value; renderFlow(); renderDetail(); });
 }
@@ -638,7 +653,7 @@ function renderAll(){
   // default detail: sector with the largest absolute 1-day flow
   selSector = sectorList().sort((a,b)=>Math.abs(flowOf(b,1))-Math.abs(flowOf(a,1)))[0];
   bindControls(); $('#sectorSel').value=selSector;
-  renderHeader(); renderFlow(); renderRot(); renderHeat(); renderDetail(); renderQuality(); initSubind();
+  renderHeader(); renderFlow(); renderRot(); renderHeat(); renderDetail(); renderQuality(); initSubind(); try{ initSubDetail(); }catch(e){ console.error(e); }
 }
 
 // =====================================================================
@@ -849,6 +864,7 @@ function renderMarket(){
     st+=`<tr><td class="t"><b>${sym}</b></td><td class="t">${esc(ja(sec))}</td><td class="num ${r1>0?'pos':r1<0?'neg':''}">${fmtPct(r1)}</td><td class="num ${r5>0?'pos':r5<0?'neg':''}">${fmtPct(r5)}</td><td class="num ${r20>0?'pos':r20<0?'neg':''}">${fmtPct(r20)}</td>${has?`<td class="num ${cls(flowOf(sec,1))}">${fmtUSD(flowOf(sec,1))}</td><td class="num ${cls(flowOf(sec,5))}">${fmtUSD(flowOf(sec,5))}</td><td class="num ${cls(flowOf(sec,20))}">${fmtUSD(flowOf(sec,20))}</td>`:'<td colspan="3">—</td>'}<td>${sparkSvg(c.slice(-60))}</td></tr>`; });
   $('#secEtfTable').innerHTML=st;
   renderFactors();
+  try{ briefMarket(); }catch(e){ console.error(e); }
   // --- status line
   $('#mkStatus').innerHTML=Object.keys(M.status||{}).map(k=>`<span>${k} ${srcBadge(k)}</span>`).join('')+`<span>market.json 生成 ${esc(M.generated_at||'')}</span>`;
 }
@@ -950,8 +966,9 @@ function renderSubind(){
   const top=rows.slice().sort((a,b)=>b[m]-a[m]).slice(0,15), bot=rows.slice().sort((a,b)=>a[m]-b[m]).slice(0,15);
   $('#subTopHead').textContent=`${label} 上位`; $('#subBotHead').textContent=`${label} 下位`;
   const head=`<tr><th class="t">サブ産業</th><th class="t">セクター</th><th>${label}</th><th>銘柄数</th><th>20日騰落</th><th>推定NF 20日</th><th class="t">主な銘柄</th></tr>`;
-  const row=x=>`<tr><td class="t"><b>${esc(x.sub)}</b></td><td class="t" style="font-size:11.5px">${esc(ja(x.sec))}</td><td class="num ${['nf1','nf5','nf20','clv20','r20'].includes(m)?cls(x[m]):''}">${f(x[m])}</td><td class="num">${x.n}</td><td class="num ${x.r20>0?'pos':x.r20<0?'neg':''}">${fmtPct(x.r20)}</td><td class="num ${cls(x.nf20)}">${fmtUSD(x.nf20)}</td><td class="t" style="font-size:11px;color:var(--ink-3)">${x.syms.map(esc).join(' ')}</td></tr>`;
+  const row=x=>`<tr class="clickable" data-sub="${esc(x.sub)}"><td class="t"><b>${esc(x.sub)}</b></td><td class="t" style="font-size:11.5px">${esc(ja(x.sec))}</td><td class="num ${['nf1','nf5','nf20','clv20','r20'].includes(m)?cls(x[m]):''}">${f(x[m])}</td><td class="num">${x.n}</td><td class="num ${x.r20>0?'pos':x.r20<0?'neg':''}">${fmtPct(x.r20)}</td><td class="num ${cls(x.nf20)}">${fmtUSD(x.nf20)}</td><td class="t" style="font-size:11px;color:var(--ink-3)">${x.syms.map(esc).join(' ')}</td></tr>`;
   $('#subTop').innerHTML=head+top.map(row).join(''); $('#subBot').innerHTML=head+bot.map(row).join('');
+  document.querySelectorAll('#subTop tr.clickable,#subBot tr.clickable').forEach(tr=>tr.addEventListener('click',()=>{ selSub=tr.dataset.sub; const sel=$('#subDetailSel'); if(sel) sel.value=selSub; renderSubDetail(); $('#subDetailTitle').scrollIntoView({behavior:'smooth',block:'start'}); }));
 }
 
 // ---------- v1.4: RRG-style rotation + cyclical/defensive (needs market.json)
@@ -1010,6 +1027,91 @@ function renderFactors(){
   add('日本 ÷ SPY','EWJ / SPY（ドル建て）',ratioSeries('EWJ','SPY'));
 }
 
+// ---------- v1.6: auto commentary (rule based, deterministic — not advice)
+function topN(arr,key,n,desc=true){ return arr.filter(x=>x[key]!=null).sort((a,b)=>desc?b[key]-a[key]:a[key]-b[key]).slice(0,n); }
+function joinJa(a){ return a.join('・'); }
+function briefSector(){
+  const el=$('#briefSector'); if(!el) return; const secs=sectorList(); const li=lastIdx();
+  const rows=secs.map(s=>({s,f1:flowOf(s,1),b1:bpOf(s,1),f20:flowOf(s,20),b20:bpOf(s,20),f5:flowOf(s,5)}));
+  const inN=rows.filter(r=>r.f1>0).length; const top1=topN(rows,'b1',2), bot1=topN(rows,'b1',2,false); const top20=topN(rows,'b20',2), bot20=topN(rows,'b20',2,false);
+  const cont=rows.filter(r=>r.f5>0&&r.f20>0), turnIn=rows.filter(r=>r.f5>0&&r.f20<=0), turnOut=rows.filter(r=>r.f5<0&&r.f20>=0);
+  let t=`<b>${fmtDate(D.dates[li])}</b>：当日は 11 セクター中 <b>${inN}</b> が流入。流入が大きいのは <b>${joinJa(top1.map(r=>ja(r.s)+'（'+fmtUSD(r.f1)+'）'))}</b>、流出は <b>${joinJa(bot1.map(r=>ja(r.s)+'（'+fmtUSD(r.f1)+'）'))}</b>。`;
+  t+=`20日累計では <b>${joinJa(top20.map(r=>ja(r.s)))}</b> に流入、<b>${joinJa(bot20.map(r=>ja(r.s)))}</b> から流出。`;
+  if(turnIn.length) t+=`直近5日で流入に転換：${joinJa(turnIn.map(r=>ja(r.s)))}。`; if(turnOut.length) t+=`流出に転換：${joinJa(turnOut.map(r=>ja(r.s)))}。`;
+  // RRG leaders
+  if(M&&M.etf){ try{ const se=M.sector_etfs||{}; const dates=M.etf.dates, n=dates.length, l=n-1; const sma=(arr,i,w)=>{let s=0,c=0;for(let k=i-w+1;k<=i;k++){if(k<0||arr[k]==null)return null;s+=arr[k];c++;}return s/c;}; const lead=[],lag=[];
+    Object.keys(se).forEach(sym=>{ const rs=ratioSeries(sym,'SPY'); if(!rs) return; const ratio=rs.map((v,i)=>{const m=sma(rs,i,50);return (v==null||m==null)?null:100*v/m;}); const mom=ratio.map((v,i)=>{const m=sma(ratio,i,20);return (v==null||m==null)?null:100*v/m;}); if(ratio[l]!=null&&mom[l]!=null){ if(ratio[l]>=100&&mom[l]>=100) lead.push(ja(se[sym])); else if(ratio[l]<100&&mom[l]<100) lag.push(ja(se[sym])); } });
+    if(lead.length||lag.length) t+=`価格の相対強度（RRG）では ${lead.length?'<b>'+joinJa(lead)+'</b> が主導象限':''}${lead.length&&lag.length?'、':''}${lag.length?'<b>'+joinJa(lag)+'</b> が劣後象限':''}。`; }catch(e){} }
+  // quality agreement
+  const agree=secs.filter(s=>{ const S=D.sectors[s]; const a=sumLast(S.nf,20), b=S.nf_clv?sumLast(S.nf_clv,20):0, c=S.cmf20?S.cmf20[li]:0; return a>0&&b>0&&c>0; });
+  if(agree.length) t+=`符号・CLV加重・CMF の3指標がそろって流入を示すのは ${joinJa(agree.map(ja))}。`;
+  el.innerHTML=t+`<div class="d">推定フロー（株価×出来高からの近似）に基づく自動生成の要約。投資助言ではありません</div>`;
+}
+function briefMarket(){
+  const el=$('#briefMarket'); if(!el) return; if(!M||!M.etf){ el.innerHTML='市場全体データの取得待ちです。'; return; }
+  const dates=M.etf.dates, li=dates.length-1; const spy=etfSeries('SPY'); const r1=pct(spy[li],spy[li-1]), r5=pct(spy[li],spy[li-5]), r20=pct(spy[li],spy[li-20]);
+  const vix=etfSeries('^VIX'); const hy=alignFred('hy_oas'); const vr=ratioSeries('^VIX','^VIX3M');
+  // meter counts for 1d
+  const adv=breadthAligned('adv'), dec=breadthAligned('dec'), up=breadthAligned('upvol'), dn=breadthAligned('downvol'), p50=breadthAligned('pct50');
+  const inds=[['RSP/SPY',ratioSeries('RSP','SPY'),false],['IWM/SPY',ratioSeries('IWM','SPY'),false],['HYG/LQD',ratioSeries('HYG','LQD'),false],['HY OAS',hy,true],['VIX/VIX3M',vr,true],['実質金利',alignFred('dfii10'),true],['ドル',etfSeries('UUP'),true],['銅/金',ratioSeries('HG=F','GLD'),false]];
+  let on=0,off=0,onL=[],offL=[]; inds.forEach(([k,s,inv])=>{ if(!s||s[li]==null||s[li-1]==null) return; const d=s[li]-s[li-1]; if(d===0) return; const ro=inv?d<0:d>0; if(ro){on++;onL.push(k);} else {off++;offL.push(k);} });
+  if(adv&&dec&&adv[li]!=null){ const ro=adv[li]>dec[li]; ro?(on++,onL.push('A/D')):(off++,offL.push('A/D')); } if(up&&dn&&up[li]!=null){ const ro=up[li]>dn[li]; ro?(on++,onL.push('Up/Down Vol')):(off++,offL.push('Up/Down Vol')); }
+  let t=`<b>${fmtDate(dates[li])}</b>：SPY は当日 <b class="${cls(r1)}">${fmtPct(r1)}</b>（5日 ${fmtPct(r5)}、20日 ${fmtPct(r20)}）。内部指標は Risk-on <b>${on}</b> ／ Risk-off <b>${off}</b>`;
+  if(off>=6&&r1>0) t+=`で、指数上昇と内部の弱さが食い違うダイバージェンス`; else if(on>=6&&r1<0) t+=`で、指数下落に対し内部は底堅い`; t+=`（Risk-off 側：${offL.length?offL.join('、'):'なし'}）。`;
+  if(vix&&vix[li]!=null) t+=`VIX ${vix[li].toFixed(1)}（前日比 ${(vix[li]-vix[li-1]>=0?'+':'')+(vix[li]-vix[li-1]).toFixed(1)}）${vr&&vr[li]!=null?`、期間構造 ${vr[li].toFixed(2)}${vr[li]>1?'＝短期の警戒が強い':''}`:''}。`;
+  if(hy&&hy[li]!=null){ const d5=hy[li-5]!=null?hy[li]-hy[li-5]:null; t+=`HY スプレッド ${hy[li].toFixed(2)}%${d5!=null?`（5日で ${(d5>=0?'+':'')+d5.toFixed(2)}pt、${d5>0.1?'拡大＝信用市場に警戒':d5<-0.1?'縮小＝リスク選好':'横ばい'}）`:''}。`; }
+  if(p50&&p50[li]!=null) t+=`S&P 500 の 50日線上回り比率は ${(p50[li]*100).toFixed(0)}%。`;
+  const ici=M.ici_flows, mmf=M.ici_mmf; if(ici&&ici.equity&&ici.equity.length){ const v=ici.equity[ici.equity.length-1]; const b=ici.bond?ici.bond[ici.bond.length-1]:null; t+=`ICI 週次（${ici.weeks[ici.weeks.length-1]} 週）：株式ファンド ${fmtUSD(v*1e6)}${b!=null?`、債券 ${fmtUSD(b*1e6)}`:''}`; if(mmf&&mmf.total_assets&&mmf.total_assets.length>1){ const c=mmf.total_assets[mmf.total_assets.length-1]-mmf.total_assets[mmf.total_assets.length-2]; t+=`、MMF ${fmtUSD(c*1e6)}`; } t+='。'; }
+  el.innerHTML=t+`<div class="d">終値ベースの指標から自動生成した要約。閾値は仮置きで、投資助言ではありません</div>`;
+}
+function briefStock(){
+  const el=$('#briefStock'); if(!el) return; const li=lastIdx(); const B=D.breadth||{};
+  const adv=B.adv?B.adv[li]:null, dec=B.dec?B.dec[li]:null, p50=B.pct50?B.pct50[li]:null, p200=B.pct200?B.pct200[li]:null, nh=B.nh?B.nh[li]:null, nl=B.nl?B.nl[li]:null;
+  const st=D.stocks; const topIn=topN(st,'nf',3), topOut=topN(st,'nf',3,false); const spikes=st.filter(x=>x.vr!=null&&x.vr>=2).length;
+  const subCount={}; topN(st,'nf',10).forEach(x=>{ subCount[x.ind]=(subCount[x.ind]||0)+1; }); const concSub=Object.entries(subCount).sort((a,b)=>b[1]-a[1])[0];
+  const rsUp=topN(st,'rs20',3), rsDn=topN(st,'rs20',3,false);
+  let t=`<b>${fmtDate(D.dates[li])}</b>：S&P 500 構成銘柄は上昇 <b>${adv??'—'}</b> ／ 下落 <b>${dec??'—'}</b>${p50!=null?`、50日線上 ${(p50*100).toFixed(0)}%`:''}${p200!=null?`・200日線上 ${(p200*100).toFixed(0)}%`:''}${nh!=null&&nl!=null?`、52週新高値 ${nh} ／ 新安値 ${nl}`:''}。`;
+  t+=`当日の推定流入上位は <b>${joinJa(topIn.map(x=>x.s))}</b>${concSub&&concSub[1]>=3?`（上位10のうち ${concSub[1]} 銘柄が ${esc(concSub[0])}）`:''}、流出上位は <b>${joinJa(topOut.map(x=>x.s))}</b>。`;
+  t+=`出来高が20日平均の2倍以上の銘柄は ${spikes}。20日の対 SPY 相対強度が高いのは ${joinJa(rsUp.map(x=>x.s))}、低いのは ${joinJa(rsDn.map(x=>x.s))}。`;
+  el.innerHTML=t+`<div class="d">推定フローと価格・出来高から自動生成した要約。投資助言ではありません</div>`;
+}
+
+// ---------- v1.6: sub-industry detail (members)
+let selSub=null;
+function initSubDetail(){
+  if(!D.subind) return; const sel=$('#subDetailSel'); const subs=D.subind.slice().sort((a,b)=>a.sec.localeCompare(b.sec)||a.sub.localeCompare(b.sub));
+  sel.innerHTML=subs.map(x=>`<option value="${esc(x.sub)}">${esc(ja(x.sec))} ／ ${esc(x.sub)}（${x.n}）</option>`).join('');
+  sel.addEventListener('change',()=>{ selSub=sel.value; renderSubDetail(); });
+  selSub = topN(D.subind,'nf20',1)[0]?.sub || subs[0].sub; sel.value=selSub; renderSubDetail();
+}
+function renderSubDetail(){
+  const x=D.subind.find(s=>s.sub===selSub); if(!x) return;
+  $('#subDetailTitle').textContent=`サブ産業詳細 — ${x.sub}`;
+  $('#subDetailSub').textContent=`${ja(x.sec)} · ${x.n} 銘柄 · 推定NF 当日 ${fmtUSD(x.nf1)} ／ 5日 ${fmtUSD(x.nf5)} ／ 20日 ${fmtUSD(x.nf20)} · 20日騰落 ${fmtPct(x.r20)}`;
+  const members=D.stocks.filter(s=>s.ind===x.sub).sort((a,b)=>b.nf-a.nf);
+  let t=`<tr><th class="t">銘柄</th><th>推定NF 当日</th><th>5日</th><th>20日</th><th>終値</th><th>当日騰落</th><th>20日騰落</th><th>対SPY 20日</th><th>売買代金</th><th>出来高比</th><th>空売り比率</th><th>時価総額</th></tr>`;
+  members.forEach(m=>{ t+=`<tr class="clickable" data-s="${esc(m.s)}"><td class="t"><b>${esc(m.s)}</b><span class="nm">${esc(m.nm)}</span></td><td class="num ${cls(m.nf)}">${fmtUSD(m.nf)}</td><td class="num ${cls(m.nf5)}">${fmtUSD(m.nf5)}</td><td class="num ${cls(m.nf20)}">${fmtUSD(m.nf20)}</td><td class="num">${m.c.toFixed(2)}</td><td class="num ${m.r>0?'pos':m.r<0?'neg':''}">${fmtPct(m.r)}</td><td class="num ${m.r20>0?'pos':m.r20<0?'neg':''}">${fmtPct(m.r20)}</td><td class="num ${m.rs20>0?'pos':m.rs20<0?'neg':''}">${fmtPct(m.rs20)}</td><td class="num">${fmtUSDabs(m.dv)}</td><td class="num">${m.vr!=null?m.vr.toFixed(2)+'×':'—'}</td><td class="num">${m.sr!=null?(m.sr*100).toFixed(1)+'%':'—'}</td><td class="num">${m.mc?fmtUSDabs(m.mc):'—'}</td></tr>`; });
+  $('#subMembers').innerHTML=t;
+  $('#subMembers').querySelectorAll('tr.clickable').forEach(tr=>tr.addEventListener('click',()=>{ curStock=tr.dataset.s; setTab('stock'); renderStock(tr.dataset.s); window.scrollTo({top:0,behavior:'smooth'}); }));
+  // cumulative chart from per-stock series (lazy)
+  const el=$('#subCum');
+  if(!ST){ el.innerHTML='<div class="loading" style="padding:30px 0">銘柄別の時系列を読み込み中…</div>'; ensureStocks().then(()=>{ if(selSub===x.sub) renderSubDetail(); }); return; }
+  const dates=ST.dates, n=dates.length; const daily=new Array(n).fill(0); let any=false;
+  members.forEach(m=>{ const S=ST.series[m.s]; if(!S) return; any=true; S.nf.forEach((v,i)=>{ if(v!=null) daily[i]+=v; }); });
+  if(!any){ el.innerHTML='<div class="loading">時系列なし</div>'; return; }
+  let cum=[],c=0; daily.forEach(v=>{ c+=v; cum.push(c); });
+  const W=620,H=260,pad={l:60,r:14,t:12,b:28},barH=70; const lineTop=pad.t, lineBot=H-pad.b-barH-10; const bw=(W-pad.l-pad.r)/n;
+  const cmin=Math.min(0,...cum), cmax=Math.max(0,...cum); const sx=i=>pad.l+i*bw+bw/2, sy=v=>lineTop+(cmax-v)/((cmax-cmin)||1)*(lineBot-lineTop);
+  const maxBar=Math.max(1,...daily.map(Math.abs)); const by0=H-pad.b-barH/2, byh=v=>Math.abs(v)/maxBar*(barH/2);
+  let g=`<svg viewBox="0 0 ${W} ${H}">`; const ty=niceTick(Math.max(Math.abs(cmin),Math.abs(cmax))||1); for(let v=Math.ceil(cmin/ty)*ty; v<=cmax+1e-9; v+=ty){ g+=`<line class="grid" x1="${pad.l}" x2="${W-pad.r}" y1="${sy(v)}" y2="${sy(v)}"/><text class="n" x="${pad.l-6}" y="${sy(v)+4}" text-anchor="end" font-size="10.5">${fmtUSD(v).replace(/\.\d+/,'')}</text>`; }
+  g+=`<line class="axis" x1="${pad.l}" x2="${W-pad.r}" y1="${sy(0)}" y2="${sy(0)}"/>`; const path=cum.map((v,i)=>(i?'L':'M')+sx(i).toFixed(1)+' '+sy(v).toFixed(1)).join(' '); const lastPos=cum[n-1]>=0;
+  g+=`<path d="${path} L${sx(n-1).toFixed(1)} ${sy(0)} L${sx(0).toFixed(1)} ${sy(0)} Z" fill="${lastPos?'var(--in)':'var(--out)'}" opacity=".12"/><path d="${path}" fill="none" stroke="${lastPos?'var(--in)':'var(--out)'}" stroke-width="2" stroke-linejoin="round"/><circle cx="${sx(n-1)}" cy="${sy(cum[n-1])}" r="4" fill="${lastPos?'var(--in)':'var(--out)'}" stroke="var(--surface)" stroke-width="2"/><text class="n" x="${sx(n-1)-8}" y="${sy(cum[n-1])+(lastPos?-8:16)}" text-anchor="end" font-size="11" fill="var(--ink)">${fmtUSD(cum[n-1])}</text>`;
+  g+=`<line class="axis" x1="${pad.l}" x2="${W-pad.r}" y1="${by0}" y2="${by0}"/>`; daily.forEach((v,i)=>{ const h=byh(v); g+=`<rect x="${pad.l+i*bw+1}" y="${v>=0?by0-h:by0}" width="${Math.max(1,bw-2)}" height="${h}" fill="${v>=0?'var(--in)':'var(--out)'}"/>`; });
+  for(let i=0;i<n;i+=10){ g+=`<text class="n" x="${sx(i)}" y="${H-8}" text-anchor="middle" font-size="10">${fmtDate(dates[i])}</text>`; }
+  g+=`<text x="${pad.l}" y="${by0-barH/2-4}" font-size="10.5">日次</text><g class="hov">`+dates.map((d,i)=>`<rect data-i="${i}" x="${pad.l+i*bw}" y="${pad.t}" width="${bw}" height="${H-pad.t-pad.b}" fill="transparent"/>`).join('')+`</g></svg>`;
+  el.innerHTML=g; el.querySelectorAll('.hov rect').forEach(r=>{ const i=+r.dataset.i; bindTip(r,()=>`<b>${esc(dates[i])}</b><br>当日 ${fmtUSD(daily[i])}<br>累積 ${fmtUSD(cum[i])}`); });
+}
+
 async function load(){
   try{
     if(window.__DATA__){ D=window.__DATA__; }
@@ -1022,6 +1124,7 @@ async function load(){
     try{ const r2=await fetch('data/market.json?t='+Date.now(),{cache:'no-store'}); if(r2.ok) M=await r2.json(); }catch(e){ M=null; }
     renderAll();
     try{ renderRRG(); }catch(e){ console.error(e); }
+    try{ briefSector(); briefMarket(); briefStock(); }catch(e){ console.error(e); }
     try{ renderMarket(); }catch(e){ console.error(e); $('#tab-market').insertAdjacentHTML('afterbegin',`<div class="err">市場全体タブの描画でエラー：${esc(e.message)}</div>`); }
     try{ initStockTab(); }catch(e){ console.error(e); }
     const h=(location.hash||'').replace('#',''); setTab(['market','sector','stock'].includes(h)?h:'market', false);
