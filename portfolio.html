@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio Watch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --page:#f5f5f1; --surface:#fcfcfb; --surface-2:#f0efea;
+  --ink:#141513; --ink-2:#55564f; --ink-3:#8a8a82;
+  --line:#e2e1d9; --line-2:#cfceC5;
+  --accent:#1f5f7a; --accent-ink:#ffffff;
+  --in:#2a78d6; --in-soft:#dbe9fb; --out:#e34948; --out-soft:#fbe0df; --mid:#efeeea;
+  --good:#006300; --bad:#b32d2d;
+  --shadow:0 1px 2px rgba(20,21,19,.06),0 4px 14px rgba(20,21,19,.05);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --page:#121311; --surface:#1b1c1a; --surface-2:#242522;
+    --ink:#f1f1ec; --ink-2:#b9b9ae; --ink-3:#83837b;
+    --line:#2d2e2b; --line-2:#3b3c38;
+    --accent:#6fb3d2; --accent-ink:#0d1a21;
+    --in:#3987e5; --in-soft:#1a2c44; --out:#e66767; --out-soft:#43201f; --mid:#2b2c29;
+    --good:#3fbf3f; --bad:#f07b7b;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --page:#121311; --surface:#1b1c1a; --surface-2:#242522;
+  --ink:#f1f1ec; --ink-2:#b9b9ae; --ink-3:#83837b;
+  --line:#2d2e2b; --line-2:#3b3c38;
+  --accent:#6fb3d2; --accent-ink:#0d1a21;
+  --in:#3987e5; --in-soft:#1a2c44; --out:#e66767; --out-soft:#43201f; --mid:#2b2c29;
+  --good:#3fbf3f; --bad:#f07b7b;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--page);color:var(--ink);font-family:"IBM Plex Sans JP","Noto Sans JP",system-ui,-apple-system,"Segoe UI","Hiragino Sans","Yu Gothic",sans-serif;font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.num,.mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+a{color:var(--accent)}
+button{font:inherit;color:inherit}
+.wrap{max-width:1280px;margin:0 auto;padding:20px 24px 48px}
+header.top{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 24px;padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:20px}
+header.top h1{font-size:22px;font-weight:600;margin:0;letter-spacing:-.01em}
+header.top h1 small{display:block;font-size:12px;font-weight:500;color:var(--ink-2);letter-spacing:.04em;text-transform:uppercase;margin-bottom:2px}
+.asof{margin-left:auto;text-align:right;color:var(--ink-2);font-size:12.5px;line-height:1.5}
+.asof b{color:var(--ink);font-size:16px;font-weight:600}
+.badge{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:500;letter-spacing:.03em;border:1px solid var(--line-2);color:var(--ink-2);vertical-align:middle}
+.badge.warn{border-color:#d69b1a;color:#8a5f00;background:#fff4d6}
+:root[data-theme="dark"] .badge.warn{color:#f2c25c;background:#3a2e10;border-color:#8a5f00}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .badge.warn{color:#f2c25c;background:#3a2e10;border-color:#8a5f00}}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:20px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
+.kpi .l{font-size:11.5px;color:var(--ink-2);letter-spacing:.03em}
+.kpi .v{font-size:22px;font-weight:600;margin-top:2px;line-height:1.2}
+.kpi .s{font-size:11.5px;color:var(--ink-3);margin-top:4px}
+.kpi .v.in{color:var(--in)} .kpi .v.out{color:var(--out)}
+
+.grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:16px;margin-bottom:16px}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px 12px;min-width:0}
+.panel.raised{box-shadow:var(--shadow)}
+.ph{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-bottom:8px}
+.ph h2{font-size:14.5px;font-weight:600;margin:0}
+.ph .sub{font-size:12px;color:var(--ink-2)}
+.seg{display:inline-flex;border:1px solid var(--line-2);border-radius:4px;overflow:hidden;margin-left:auto}
+.seg button{background:transparent;border:0;padding:4px 10px;font-size:12px;cursor:pointer;color:var(--ink-2)}
+.seg button+button{border-left:1px solid var(--line-2)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.legend{display:flex;gap:14px;font-size:11.5px;color:var(--ink-2);margin-top:6px;flex-wrap:wrap}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;vertical-align:-1px;margin-right:5px}
+svg{display:block;width:100%;height:auto;overflow:visible}
+svg text{font-family:"IBM Plex Sans JP","Noto Sans JP",system-ui,sans-serif;fill:var(--ink-2);font-size:11.5px}
+svg text.n{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+svg .grid{stroke:var(--line);stroke-width:1}
+svg .axis{stroke:var(--line-2);stroke-width:1}
+.bar{cursor:pointer}
+.bar:hover rect{filter:brightness(1.12)}
+.bar.sel text.lbl{fill:var(--ink);font-weight:600}
+.dot{cursor:pointer}
+.cell{cursor:pointer}
+#tip{position:fixed;pointer-events:none;z-index:50;background:var(--ink);color:var(--page);padding:7px 10px;border-radius:4px;font-size:12px;line-height:1.45;max-width:280px;opacity:0;transition:opacity .08s;box-shadow:var(--shadow)}
+#tip.on{opacity:1}
+#tip b{font-weight:600}
+.hm-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:12.5px}
+th,td{padding:5px 8px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-weight:500;color:var(--ink-2);font-size:11.5px;letter-spacing:.02em}
+th:first-child,td:first-child,th.t,td.t{text-align:left}
+td.t .nm{color:var(--ink-3);font-size:11px;margin-left:6px}
+tr.clickable{cursor:pointer}
+tr.clickable:hover td{background:var(--surface-2)}
+.pos{color:var(--in)} .neg{color:var(--out)}
+.detail-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+@media (max-width:900px){.detail-grid{grid-template-columns:1fr}}
+.tables{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tables>div,.detail-grid>div{min-width:0}
+@media (max-width:1100px){.tables{grid-template-columns:1fr}}
+.tables h3{font-size:12.5px;font-weight:600;margin:0 0 6px;color:var(--ink-2)}
+select{font:inherit;padding:4px 8px;border:1px solid var(--line-2);border-radius:4px;background:var(--surface);color:var(--ink)}
+.note{font-size:12px;color:var(--ink-2);line-height:1.65;max-width:80ch}
+.note h2{font-size:13.5px;color:var(--ink);margin:0 0 6px}
+.note dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;margin:8px 0}
+.note dt{color:var(--ink-3)}
+.note dd{margin:0}
+.fact{display:inline-block;padding:0 5px;border-radius:2px;font-size:10.5px;letter-spacing:.04em;border:1px solid var(--line-2);color:var(--ink-3);margin-right:4px;vertical-align:1px}
+.loading{padding:60px 0;text-align:center;color:var(--ink-2)}
+.err{background:var(--out-soft);border:1px solid var(--out);border-radius:6px;padding:12px 14px;color:var(--ink);margin-bottom:16px;font-size:13px}
+#app[hidden]{display:none}
+.dq{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11.5px;color:var(--ink-3);margin-top:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* tabs */
+nav.tabs{display:flex;gap:4px;margin:-6px 0 18px;border-bottom:1px solid var(--line)}
+nav.tabs button{background:transparent;border:0;border-bottom:2px solid transparent;padding:8px 14px;font-size:13.5px;cursor:pointer;color:var(--ink-2);margin-bottom:-1px}
+nav.tabs button[aria-pressed="true"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+nav.tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.tab[hidden]{display:none}
+/* market */
+.meter{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 4px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:4px;border:1px solid var(--line-2);font-size:12px;background:var(--surface)}
+.chip.on{border-color:var(--in);background:var(--in-soft)} .chip.off{border-color:var(--out);background:var(--out-soft)} .chip.na{opacity:.55}
+.chip b{font-weight:600}.chip .v{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;color:var(--ink-2);font-size:11.5px}
+.gauge{display:flex;align-items:center;gap:12px;margin-top:8px}
+.gauge .bar{flex:1;height:10px;border-radius:5px;background:linear-gradient(90deg,var(--out),var(--mid) 50%,var(--in));position:relative}
+.gauge .pin{position:absolute;top:-4px;width:4px;height:18px;background:var(--ink);border-radius:2px;transform:translateX(-2px)}
+.alert{border-left:3px solid #d69b1a;background:var(--surface-2);padding:8px 12px;border-radius:0 4px 4px 0;font-size:12.5px;margin-top:10px}
+.alert.calm{border-left-color:var(--line-2);color:var(--ink-2)}
+.sm{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.sm .card{border:1px solid var(--line);border-radius:5px;padding:8px 10px 6px;background:var(--surface)}
+.sm .card .t{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;color:var(--ink-2);gap:6px}
+.sm .card .t b{color:var(--ink);font-weight:600}
+.sm .card .t .num{font-size:12px}
+.sm .card .d{font-size:10.5px;color:var(--ink-3);margin-top:2px}
+.src{display:inline-block;font-size:10.5px;padding:1px 6px;border-radius:3px;border:1px solid var(--line-2);color:var(--ink-3);margin-left:6px;vertical-align:1px}
+.src.ok{border-color:#0ca30c;color:#0a7a0a} .src.stale{border-color:#d69b1a;color:#8a5f00} .src.missing{border-color:var(--out);color:var(--out)}
+.spark{width:110px;height:26px;display:block}
+.search{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.search input{font:inherit;padding:6px 10px;border:1px solid var(--line-2);border-radius:4px;background:var(--surface);color:var(--ink);min-width:260px}
+.stockhead{display:flex;flex-wrap:wrap;gap:6px 22px;align-items:baseline;margin:6px 0 10px}
+.stockhead .sym{font-size:22px;font-weight:600}
+.stockhead .kv{font-size:12px;color:var(--ink-2)} .stockhead .kv b{color:var(--ink);font-weight:600}
+.pill{display:inline-block;padding:1px 7px;border-radius:10px;font-size:11px;border:1px solid var(--line-2);color:var(--ink-2)}
+.pill.up{border-color:var(--in);color:var(--in)} .pill.dn{border-color:var(--out);color:var(--out)}
+
+.h3{font-size:12.5px;color:var(--ink-2);margin:0 0 6px;font-weight:600}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.card2{border:1px solid var(--line);border-radius:6px;padding:10px 12px;background:var(--surface);cursor:pointer;display:flex;flex-direction:column;gap:6px}
+.card2:hover{border-color:var(--accent)} .card2.sel{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.card2 .r1{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.card2 .sym{font-size:17px;font-weight:600} .card2 .nm{font-size:11.5px;color:var(--ink-3);margin-left:6px}
+.card2 .px{font-size:14px;font-weight:600}
+.card2 .r2{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11.5px;color:var(--ink-2)}
+.mom{display:inline-flex;align-items:center;gap:5px} .mom .bar{display:inline-flex;gap:2px}
+.mom .bar i{width:8px;height:8px;border-radius:2px;background:var(--line-2)} .mom .bar i.p{background:var(--in)} .mom .bar i.n{background:var(--out)}
+.flags{display:flex;flex-wrap:wrap;gap:4px} .flag{font-size:10.5px;padding:1px 6px;border-radius:3px;border:1px solid var(--out);color:var(--out);background:var(--out-soft)}
+.flag.none{border-color:var(--line-2);color:var(--ink-3);background:transparent}
+.kv2{display:grid;grid-template-columns:repeat(3,1fr);gap:4px 8px;font-size:11.5px;color:var(--ink-2)} .kv2 b{display:block;color:var(--ink);font-weight:600;font-size:12.5px}
+.cost{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink-3)} .cost input{width:80px;font:inherit;font-size:11.5px;padding:2px 5px;border:1px solid var(--line-2);border-radius:3px;background:var(--surface);color:var(--ink)}
+.score-list{font-size:12.5px} .score-list div{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--line)}
+.flag-list{margin-top:10px;font-size:12.5px} .flag-list div{padding:4px 0;border-bottom:1px solid var(--line)} .flag-list b{color:var(--out)}
+th.sortable{cursor:pointer} th.sortable:hover{color:var(--ink)}
+.corr td{padding:3px 5px;font-size:11px;text-align:center} .corr th{font-size:10.5px;padding:3px 5px;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1><small>US Equities · Watchlist · Options & Momentum</small>ポートフォリオ・ウォッチ</h1>
+    <div class="asof" id="asof">読み込み中…</div>
+  </header>
+  <nav class="tabs" style="justify-content:space-between;align-items:center">
+    <div><a href="index.html" style="font-size:13px;text-decoration:none">← 資金フロー モニターへ</a></div>
+    <div class="dq" style="margin:0"><span>銘柄の追加・削除はリポジトリの <span class="mono">watchlist.txt</span> を編集（1行1ティッカー）→ 翌朝の自動更新、または Actions の手動実行で反映</span><span id="editLink"></span></div>
+  </nav>
+  <div id="msg"></div>
+  <div class="loading" id="loading">データを読み込んでいます…</div>
+  <main id="app" hidden>
+    <section class="kpis" id="kpis"></section>
+
+    <section class="panel raised" style="margin-bottom:16px">
+      <div class="ph"><h2>保有銘柄</h2><span class="sub">リスク・フラグの多い順。カードをクリックで詳細。取得単価はこのブラウザにのみ保存（サーバーには送信しません）</span>
+        <div class="seg" id="sortSeg" role="group" aria-label="並び順"><button data-s="flags" aria-pressed="true">フラグ順</button><button data-s="mom" aria-pressed="false">モメンタム順</button><button data-s="iv" aria-pressed="false">IV順</button><button data-s="earn" aria-pressed="false">決算が近い順</button><button data-s="sym" aria-pressed="false">名前順</button></div>
+      </div>
+      <div class="cards" id="cards"></div>
+    </section>
+
+    <section class="panel" style="margin-bottom:16px" id="detailPanel">
+      <div class="ph"><h2 id="dTitle">銘柄詳細</h2><span class="sub" id="dSub"></span></div>
+      <div id="dHead" class="stockhead"></div>
+      <div class="detail-grid">
+        <div><h3 class="h3">株価（50日・200日線）と推定ネットフロー（120日）</h3><div id="dPrice"></div></div>
+        <div><h3 class="h3">オプション：建玉の分布（コール／プット、行使価格別）</h3><div id="dOI"></div><div class="legend"><span><i style="background:var(--in)"></i>コール建玉</span><span><i style="background:var(--out)"></i>プット建玉</span><span>縦線：現値 ／ 破線：マックスペイン</span></div></div>
+      </div>
+      <div class="sm" id="dCards" style="margin-top:14px"></div>
+      <div class="detail-grid" style="margin-top:14px">
+        <div><h3 class="h3">モメンタムの内訳とリスク・フラグ</h3><div id="dScore"></div></div>
+        <div><h3 class="h3">参考情報（アナリスト・インサイダー・需給）</h3><div id="dRef"></div></div>
+      </div>
+    </section>
+
+    <section class="panel" style="margin-bottom:16px">
+      <div class="ph"><h2>全銘柄一覧</h2><span class="sub">列見出しクリックで並び替え</span></div>
+      <div style="overflow-x:auto"><table id="allTable"></table></div>
+    </section>
+
+    <section class="panel" style="margin-bottom:16px">
+      <div class="ph"><h2>ポートフォリオ全体</h2><span class="sub">セクター構成と、60日リターンの相関（同じ方向に動く銘柄が多いほど分散効果は小さい）</span></div>
+      <div class="detail-grid"><div id="pfSector"></div><div class="hm-wrap" id="pfCorr"></div></div>
+    </section>
+
+    <section class="panel note">
+      <h2>指標の定義・閾値・データの出所</h2>
+      <p><span class="fact">注意</span>本ページは投資助言ではありません。オプション由来の数値は「市場が織り込む変動幅と警戒度」であり、株価の方向を予測するものではありません。モメンタム・スコアは「現在の勢いの向き」をルールで整理したもので、フラグの閾値は初期値（バックテスト未実施）です。</p>
+      <dl>
+        <dt>IV30 / IV90</dt><dd>ATM 近傍のコール・プットのインプライド・ボラティリティ（年率）を満期で補間し、30日・90日に相当する値。Yahoo Finance のオプションチェーン（約15分遅れの終値ベース、建玉は前日確定値）</dd>
+        <dt>IV ランク</dt><dd>本パイプラインが蓄積した IV30 履歴（最大400日）に対する百分位。蓄積が短い間は参考値（蓄積日数を併記）</dd>
+        <dt>期待変動幅</dt><dd>30日：IV30 × √(30/365)。決算跨ぎ：決算後最初の満期の ATM ストラドル（コール＋プットの仲値）÷ 株価</dd>
+        <dt>期間構造</dt><dd>近月（5日以上先の最初の満期）ATM IV ÷ 90日 IV。1.2 超で決算・イベントの警戒が織り込まれている目安</dd>
+        <dt>25Δ スキュー</dt><dd>25デルタ・プット IV − 25デルタ・コール IV（デルタは Black-Scholes、金利4%仮定）。30日に補間。拡大＝下落ヘッジ需要</dd>
+        <dt>Put/Call、出来高÷建玉</dt><dd>取得した満期（最大7本）の合計。出来高÷建玉が高い日は新規の大きなポジション（方向は不明）</dd>
+        <dt>建玉の壁・マックスペイン</dt><dd>建玉が最も多い満期について、コール／プットの建玉最大の行使価格と、全オプションの内在価値合計が最小になる価格。<span class="fact">推測</span>価格への影響は限定的で参考情報</dd>
+        <dt>HV20</dt><dd>過去20日の対数リターン標準偏差 × √252</dd>
+        <dt>モメンタム・スコア</dt><dd>20日リターン、60日リターン、50日線＞200日線、対 SPY 20日、MACD ヒストグラムの符号を合計（−5〜+5）</dd>
+        <dt>フラグ閾値</dt><dd id="threshNote"></dd>
+        <dt>その他の出所</dt><dd>決算日・インサイダー取引・アナリスト目標株価：Yahoo Finance（yfinance）。空売り比率：FINRA Reg SHO（取引所外分、メインのパイプラインから）。S&amp;P 500 構成銘柄は業種・推定フローを資金フロー モニターと共有</dd>
+      </dl>
+      <div class="dq" id="pfStatus"></div>
+    </section>
+  </main>
+</div>
+<div id="tip" role="tooltip"></div>
+
+<script>
+(function(){
+'use strict';
+const $=s=>document.querySelector(s);
+const SECTOR_JA={"Information Technology":"情報技術","Health Care":"ヘルスケア","Financials":"金融","Consumer Discretionary":"一般消費財","Communication Services":"コミュニケーション","Industrials":"資本財","Consumer Staples":"生活必需品","Energy":"エネルギー","Materials":"素材","Real Estate":"不動産","Utilities":"公益","Technology":"テクノロジー","Healthcare":"ヘルスケア","Financial Services":"金融","Consumer Cyclical":"一般消費財","Consumer Defensive":"生活必需品","Basic Materials":"素材"};
+const ja=s=>SECTOR_JA[s]||s||'—';
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmtPct=(v,d=2)=>v==null?'—':(v>0?'+':(v<0?'−':''))+(Math.abs(v)*100).toFixed(d)+'%';
+const fmtPctAbs=(v,d=1)=>v==null?'—':(v*100).toFixed(d)+'%';
+const fmtUSD=v=>{ if(v==null||isNaN(v)) return '—'; const a=Math.abs(v),s=v<0?'−':(v>0?'+':''); if(a>=1e12) return s+'$'+(a/1e12).toFixed(2)+'T'; if(a>=1e9) return s+'$'+(a/1e9).toFixed(2)+'B'; if(a>=1e6) return s+'$'+(a/1e6).toFixed(0)+'M'; return s+'$'+a.toFixed(0); };
+const fmtDate=d=>d?d.slice(5).replace('-','/'):'';
+const cls=v=>v>0?'pos':v<0?'neg':'';
+let D=null, H=null, sortKey='flags', sel=null;
+// tooltip
+const tip=$('#tip'); function showTip(h,e){tip.innerHTML=h;tip.classList.add('on');moveTip(e);} function moveTip(e){const w=tip.offsetWidth,h=tip.offsetHeight;let x=e.clientX+14,y=e.clientY+14;if(x+w>innerWidth-8)x=e.clientX-w-14;if(y+h>innerHeight-8)y=e.clientY-h-14;tip.style.left=x+'px';tip.style.top=y+'px';} function hideTip(){tip.classList.remove('on');} function bindTip(el,fn){el.addEventListener('mouseenter',e=>showTip(fn(),e));el.addEventListener('mousemove',moveTip);el.addEventListener('mouseleave',hideTip);}
+function sparkSvg(vals,w=110,h=26){ const v=vals.filter(x=>x!=null); if(v.length<2) return ''; const mn=Math.min(...v),mx=Math.max(...v),rng=(mx-mn)||1; const pts=[]; vals.forEach((x,i)=>{ if(x==null) return; pts.push(((i/(vals.length-1))*(w-2)+1).toFixed(1)+','+((h-2)-(x-mn)/rng*(h-4)+1).toFixed(1)); }); const col=v[v.length-1]>=v[0]?'var(--in)':'var(--out)'; const lp=pts[pts.length-1].split(','); return `<svg class="spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><polyline points="${pts.join(' ')}" fill="none" stroke="${col}" stroke-width="1.5" vector-effect="non-scaling-stroke"/><circle cx="${lp[0]}" cy="${lp[1]}" r="2" fill="${col}"/></svg>`; }
+function lineChart(el,dates,vals,opts={}){ const W=300,H=110,pad={l:44,r:8,t:8,b:18}; const fmt=opts.fmt||(v=>v.toFixed(2)); const idx=vals.map((v,i)=>v==null?null:i).filter(i=>i!=null); if(idx.length<2){ el.innerHTML='<div class="d" style="padding:20px 0;color:var(--ink-3)">データなし（蓄積待ち）</div>'; return; } let mn=Math.min(...idx.map(i=>vals[i])),mx=Math.max(...idx.map(i=>vals[i])); if(opts.zero){mn=Math.min(0,mn);mx=Math.max(0,mx);} if(mn===mx){mn-=1;mx+=1;} const sx=i=>pad.l+i/(dates.length-1)*(W-pad.l-pad.r),sy=v=>pad.t+(mx-v)/(mx-mn)*(H-pad.t-pad.b); let g=`<svg viewBox="0 0 ${W} ${H}">`; [mn,(mn+mx)/2,mx].forEach(v=>{g+=`<line class="grid" x1="${pad.l}" x2="${W-pad.r}" y1="${sy(v)}" y2="${sy(v)}"/><text class="n" x="${pad.l-4}" y="${sy(v)+3.5}" text-anchor="end" font-size="9.5">${fmt(v)}</text>`;}); const last=vals[idx[idx.length-1]],first=vals[idx[0]]; const col=opts.color||((opts.invert?last<=first:last>=first)?'var(--in)':'var(--out)'); if(opts.bars){ const bw=(W-pad.l-pad.r)/dates.length; idx.forEach(i=>{const v=vals[i]; g+=`<rect x="${pad.l+i*bw+0.5}" y="${v>=0?sy(v):sy(0)}" width="${Math.max(1,bw-1)}" height="${Math.abs(sy(v)-sy(0))}" fill="${v>=0?'var(--in)':'var(--out)'}"/>`;}); } else { g+=`<path d="${idx.map((i,k)=>(k?'L':'M')+sx(i).toFixed(1)+' '+sy(vals[i]).toFixed(1)).join(' ')}" fill="none" stroke="${col}" stroke-width="1.8" stroke-linejoin="round"/>`; const li=idx[idx.length-1]; g+=`<circle cx="${sx(li)}" cy="${sy(vals[li])}" r="3" fill="${col}" stroke="var(--surface)" stroke-width="1.5"/>`; } const n=dates.length; [0,Math.floor(n/2),n-1].forEach(i=>{g+=`<text class="n" x="${sx(i)}" y="${H-5}" text-anchor="${i===0?'start':i===n-1?'end':'middle'}" font-size="9.5">${fmtDate(dates[i])}</text>`;}); const bw=(W-pad.l-pad.r)/n; g+=`<g class="hov">`+dates.map((d,i)=>`<rect data-i="${i}" x="${pad.l+i*bw}" y="${pad.t}" width="${bw}" height="${H-pad.t-pad.b}" fill="transparent"/>`).join('')+`</g></svg>`; el.innerHTML=g; el.querySelectorAll('.hov rect').forEach(r=>{const i=+r.dataset.i; bindTip(r,()=>`<b>${esc(dates[i])}</b><br>${vals[i]==null?'—':fmt(vals[i])}`);}); }
+function card(title,sub,last){ const d=document.createElement('div'); d.className='card'; d.innerHTML=`<div class="t"><b>${title}</b><span class="num">${last||''}</span></div><div class="ch"></div><div class="d">${sub||''}</div>`; return d; }
+// cost basis (localStorage)
+function getCost(sym){ try{ return JSON.parse(localStorage.getItem('pf_cost')||'{}')[sym]||null; }catch(e){ return null; } }
+function setCost(sym,v){ try{ const m=JSON.parse(localStorage.getItem('pf_cost')||'{}'); if(v) m[sym]=v; else delete m[sym]; localStorage.setItem('pf_cost',JSON.stringify(m)); }catch(e){} }
+// helpers
+const momBar=s=>{ if(s==null) return '—'; let h='<span class="mom"><span class="bar">'; for(let i=-5;i<0;i++) h+=`<i class="${s<=i?'n':''}"></i>`; for(let i=1;i<=5;i++) h+=`<i class="${s>=i?'p':''}"></i>`; return h+`</span><b class="num ${cls(s)}">${s>0?'+':''}${s}</b></span>`; };
+const earnTxt=x=>{ const d=x.ctx.earnings_days; if(d==null) return '—'; return d<0?'済':`${d}営業日後`; };
+function sorted(){ const a=D.stocks.slice(); const f={flags:(x,y)=>y.flags.length-x.flags.length||(y.momentum_score||0)-(x.momentum_score||0), mom:(x,y)=>(y.momentum_score||0)-(x.momentum_score||0), iv:(x,y)=>((y.options&&y.options.iv30)||0)-((x.options&&x.options.iv30)||0), earn:(x,y)=>((x.ctx.earnings_days??999)-(y.ctx.earnings_days??999)), sym:(x,y)=>x.sym.localeCompare(y.sym)}[sortKey]; return a.sort(f); }
+// ---------- render
+function renderHeader(){
+  const gen=D.generated_at?new Date(D.generated_at):null; const genJ=gen?gen.toLocaleString('ja-JP',{timeZone:'Asia/Tokyo',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}):'—';
+  $('#asof').innerHTML=`基準日（米国市場）<b class="num">${esc(D.as_of)}</b><br>データ生成 ${esc(genJ)} JST ${D.sample?'<span class="badge warn">サンプルデータ</span>':'<span class="badge">自動更新</span>'}`;
+  const st=D.stocks; const flagged=st.filter(x=>x.flags.length).length; const earn=st.filter(x=>x.ctx.earnings_days!=null&&x.ctx.earnings_days>=0&&x.ctx.earnings_days<=10).length;
+  const ivs=st.map(x=>x.options&&x.options.iv30).filter(v=>v!=null); const avgIv=ivs.length?ivs.reduce((a,b)=>a+b,0)/ivs.length:null;
+  const moms=st.map(x=>x.momentum_score).filter(v=>v!=null); const avgMom=moms.length?moms.reduce((a,b)=>a+b,0)/moms.length:null;
+  const up=st.filter(x=>x.price&&x.price.r1>0).length;
+  const k=[{l:'銘柄数',v:st.length,s:`エラー ${Object.keys(D.errors||{}).length} 件`},{l:'フラグ点灯',v:`${flagged} / ${st.length}`,c:flagged>st.length/2?'out':'',s:'1つ以上のリスク・フラグ'},{l:'平均モメンタム',v:avgMom==null?'—':(avgMom>0?'+':'')+avgMom.toFixed(1),c:avgMom>0?'in':avgMom<0?'out':'',s:'−5〜+5'},{l:'当日 上昇 / 下落',v:`${up} / ${st.length-up}`,s:esc(D.as_of)},{l:'平均 IV30',v:avgIv==null?'—':(avgIv*100).toFixed(0)+'%',s:'市場が織り込む年率変動'},{l:'決算 10営業日以内',v:earn,c:earn?'out':'',s:'銘柄数'}];
+  $('#kpis').innerHTML=k.map(x=>`<div class="kpi"><div class="l">${x.l}</div><div class="v num ${x.c||''}">${x.v}</div><div class="s">${x.s}</div></div>`).join('');
+  $('#threshNote').textContent=Object.entries(D.thresholds||{}).map(([k,v])=>`${k}=${v}`).join('、');
+  $('#pfStatus').innerHTML=`<span>${esc((D.meta||{}).sources||'')}</span><span>IV 蓄積 ${(D.meta||{}).history_days||0} 日</span>`+(Object.keys(D.errors||{}).length?`<span style="color:var(--out)">取得失敗：${Object.keys(D.errors).map(esc).join(', ')}</span>`:'');
+  try{ const repo=localStorage.getItem('pf_repo')||''; $('#editLink').innerHTML=repo?`<a href="${esc(repo.replace(/\/$/,''))}/edit/main/watchlist.txt" target="_blank" rel="noopener">watchlist.txt を GitHub で編集 ↗</a>`:`<a href="#" id="setRepo">リポジトリURLを登録して編集リンクを表示</a>`; const sr=$('#setRepo'); if(sr) sr.addEventListener('click',e=>{ e.preventDefault(); const u=prompt('GitHub リポジトリの URL（例：https://github.com/USER/REPO）'); if(u){ localStorage.setItem('pf_repo',u); renderHeader(); } }); }catch(e){}
+}
+function renderCards(){
+  const C=$('#cards'); C.innerHTML='';
+  sorted().forEach(x=>{ const p=x.price||{}, o=x.options||{}; const cost=getCost(x.sym); const pl=cost&&p.close?p.close/cost-1:null;
+    const rel=(p.series&&D.spy&&D.spy.c)?p.series.c.map((v,i)=>{ const s=D.spy.c[D.spy.c.length-p.series.c.length+i]; return (v==null||!s)?null:v/s; }).slice(-60):[];
+    const el=document.createElement('div'); el.className='card2'+(sel===x.sym?' sel':''); el.dataset.s=x.sym;
+    el.innerHTML=`<div class="r1"><span><span class="sym">${esc(x.sym)}</span><span class="nm">${esc(x.name)}</span></span><span><span class="px num">${p.close!=null?p.close.toFixed(2):'—'}</span> <span class="num ${cls(p.r1)}" style="font-size:12px">${fmtPct(p.r1)}</span></span></div>
+      <div class="r2"><span>${esc(ja(x.sector))}${x.ctx.earnings_days!=null?` · 決算 ${earnTxt(x)}`:''}</span>${momBar(x.momentum_score)}</div>
+      <div class="flags">${x.flags.length?x.flags.map(f=>`<span class="flag" title="${esc(f.detail)}">${esc(f.label)}</span>`).join(''):'<span class="flag none">フラグなし</span>'}</div>
+      <div class="kv2"><span>IV30 <b>${o.iv30!=null?(o.iv30*100).toFixed(0)+'%':'—'}${x.ctx.iv_rank!=null?` <span style="font-weight:400;color:var(--ink-3)">rank ${x.ctx.iv_rank.toFixed(0)}</span>`:''}</b></span><span>期待変動 30日 <b>±${o.exp_move_30d!=null?(o.exp_move_30d*100).toFixed(1)+'%':'—'}</b></span><span>25Δスキュー <b>${o.skew25!=null?(o.skew25*100).toFixed(1)+'pt':'—'}</b></span>
+      <span>対SPY 20日 <b class="${cls(p.rs20)}">${fmtPct(p.rs20,1)}</b></span><span>52週高値比 <b class="${cls(p.from_52w_high)}">${fmtPct(p.from_52w_high,1)}</b></span><span>Put/Call 建玉 <b>${o.pcr_oi!=null?o.pcr_oi.toFixed(2):'—'}</b></span></div>
+      <div class="r2"><span class="cost">取得単価 <input type="number" step="0.01" value="${cost||''}" placeholder="任意" data-s="${esc(x.sym)}" aria-label="取得単価"> ${pl!=null?`<b class="num ${cls(pl)}">${fmtPct(pl,1)}</b>`:''}</span>${sparkSvg(rel)}</div>`;
+    el.addEventListener('click',e=>{ if(e.target.tagName==='INPUT') return; sel=x.sym; renderDetail(); document.querySelectorAll('.card2').forEach(c=>c.classList.toggle('sel',c.dataset.s===sel)); $('#detailPanel').scrollIntoView({behavior:'smooth',block:'start'}); });
+    el.querySelector('input').addEventListener('change',ev=>{ setCost(x.sym,parseFloat(ev.target.value)||null); renderCards(); });
+    C.appendChild(el); });
+}
+function renderDetail(){
+  const x=D.stocks.find(s=>s.sym===sel); if(!x) return; const p=x.price||{}, o=x.options||{}, c=x.ctx||{};
+  $('#dTitle').textContent=`銘柄詳細 — ${x.sym}`; $('#dSub').textContent=`${x.name} · ${ja(x.sector)} · ${x.industry||''}`;
+  const pill=(ok,lab)=>ok==null?'':`<span class="pill ${ok?'up':'dn'}">${lab} ${ok?'上':'下'}</span>`;
+  $('#dHead').innerHTML=`<span class="kv">終値 <b class="num">${p.close??'—'}</b></span><span class="kv">当日 <b class="num ${cls(p.r1)}">${fmtPct(p.r1)}</b></span><span class="kv">20日 <b class="num ${cls(p.r20)}">${fmtPct(p.r20)}</b></span><span class="kv">60日 <b class="num ${cls(p.r60)}">${fmtPct(p.r60)}</b></span><span class="kv">120日 <b class="num ${cls(p.r120)}">${fmtPct(p.r120)}</b></span><span class="kv">対SPY 60日 <b class="num ${cls(p.rs60)}">${fmtPct(p.rs60)}</b></span><span class="kv">RSI14 <b class="num">${p.rsi14??'—'}</b></span><span class="kv">ATR14 <b class="num">${fmtPctAbs(p.atr14_pct)}</b></span><span class="kv">60日最大DD <b class="num neg">${fmtPct(p.mdd60,1)}</b></span><span class="kv">β60 <b class="num">${p.beta60??'—'}</b></span><span class="kv">時価総額 <b class="num">${x.mcap?fmtUSD(x.mcap).replace('+',''):'—'}</b></span>${pill(p.ma50&&p.close?p.close>p.ma50:null,'50日線')}${pill(p.ma200&&p.close?p.close>p.ma200:null,'200日線')}`;
+  // price chart
+  const el=$('#dPrice'); if(!p.series){ el.innerHTML='<div class="loading">株価データなし</div>'; } else {
+    const S=p.series, dates=S.dates, n=dates.length, W=620,H=280,pad={l:56,r:14,t:10,b:26},barH=70, lineTop=pad.t, lineBot=H-pad.b-barH-12;
+    const allv=[...S.c,...S.ma50,...S.ma200].filter(v=>v!=null); const mn=Math.min(...allv),mx=Math.max(...allv); const bw=(W-pad.l-pad.r)/n, sx=i=>pad.l+i*bw+bw/2, sy=v=>lineTop+(mx-v)/((mx-mn)||1)*(lineBot-lineTop);
+    const maxBar=Math.max(1,...S.nf.map(v=>Math.abs(v||0))); const by0=H-pad.b-barH/2, byh=v=>Math.abs(v)/maxBar*(barH/2);
+    let g=`<svg viewBox="0 0 ${W} ${H}">`; const step=(mx-mn)/4||1; for(let k=0;k<=4;k++){ const v=mn+k*step; g+=`<line class="grid" x1="${pad.l}" x2="${W-pad.r}" y1="${sy(v)}" y2="${sy(v)}"/><text class="n" x="${pad.l-6}" y="${sy(v)+4}" text-anchor="end" font-size="10.5">${v.toFixed(v<10?2:0)}</text>`; }
+    const path=(arr,col,w,dash)=>{ const idx=arr.map((v,i)=>v==null?null:i).filter(i=>i!=null); if(idx.length<2) return ''; return `<path d="${idx.map((i,k)=>(k?'L':'M')+sx(i).toFixed(1)+' '+sy(arr[i]).toFixed(1)).join(' ')}" fill="none" stroke="${col}" stroke-width="${w}" ${dash?'stroke-dasharray="4 3"':''} stroke-linejoin="round"/>`; };
+    g+=path(S.ma200,'var(--ink-3)',1.2,true)+path(S.ma50,'var(--accent)',1.2,true)+path(S.c,'var(--ink)',1.8);
+    const cost=getCost(x.sym); if(cost&&cost>=mn&&cost<=mx) g+=`<line x1="${pad.l}" x2="${W-pad.r}" y1="${sy(cost)}" y2="${sy(cost)}" stroke="var(--good)" stroke-width="1" stroke-dasharray="2 3"/><text x="${W-pad.r}" y="${sy(cost)-3}" text-anchor="end" font-size="10" fill="var(--good)">取得単価 ${cost}</text>`;
+    g+=`<line class="axis" x1="${pad.l}" x2="${W-pad.r}" y1="${by0}" y2="${by0}"/>`; S.nf.forEach((v,i)=>{ if(v==null) return; const h=byh(v); g+=`<rect x="${pad.l+i*bw+1}" y="${v>=0?by0-h:by0}" width="${Math.max(1,bw-2)}" height="${h}" fill="${v>=0?'var(--in)':'var(--out)'}"/>`; });
+    for(let i=0;i<n;i+=20){ g+=`<text class="n" x="${sx(i)}" y="${H-8}" text-anchor="middle" font-size="10">${fmtDate(dates[i])}</text>`; }
+    g+=`<text x="${pad.l}" y="${by0-barH/2-3}" font-size="10.5">推定ネットフロー（日次）</text><text x="${W-pad.r}" y="${pad.t+10}" text-anchor="end" font-size="10.5"><tspan fill="var(--ink)">— 終値</tspan>　<tspan fill="var(--accent)">- - 50日</tspan>　<tspan fill="var(--ink-3)">- - 200日</tspan></text>`;
+    g+=`<g class="hov">`+dates.map((d,i)=>`<rect data-i="${i}" x="${pad.l+i*bw}" y="${pad.t}" width="${bw}" height="${H-pad.t-pad.b}" fill="transparent"/>`).join('')+`</g></svg>`; el.innerHTML=g;
+    el.querySelectorAll('.hov rect').forEach(r=>{ const i=+r.dataset.i; bindTip(r,()=>`<b>${esc(dates[i])}</b><br>終値 ${S.c[i]??'—'}　出来高 ${S.v[i]!=null?S.v[i].toLocaleString():'—'}<br>推定NF ${fmtUSD(S.nf[i])}`); }); }
+  // OI distribution
+  const oe=$('#dOI'); const od=o.oi_dist; if(!od||!od.dist||!od.dist.length){ oe.innerHTML='<div class="loading">オプションデータなし</div>'; } else {
+    const rows=od.dist.slice().sort((a,b)=>b[0]-a[0]); const W=560, rowH=Math.max(9,Math.min(16,320/rows.length)), H=rows.length*rowH+30, padL=70, mid=padL+(W-padL-20)/2, half=(W-padL-20)/2-6; const mxo=Math.max(1,...rows.map(r=>Math.max(r[1],r[2])));
+    let g=`<svg viewBox="0 0 ${W} ${H}">`; rows.forEach((r,i)=>{ const y=10+i*rowH; const wc=r[1]/mxo*half, wp=r[2]/mxo*half; g+=`<g class="oirow" data-i="${i}"><rect x="${padL-4}" y="${y}" width="${W-padL}" height="${rowH}" fill="transparent"/><text class="n" x="${padL-8}" y="${y+rowH*0.75}" text-anchor="end" font-size="${Math.min(10.5,rowH-1)}">${r[0]}</text><rect x="${mid-wp}" y="${y+1}" width="${wp}" height="${rowH-2}" fill="var(--out)"/><rect x="${mid+1}" y="${y+1}" width="${wc}" height="${rowH-2}" fill="var(--in)"/></g>`; });
+    const spot=p.close; const yOf=K=>{ let best=0,bd=1e9; rows.forEach((r,i)=>{ const d=Math.abs(r[0]-K); if(d<bd){bd=d;best=i;} }); return 10+best*rowH+rowH/2; };
+    if(spot) g+=`<line x1="${padL-4}" x2="${W-20}" y1="${yOf(spot)}" y2="${yOf(spot)}" stroke="var(--ink)" stroke-width="1.2"/><text x="${W-22}" y="${yOf(spot)-3}" text-anchor="end" font-size="10" fill="var(--ink)">現値 ${spot}</text>`;
+    if(o.walls&&o.walls.max_pain) g+=`<line x1="${padL-4}" x2="${W-20}" y1="${yOf(o.walls.max_pain)}" y2="${yOf(o.walls.max_pain)}" stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="3 3"/><text x="${padL}" y="${yOf(o.walls.max_pain)-3}" font-size="10" fill="var(--ink-3)">マックスペイン ${o.walls.max_pain}</text>`;
+    g+=`<text x="${padL}" y="${H-6}" font-size="10.5">満期 ${esc(od.expiry)}（${od.days}日後）　コールの壁 ${o.walls?o.walls.call_wall:'—'} ／ プットの壁 ${o.walls?o.walls.put_wall:'—'}</text></svg>`; oe.innerHTML=g;
+    oe.querySelectorAll('.oirow').forEach(el2=>{ const r=rows[+el2.dataset.i]; bindTip(el2,()=>`<b>行使価格 ${r[0]}</b><br>コール建玉 ${r[1].toLocaleString()}<br>プット建玉 ${r[2].toLocaleString()}`); }); }
+  // small cards: term structure, IV/skew history, expected move
+  const C=$('#dCards'); C.innerHTML='';
+  if(o.term&&o.term.length){ const c1=card('IV 期間構造','満期ごとの ATM IV（年率）。近月が突出＝イベント警戒'+(o.term_ratio?`　近月÷90日 = ${o.term_ratio.toFixed(2)}`:''),(o.iv30!=null?'IV30 '+(o.iv30*100).toFixed(0)+'%':'')); C.appendChild(c1); lineChart(c1.querySelector('.ch'),o.term.map(t=>t.expiry),o.term.map(t=>t.atm_iv==null?null:t.atm_iv*100),{fmt:v=>v.toFixed(0)+'%',color:'var(--accent)'}); }
+  const hs=H&&H[x.sym]; if(hs){ const ks=Object.keys(hs).sort().slice(-120); const c2=card('IV30 の推移（蓄積）',`蓄積 ${ks.length} 日。IV ランク ${c.iv_rank!=null?c.iv_rank.toFixed(0):'—'}`,''); C.appendChild(c2); lineChart(c2.querySelector('.ch'),ks,ks.map(k=>hs[k].iv30==null?null:hs[k].iv30*100),{fmt:v=>v.toFixed(0)+'%',invert:true});
+    const c3=card('25Δ スキューの推移（蓄積）',`拡大＝下落ヘッジ需要。百分位 ${c.skew_pctl!=null?c.skew_pctl.toFixed(0):'—'}`,''); C.appendChild(c3); lineChart(c3.querySelector('.ch'),ks,ks.map(k=>hs[k].skew==null?null:hs[k].skew*100),{fmt:v=>v.toFixed(1)+'pt',invert:true}); }
+  const em=x.exp_move_earnings; const c4=document.createElement('div'); c4.className='card'; c4.innerHTML=`<div class="t"><b>期待変動幅（市場の織り込み）</b></div><div class="score-list" style="margin-top:6px"><div><span>30日（IV30 ベース）</span><b class="num">±${o.exp_move_30d!=null?(o.exp_move_30d*100).toFixed(1)+'%':'—'}${o.exp_move_30d&&p.close?`（±$${(o.exp_move_30d*p.close).toFixed(1)}）`:''}</b></div><div><span>決算跨ぎ（ストラドル）</span><b class="num">${em?`±${(em.straddle_pct*100).toFixed(1)}%（満期 ${em.expiry}）`:'—'}</b></div><div><span>実現ボラ HV20 / HV60</span><b class="num">${fmtPctAbs(p.hv20,0)} / ${fmtPctAbs(p.hv60,0)}</b></div><div><span>IV30 − HV20</span><b class="num ${o.iv30!=null&&p.hv20!=null&&o.iv30-p.hv20>0.1?'neg':''}">${o.iv30!=null&&p.hv20!=null?((o.iv30-p.hv20)*100).toFixed(0)+'pt':'—'}</b></div><div><span>Put/Call 建玉 / 出来高</span><b class="num">${o.pcr_oi??'—'} / ${o.pcr_vol??'—'}</b></div><div><span>出来高 ÷ 建玉</span><b class="num">${o.vol_oi??'—'}</b></div></div><div class="d">次回決算：${c.earnings_date?`${c.earnings_date}（${earnTxt(x)}）`:'不明'}</div>`; C.appendChild(c4);
+  // score & flags
+  $('#dScore').innerHTML=`<div style="margin-bottom:6px">${momBar(x.momentum_score)}</div><div class="score-list">${(x.momentum_parts||[]).map(q=>`<div><span>${esc(q.k)}</span><b class="num ${cls(q.v)}">${q.v>0?'+1':q.v<0?'−1':'0'}</b></div>`).join('')}</div><div class="flag-list">${x.flags.length?x.flags.map(f=>`<div><b>▲ ${esc(f.label)}</b><br><span style="color:var(--ink-2)">${esc(f.detail)}</span></div>`).join(''):'<div style="color:var(--ink-3)">点灯しているフラグはありません</div>'}</div>`;
+  // reference
+  const t0=x.targets||{}, r=x.recs||{}; const t=Object.fromEntries(Object.entries(t0).map(([k,v])=>[k,v==null?null:Number(v).toFixed(2)])); const tgt=t0.mean&&p.close?t0.mean/p.close-1:null;
+  $('#dRef').innerHTML=`<div class="score-list"><div><span>アナリスト目標株価（平均 / 中央値）</span><b class="num">${t.mean??'—'} / ${t.median??'—'} ${tgt!=null?`<span class="${cls(tgt)}">（${fmtPct(tgt,1)}）</span>`:''}</b></div><div><span>目標レンジ（安値〜高値）</span><b class="num">${t.low??'—'} 〜 ${t.high??'—'}</b></div><div><span>格付け（強買/買/中立/売/強売）</span><b class="num">${r.strongBuy??'—'} / ${r.buy??'—'} / ${r.hold??'—'} / ${r.sell??'—'} / ${r.strongSell??'—'}</b></div><div><span>インサイダー 直近90日（買い / 売り）</span><b class="num">${c.insider_buys??'—'} / ${c.insider_sells??'—'}</b></div><div><span>空売り比率（取引所外・当日）</span><b class="num">${c.short_ratio!=null?(c.short_ratio*100).toFixed(1)+'%':'—'}${c.short_jump!=null?`（5日−20日 ${(c.short_jump*100).toFixed(1)}pt）`:''}</b></div><div><span>空売り残高 ÷ 浮動株（Yahoo）</span><b class="num">${x.short_pct_float!=null?(x.short_pct_float*100).toFixed(1)+'%':'—'}</b></div><div><span>出来高 20日÷60日 / 当日÷20日</span><b class="num">${p.vol20_vs_60??'—'} / ${p.vol_ratio??'—'}</b></div><div><span>対SPY 相関60日 / 4%超の変動日数（60日）</span><b class="num">${p.corr60??'—'} / ${p.big_moves60??'—'}</b></div></div><div class="d" style="font-size:11px;color:var(--ink-3);margin-top:6px">アナリスト・インサイダーは Yahoo Finance 掲載分のみ（網羅性に限界あり）</div>`;
+}
+let tblSort={k:'flags',dir:-1};
+function renderTable(){
+  const cols=[['sym','銘柄',x=>x.sym,'t'],['sector','業種',x=>ja(x.sector),'t'],['close','終値',x=>x.price&&x.price.close],['r1','当日',x=>x.price&&x.price.r1,'p'],['r20','20日',x=>x.price&&x.price.r20,'p'],['rs20','対SPY20日',x=>x.price&&x.price.rs20,'p'],['mom','モメンタム',x=>x.momentum_score],['flags','フラグ',x=>x.flags.length],['iv30','IV30',x=>x.options&&x.options.iv30,'pa'],['ivr','IVランク',x=>x.ctx.iv_rank],['em','期待変動30日',x=>x.options&&x.options.exp_move_30d,'pa'],['skew','25Δスキュー',x=>x.options&&x.options.skew25,'pt'],['term','近月÷90日IV',x=>x.options&&x.options.term_ratio],['pcr','P/C建玉',x=>x.options&&x.options.pcr_oi],['earn','決算まで',x=>x.ctx.earnings_days],['dd','52週高値比',x=>x.price&&x.price.from_52w_high,'p'],['sr','空売り比率',x=>x.ctx.short_ratio,'pa']];
+  const rows=D.stocks.slice().sort((a,b)=>{ const c=cols.find(c=>c[0]===tblSort.k); const va=c[2](a),vb=c[2](b); if(va==null&&vb==null) return 0; if(va==null) return 1; if(vb==null) return -1; return (va>vb?1:va<vb?-1:0)*tblSort.dir; });
+  const f=(v,t)=>v==null?'—':t==='p'?fmtPct(v,1):t==='pa'?fmtPctAbs(v,0):t==='pt'?(v*100).toFixed(1)+'pt':t==='t'?esc(v):(typeof v==='number'?(Number.isInteger(v)?v:v.toFixed(2)):esc(v));
+  let h='<tr>'+cols.map(c=>`<th class="sortable ${c[3]==='t'?'t':''}" data-k="${c[0]}">${c[1]}${tblSort.k===c[0]?(tblSort.dir<0?' ▼':' ▲'):''}</th>`).join('')+'</tr>';
+  rows.forEach(x=>{ h+='<tr class="clickable" data-s="'+esc(x.sym)+'">'+cols.map(c=>{ const v=c[2](x); const colored=['r1','r20','rs20','dd','mom'].includes(c[0])?cls(v):(c[0]==='flags'&&v>0?'neg':''); return `<td class="${c[3]==='t'?'t':'num'} ${colored}">${f(v,c[3])}</td>`; }).join('')+'</tr>'; });
+  $('#allTable').innerHTML=h;
+  $('#allTable').querySelectorAll('th.sortable').forEach(th=>th.addEventListener('click',()=>{ const k=th.dataset.k; tblSort= tblSort.k===k?{k,dir:-tblSort.dir}:{k,dir:-1}; renderTable(); }));
+  $('#allTable').querySelectorAll('tr.clickable').forEach(tr=>tr.addEventListener('click',()=>{ sel=tr.dataset.s; renderDetail(); $('#detailPanel').scrollIntoView({behavior:'smooth'}); }));
+}
+function renderPortfolio(){
+  const bySec={}; D.stocks.forEach(x=>{ const k=ja(x.sector); bySec[k]=(bySec[k]||0)+1; });
+  const tot=D.stocks.length; const ent=Object.entries(bySec).sort((a,b)=>b[1]-a[1]);
+  $('#pfSector').innerHTML='<h3 class="h3">セクター構成（銘柄数）</h3>'+ent.map(([k,v])=>`<div style="display:flex;align-items:center;gap:8px;font-size:12.5px;margin:3px 0"><span style="width:110px">${esc(k)}</span><div style="flex:1;height:10px;background:var(--surface-2);border-radius:3px"><div style="width:${v/tot*100}%;height:100%;background:var(--accent);border-radius:3px"></div></div><b class="num" style="width:60px;text-align:right">${v}（${(v/tot*100).toFixed(0)}%）</b></div>`).join('')+`<div class="d" style="font-size:11px;color:var(--ink-3);margin-top:8px">株数を保存していないため銘柄数ベース。S&amp;P 500 構成銘柄は GICS、それ以外は Yahoo の分類</div>`;
+  const c=D.corr; if(!c){ $('#pfCorr').innerHTML=''; return; }
+  const col=v=>v==null?'var(--surface-2)':`color-mix(in oklab, ${v>0?'var(--in)':'var(--out)'} ${Math.round(Math.min(1,Math.abs(v))*85)}%, var(--mid))`;
+  let h='<h3 class="h3">60日リターン相関</h3><table class="corr"><tr><th></th>'+c.syms.map(s=>`<th>${esc(s)}</th>`).join('')+'</tr>';
+  c.syms.forEach((s,i)=>{ h+=`<tr><th style="text-align:left">${esc(s)}</th>`+c.m[i].map((v,j)=>`<td style="background:${i===j?'var(--surface-2)':col(v)};color:${Math.abs(v||0)>0.6&&i!==j?'#fff':'var(--ink)'}">${i===j?'':(v==null?'—':v.toFixed(2))}</td>`).join('')+'</tr>'; });
+  const off=[]; c.m.forEach((r,i)=>r.forEach((v,j)=>{ if(i<j&&v!=null) off.push(v); })); const avg=off.length?off.reduce((a,b)=>a+b,0)/off.length:null;
+  $('#pfCorr').innerHTML=h+`</table><div class="d" style="font-size:11px;color:var(--ink-3);margin-top:6px">銘柄間相関の平均 ${avg!=null?avg.toFixed(2):'—'}（1に近いほど同じ方向に動く）</div>`;
+}
+$('#sortSeg').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; sortKey=b.dataset.s; $('#sortSeg').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b)); renderCards(); });
+async function load(){
+  try{ const r=await fetch('data/portfolio.json?t='+Date.now(),{cache:'no-store'}); if(!r.ok) throw new Error('HTTP '+r.status); D=await r.json();
+    try{ const r2=await fetch('data/portfolio_history.json?t='+Date.now(),{cache:'no-store'}); if(r2.ok) H=await r2.json(); }catch(e){}
+    if(!D.stocks||!D.stocks.length){ $('#loading').hidden=true; $('#msg').innerHTML=`<div class="err"><b>銘柄がありません。</b>${esc(D.note||'')} リポジトリの watchlist.txt にティッカーを1行ずつ追加し、Actions を実行してください。</div>`; return; }
+    $('#loading').hidden=true; $('#app').hidden=false; sel=D.stocks[0].sym; renderHeader(); renderCards(); renderDetail(); renderTable(); renderPortfolio();
+  }catch(e){ $('#loading').hidden=true; $('#msg').innerHTML=`<div class="err"><b>データを読み込めませんでした</b>（${esc(e.message)}）。data/portfolio.json がまだ生成されていない可能性があります。Actions の「Update sector flow data」を実行してください。</div>`; }
+}
+load();
+})();
+
+</script>
+</body>
+</html>

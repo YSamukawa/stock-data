@@ -1,0 +1,21 @@
+# 1行に1ティッカー。# 以降はコメント。
+AAPL
+MSFT
+NVDA
+AMZN
+GOOGL
+META
+JPM
+XOM
+UNH
+AVGO
+LLY
+V
+COST
+HD
+PG
+KO
+CAT
+NFLX
+AMD
+BRK-B
