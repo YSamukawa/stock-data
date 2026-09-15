@@ -34,6 +34,10 @@ jobs:
         if: ${{ !cancelled() }}
         run: python scripts/market.py
 
+      - name: Portfolio watch (watchlist.txt -> options / momentum / risk flags)
+        if: ${{ !cancelled() }}
+        run: python scripts/portfolio.py
+
       - name: Commit updated data
         if: ${{ !cancelled() }}
         run: |
@@ -42,7 +46,14 @@ jobs:
           git add data/*.json
           if git diff --cached --quiet; then
             echo "no changes"
-          else
-            git commit -m "data: update $(date -u +%Y-%m-%dT%H:%MZ)"
-            git push
+            exit 0
           fi
+          git commit -m "data: update $(date -u +%Y-%m-%dT%H:%MZ)"
+          # push with retry (GitHub occasionally answers "fatal error in commit_refs")
+          for i in 1 2 3; do
+            if git push; then exit 0; fi
+            echo "push failed (attempt $i), retrying in 30s..."
+            sleep 30
+            git pull --rebase --autostash || true
+          done
+          echo "push failed after 3 attempts"; exit 1
