@@ -26,7 +26,9 @@ DATA_DIR = os.path.join(ROOT, "data")
 OUT_PATH = os.path.join(DATA_DIR, "market.json")
 PC_PATH = os.path.join(DATA_DIR, "putcall_history.json")
 ETFSH_PATH = os.path.join(DATA_DIR, "etf_shares.json")
-UA = {"User-Agent": "Mozilla/5.0 (compatible; sector-flow-monitor/1.0; +https://github.com)"}
+UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+      "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      "Accept-Language": "en-US,en;q=0.9"}   # ICI answers 403 to bot-like user agents
 DAYS = 130   # trading days of daily series kept
 
 ETFS = ["SPY", "QQQ", "IWM", "RSP", "HYG", "LQD", "TLT", "GLD", "UUP", "^VIX", "^VIX3M",
@@ -242,10 +244,14 @@ def fetch_aaii():
         raise RuntimeError("AAII: header not found")
     df.columns = [str(c).strip() for c in df.iloc[hdr]]
     df = df.iloc[hdr + 1:]
-    dcol = df.columns[0]
-    bcol = next(c for c in df.columns if "bull" in c.lower())
-    ncol = next(c for c in df.columns if "neutral" in c.lower())
-    rcol = next(c for c in df.columns if "bear" in c.lower())
+    cols = list(df.columns)
+    def find(word, default_idx):
+        hit = [c for c in cols if word in c.lower()]
+        return hit[0] if hit else cols[default_idx]
+    dcol = find("date", 0)
+    bcol = find("bull", 1)
+    ncol = find("neutral", 2)
+    rcol = find("bear", 3)
     d = pd.DataFrame({"date": pd.to_datetime(df[dcol], errors="coerce"),
                       "bull": pd.to_numeric(df[bcol], errors="coerce"),
                       "neutral": pd.to_numeric(df[ncol], errors="coerce"),
@@ -337,14 +343,15 @@ def main():
             out["status"][name] = {"state": "ok", "fetched_at": now}
             log(f"{name}: ok")
         except Exception as e:
-            log(f"{name}: FAILED — {e}")
+            err = f"{type(e).__name__}: {str(e)[:180]}"
+            log(f"{name}: FAILED — {err}")
             if prev.get(name):
                 out[name] = prev[name]
                 st = dict(prev.get("status", {}).get(name, {}))
-                st.update({"state": "stale", "error": str(e)[:200]})
+                st.update({"state": "stale", "error": err})
                 out["status"][name] = st
             else:
-                out["status"][name] = {"state": "missing", "error": str(e)[:200]}
+                out["status"][name] = {"state": "missing", "error": err}
 
     run("etf", fetch_etfs)
     as_of = out.get("etf", {}).get("dates", [dt.date.today().isoformat()])[-1]
