@@ -391,6 +391,13 @@
 "shares": 272386800,
 "updated": "2026-09-06"
 },
+"BE": {
+"industry": "Electrical Equipment & Parts",
+"name": "Bloom Energy Corporation",
+"sector": "Industrials",
+"shares": 294527346,
+"updated": "2026-09-21"
+},
 "BEN": {
 "industry": "Asset Management",
 "name": "Franklin Templeton, Inc.",
@@ -431,13 +438,6 @@
 "name": "Baker Hughes Company",
 "sector": "Energy",
 "shares": 992674071,
-"updated": "2026-09-06"
-},
-"BLDR": {
-"industry": "Building Products & Equipment",
-"name": "Builders FirstSource, Inc.",
-"sector": "Industrials",
-"shares": 107596457,
 "updated": "2026-09-06"
 },
 "BLK": {
@@ -1700,6 +1700,13 @@
 "shares": 255149963,
 "updated": "2026-09-06"
 },
+"ILMN": {
+"industry": "Diagnostics & Research",
+"name": "Illumina, Inc.",
+"sector": "Healthcare",
+"shares": 151000000,
+"updated": "2026-09-21"
+},
 "INCY": {
 "industry": "Biotechnology",
 "name": "Incyte Corporation",
@@ -2470,6 +2477,13 @@
 "shares": 999637371,
 "updated": "2026-09-06"
 },
+"P": {
+"industry": "Computer Hardware",
+"name": "Everpure, Inc.",
+"sector": "Technology",
+"shares": 333227251,
+"updated": "2026-09-21"
+},
 "PANW": {
 "industry": "Software - Infrastructure",
 "name": "Palo Alto Networks, Inc.",
@@ -2981,13 +2995,6 @@
 "shares": 6852385650,
 "updated": "2026-09-06"
 },
-"TAP": {
-"industry": "Beverages - Brewers",
-"name": "Molson Coors Beverage Company",
-"sector": "Consumer Defensive",
-"shares": 174117990,
-"updated": "2026-09-06"
-},
 "TDG": {
 "industry": "Aerospace & Defense",
 "name": "Transdigm Group Incorporated",
@@ -3133,13 +3140,6 @@
 "name": "Trane Technologies plc",
 "sector": "Industrials",
 "shares": 220023177,
-"updated": "2026-09-06"
-},
-"TTD": {
-"industry": "Advertising Agencies",
-"name": "The Trade Desk, Inc.",
-"sector": "Communication Services",
-"shares": 426771565,
 "updated": "2026-09-06"
 },
 "TTWO": {
