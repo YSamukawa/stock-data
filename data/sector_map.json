@@ -846,13 +846,6 @@
 "shares": 450444209,
 "updated": "2026-09-06"
 },
-"CTVA": {
-"industry": "Agricultural Inputs",
-"name": "Corteva, Inc.",
-"sector": "Basic Materials",
-"shares": 667196000,
-"updated": "2026-09-06"
-},
 "CVNA": {
 "industry": "Auto & Truck Dealerships",
 "name": "Carvana Co.",
@@ -2652,13 +2645,6 @@
 "shares": 186745748,
 "updated": "2026-09-06"
 },
-"PSKY": {
-"industry": "Entertainment",
-"name": "Paramount Skydance Corporation",
-"sector": "Communication Services",
-"shares": 1090445692,
-"updated": "2026-09-06"
-},
 "PSX": {
 "industry": "Oil & Gas Refining & Marketing",
 "name": "Phillips 66",
@@ -2840,6 +2826,13 @@
 "sector": "Consumer Defensive",
 "shares": 106823183,
 "updated": "2026-09-06"
+},
+"SKYD": {
+"industry": "Entertainment",
+"name": "Paramount Skydance Corporation",
+"sector": "Communication Services",
+"shares": 5010678000,
+"updated": "2026-10-09"
 },
 "SLB": {
 "industry": "Oil & Gas Equipment & Services",
@@ -3149,6 +3142,13 @@
 "shares": 186980443,
 "updated": "2026-09-06"
 },
+"TWLO": {
+"industry": "Software - Infrastructure",
+"name": "Twilio Inc.",
+"sector": "Technology",
+"shares": 153575220,
+"updated": "2026-10-09"
+},
 "TXN": {
 "industry": "Semiconductors",
 "name": "Texas Instruments Incorporated",
@@ -3338,6 +3338,13 @@
 "shares": 1148590864,
 "updated": "2026-09-06"
 },
+"VYLR": {
+"industry": "Shell Companies",
+"name": "Vylor Inc.",
+"sector": "Financial Services",
+"shares": 711546000,
+"updated": "2026-10-09"
+},
 "VZ": {
 "industry": "Telecom Services",
 "name": "Verizon Communications Inc.",
@@ -3357,13 +3364,6 @@
 "name": "Waters Corporation",
 "sector": "Healthcare",
 "shares": 98185855,
-"updated": "2026-09-06"
-},
-"WBD": {
-"industry": "Entertainment",
-"name": "Warner Bros. Discovery, Inc. - ",
-"sector": "Communication Services",
-"shares": 2507136702,
 "updated": "2026-09-06"
 },
 "WDAY": {
