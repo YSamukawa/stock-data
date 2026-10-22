@@ -4,343 +4,343 @@
 "name": "Agilent Technologies, Inc.",
 "sector": "Healthcare",
 "shares": 281965813,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "AAPL": {
 "industry": "Consumer Electronics",
 "name": "Apple Inc.",
 "sector": "Technology",
 "shares": 14594180000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ABBV": {
 "industry": "Drug Manufacturers - General",
 "name": "AbbVie Inc.",
 "sector": "Healthcare",
 "shares": 1767117285,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ABNB": {
 "industry": "Travel Services",
 "name": "Airbnb, Inc.",
 "sector": "Consumer Cyclical",
 "shares": 419529556,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ABT": {
 "industry": "Medical Devices",
 "name": "Abbott Laboratories",
 "sector": "Healthcare",
 "shares": 1730383296,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ACGL": {
 "industry": "Insurance - Diversified",
 "name": "Arch Capital Group Ltd.",
 "sector": "Financial Services",
 "shares": 341229126,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ACN": {
 "industry": "Information Technology Services",
 "name": "Accenture plc",
 "sector": "Technology",
 "shares": 611942109,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ADBE": {
 "industry": "Software - Application",
 "name": "Adobe Inc.",
 "sector": "Technology",
-"shares": 397500000,
-"updated": "2026-09-06"
+"shares": 389200000,
+"updated": "2026-10-22"
 },
 "ADI": {
 "industry": "Semiconductors",
 "name": "Analog Devices, Inc.",
 "sector": "Technology",
 "shares": 484565465,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ADM": {
 "industry": "Farm Products",
 "name": "Archer-Daniels-Midland Company",
 "sector": "Consumer Defensive",
 "shares": 481959583,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ADP": {
 "industry": "Software - Application",
 "name": "Automatic Data Processing, Inc.",
 "sector": "Technology",
-"shares": 397262737,
-"updated": "2026-09-06"
+"shares": 396251548,
+"updated": "2026-10-22"
 },
 "ADSK": {
 "industry": "Software - Application",
 "name": "Autodesk, Inc.",
 "sector": "Technology",
 "shares": 209000000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "AEE": {
 "industry": "Utilities - Regulated Electric",
 "name": "Ameren Corporation",
 "sector": "Utilities",
 "shares": 276843251,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "AEP": {
 "industry": "Utilities - Regulated Electric",
 "name": "American Electric Power Company",
 "sector": "Utilities",
 "shares": 544397352,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "AES": {
 "industry": "Utilities - Diversified",
 "name": "The AES Corporation",
 "sector": "Utilities",
 "shares": 713438630,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "AFL": {
 "industry": "Insurance - Life",
 "name": "AFLAC Incorporated",
 "sector": "Financial Services",
 "shares": 501343298,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "AIG": {
 "industry": "Insurance - Diversified",
 "name": "American International Group, I",
 "sector": "Financial Services",
 "shares": 522893169,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "AIZ": {
 "industry": "Insurance - Property & Casualty",
 "name": "Assurant, Inc.",
 "sector": "Financial Services",
 "shares": 49323767,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "AJG": {
 "industry": "Insurance Brokers",
 "name": "Arthur J. Gallagher & Co.",
 "sector": "Financial Services",
 "shares": 256341000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "AKAM": {
 "industry": "Software - Infrastructure",
 "name": "Akamai Technologies, Inc.",
 "sector": "Technology",
 "shares": 143716609,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ALB": {
 "industry": "Specialty Chemicals",
 "name": "Albemarle Corporation",
 "sector": "Basic Materials",
 "shares": 118005057,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ALGN": {
 "industry": "Medical Instruments & Supplies",
 "name": "Align Technology, Inc.",
 "sector": "Healthcare",
 "shares": 71039852,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ALL": {
 "industry": "Insurance - Property & Casualty",
 "name": "Allstate Corporation (The)",
 "sector": "Financial Services",
 "shares": 252857950,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ALLE": {
 "industry": "Security & Protection Services",
 "name": "Allegion plc",
 "sector": "Industrials",
 "shares": 85036786,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "AMAT": {
 "industry": "Semiconductor Equipment & Materials",
 "name": "Applied Materials, Inc.",
 "sector": "Technology",
 "shares": 793597443,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "AMCR": {
 "industry": "Packaging & Containers",
 "name": "Amcor plc",
 "sector": "Consumer Cyclical",
-"shares": 462345690,
-"updated": "2026-09-06"
+"shares": 461945690,
+"updated": "2026-10-22"
 },
 "AMD": {
 "industry": "Semiconductors",
 "name": "Advanced Micro Devices, Inc.",
 "sector": "Technology",
 "shares": 1632475042,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "AME": {
 "industry": "Specialty Industrial Machinery",
 "name": "AMETEK, Inc.",
 "sector": "Industrials",
 "shares": 229261244,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "AMGN": {
 "industry": "Drug Manufacturers - General",
 "name": "Amgen Inc.",
 "sector": "Healthcare",
 "shares": 540632005,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "AMP": {
 "industry": "Asset Management",
 "name": "Ameriprise Financial, Inc.",
 "sector": "Financial Services",
 "shares": 88333219,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "AMT": {
 "industry": "REIT - Specialty",
 "name": "American Tower Corporation (REI",
 "sector": "Real Estate",
 "shares": 465960048,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "AMZN": {
 "industry": "Internet Retail",
 "name": "Amazon.com, Inc.",
 "sector": "Consumer Cyclical",
 "shares": 10786313572,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ANET": {
 "industry": "Computer Hardware",
 "name": "Arista Networks, Inc.",
 "sector": "Technology",
 "shares": 1261224648,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "AON": {
 "industry": "Insurance Brokers",
 "name": "Aon plc",
 "sector": "Financial Services",
 "shares": 212125434,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "AOS": {
 "industry": "Specialty Industrial Machinery",
 "name": "A.O. Smith Corporation",
 "sector": "Industrials",
 "shares": 110047214,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "APA": {
 "industry": "Oil & Gas E&P",
 "name": "APA Corporation",
 "sector": "Energy",
 "shares": 350351510,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "APD": {
 "industry": "Specialty Chemicals",
 "name": "Air Products and Chemicals, Inc",
 "sector": "Basic Materials",
 "shares": 222685530,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "APH": {
 "industry": "Electronic Components",
 "name": "Amphenol Corporation",
 "sector": "Technology",
 "shares": 2465966914,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "APO": {
 "industry": "Asset Management",
 "name": "Apollo Global Management, Inc. ",
 "sector": "Financial Services",
 "shares": 590543159,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "APP": {
 "industry": "Advertising Agencies",
 "name": "Applovin Corporation",
 "sector": "Communication Services",
 "shares": 305732000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "APTV": {
 "industry": "Auto Parts",
 "name": "Aptiv PLC",
 "sector": "Consumer Cyclical",
 "shares": 207633331,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ARE": {
 "industry": "REIT - Office",
 "name": "Alexandria Real Estate Equities",
 "sector": "Real Estate",
 "shares": 172095277,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ARES": {
 "industry": "Asset Management",
 "name": "Ares Management Corporation",
 "sector": "Financial Services",
-"shares": 222028421,
-"updated": "2026-09-06"
+"shares": 223957742,
+"updated": "2026-10-22"
 },
 "ATO": {
 "industry": "Utilities - Regulated Gas",
 "name": "Atmos Energy Corporation",
 "sector": "Utilities",
 "shares": 168988553,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "AVGO": {
 "industry": "Semiconductors",
 "name": "Broadcom Inc.",
 "sector": "Technology",
-"shares": 4757580198,
-"updated": "2026-09-06"
+"shares": 4773629865,
+"updated": "2026-10-22"
 },
 "AVY": {
 "industry": "Packaging & Containers",
 "name": "Avery Dennison Corporation",
 "sector": "Consumer Cyclical",
 "shares": 75788142,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "AWK": {
 "industry": "Utilities - Regulated Water",
 "name": "American Water Works Company, I",
 "sector": "Utilities",
 "shares": 198728989,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "AXON": {
 "industry": "Aerospace & Defense",
 "name": "Axon Enterprise, Inc.",
 "sector": "Industrials",
 "shares": 81237415,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "AXP": {
 "industry": "Credit Services",
 "name": "American Express Company",
 "sector": "Financial Services",
 "shares": 675309833,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "AZO": {
 "industry": "Auto Parts",
@@ -354,42 +354,42 @@
 "name": "Boeing Company (The)",
 "sector": "Industrials",
 "shares": 790370020,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "BAC": {
 "industry": "Banks - Diversified",
 "name": "Bank of America Corporation",
 "sector": "Financial Services",
 "shares": 6992748365,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "BALL": {
 "industry": "Packaging & Containers",
 "name": "Ball Corporation",
 "sector": "Consumer Cyclical",
 "shares": 264703357,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "BAX": {
 "industry": "Medical Instruments & Supplies",
 "name": "Baxter International Inc.",
 "sector": "Healthcare",
 "shares": 516995999,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "BBY": {
 "industry": "Specialty Retail",
 "name": "Best Buy Co., Inc.",
 "sector": "Consumer Cyclical",
-"shares": 210767126,
-"updated": "2026-09-06"
+"shares": 209727698,
+"updated": "2026-10-22"
 },
 "BDX": {
 "industry": "Medical Instruments & Supplies",
 "name": "Becton, Dickinson and Company",
 "sector": "Healthcare",
 "shares": 272386800,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "BE": {
 "industry": "Electrical Equipment & Parts",
@@ -403,1295 +403,1295 @@
 "name": "Franklin Templeton, Inc.",
 "sector": "Financial Services",
 "shares": 508076910,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "BF-B": {
 "industry": "Beverages - Wineries & Distilleries",
 "name": "Brown Forman Inc",
 "sector": "Consumer Defensive",
 "shares": 290383416,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "BG": {
 "industry": "Farm Products",
 "name": "Bunge Limited",
 "sector": "Consumer Defensive",
 "shares": 192119123,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "BIIB": {
 "industry": "Drug Manufacturers - General",
 "name": "Biogen Inc.",
 "sector": "Healthcare",
 "shares": 147753998,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "BKNG": {
 "industry": "Travel Services",
 "name": "Booking Holdings Inc. Common St",
 "sector": "Consumer Cyclical",
 "shares": 751380500,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "BKR": {
 "industry": "Oil & Gas Equipment & Services",
 "name": "Baker Hughes Company",
 "sector": "Energy",
 "shares": 992674071,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "BLK": {
 "industry": "Asset Management",
 "name": "BlackRock, Inc.",
 "sector": "Financial Services",
 "shares": 154869259,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "BMY": {
 "industry": "Drug Manufacturers - General",
 "name": "Bristol-Myers Squibb Company",
 "sector": "Healthcare",
 "shares": 2042714656,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "BNY": {
 "industry": "Banks - Diversified",
 "name": "The Bank of New York Mellon Cor",
 "sector": "Financial Services",
 "shares": 678504142,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "BR": {
 "industry": "Information Technology Services",
 "name": "Broadridge Financial Solutions,",
 "sector": "Technology",
-"shares": 114021798,
-"updated": "2026-09-06"
+"shares": 112900032,
+"updated": "2026-10-22"
 },
 "BRK-B": {
 "industry": "Insurance - Diversified",
 "name": "Berkshire Hathaway Inc. New",
 "sector": "Financial Services",
 "shares": 1408035161,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "BRO": {
 "industry": "Insurance Brokers",
 "name": "Brown & Brown, Inc.",
 "sector": "Financial Services",
 "shares": 334610357,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "BSX": {
 "industry": "Medical Devices",
 "name": "Boston Scientific Corporation",
 "sector": "Healthcare",
 "shares": 1449229526,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "BX": {
 "industry": "Asset Management",
 "name": "Blackstone Inc.",
 "sector": "Financial Services",
 "shares": 750625114,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "BXP": {
 "industry": "REIT - Office",
 "name": "BXP, Inc.",
 "sector": "Real Estate",
 "shares": 159661556,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "C": {
 "industry": "Banks - Diversified",
 "name": "Citigroup, Inc.",
 "sector": "Financial Services",
 "shares": 1677436783,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CAH": {
 "industry": "Medical Distribution",
 "name": "Cardinal Health, Inc.",
 "sector": "Healthcare",
-"shares": 232575728,
-"updated": "2026-09-06"
+"shares": 231559345,
+"updated": "2026-10-22"
 },
 "CARR": {
 "industry": "Building Products & Equipment",
 "name": "Carrier Global Corporation",
 "sector": "Industrials",
 "shares": 824325057,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CASY": {
 "industry": "Specialty Retail",
 "name": "Caseys General Stores, Inc.",
 "sector": "Consumer Cyclical",
-"shares": 37004914,
-"updated": "2026-09-06"
+"shares": 36960167,
+"updated": "2026-10-22"
 },
 "CAT": {
 "industry": "Farm & Heavy Construction Machinery",
 "name": "Caterpillar, Inc.",
 "sector": "Industrials",
 "shares": 459674889,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CB": {
 "industry": "Insurance - Property & Casualty",
 "name": "Chubb Limited",
 "sector": "Financial Services",
 "shares": 385799859,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CBOE": {
 "industry": "Financial Data & Stock Exchanges",
 "name": "Cboe Global Markets, Inc.",
 "sector": "Financial Services",
 "shares": 104431019,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CBRE": {
 "industry": "Real Estate Services",
 "name": "CBRE Group Inc",
 "sector": "Real Estate",
 "shares": 289575298,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CCI": {
 "industry": "REIT - Specialty",
 "name": "Crown Castle Inc.",
 "sector": "Real Estate",
 "shares": 437000000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CCL": {
 "industry": "Travel Services",
 "name": "Carnival Corporation Ltd.",
 "sector": "Consumer Cyclical",
-"shares": 1369649119,
-"updated": "2026-09-06"
+"shares": 1344610129,
+"updated": "2026-10-22"
 },
 "CDNS": {
 "industry": "Software - Application",
 "name": "Cadence Design Systems, Inc.",
 "sector": "Technology",
 "shares": 275393000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CDW": {
 "industry": "Information Technology Services",
 "name": "CDW Corporation",
 "sector": "Technology",
 "shares": 125017426,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CEG": {
 "industry": "Utilities - Independent Power Producers",
 "name": "Constellation Energy Corporatio",
 "sector": "Utilities",
 "shares": 354307379,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CF": {
 "industry": "Agricultural Inputs",
 "name": "CF Industries Holdings, Inc.",
 "sector": "Basic Materials",
 "shares": 151338130,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CFG": {
 "industry": "Banks - Regional",
 "name": "Citizens Financial Group, Inc.",
 "sector": "Financial Services",
 "shares": 421176788,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CHD": {
 "industry": "Household & Personal Products",
 "name": "Church & Dwight Company, Inc.",
 "sector": "Consumer Defensive",
 "shares": 237203907,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CHRW": {
 "industry": "Integrated Freight & Logistics",
 "name": "C.H. Robinson Worldwide, Inc.",
 "sector": "Industrials",
-"shares": 116851258,
-"updated": "2026-09-06"
+"shares": 116648446,
+"updated": "2026-10-22"
 },
 "CHTR": {
 "industry": "Telecom Services",
 "name": "Charter Communications, Inc.",
 "sector": "Communication Services",
-"shares": 119277492,
-"updated": "2026-09-06"
+"shares": 114457596,
+"updated": "2026-10-22"
 },
 "CI": {
 "industry": "Healthcare Plans",
 "name": "The Cigna Group",
 "sector": "Healthcare",
 "shares": 264240486,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CIEN": {
 "industry": "Communication Equipment",
 "name": "Ciena Corporation",
 "sector": "Technology",
 "shares": 141808525,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CINF": {
 "industry": "Insurance - Property & Casualty",
 "name": "Cincinnati Financial Corporatio",
 "sector": "Financial Services",
 "shares": 153478045,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CL": {
 "industry": "Household & Personal Products",
 "name": "Colgate-Palmolive Company",
 "sector": "Consumer Defensive",
 "shares": 797172829,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CLX": {
 "industry": "Household & Personal Products",
 "name": "Clorox Company (The)",
 "sector": "Consumer Defensive",
-"shares": 120931005,
-"updated": "2026-09-06"
+"shares": 120938184,
+"updated": "2026-10-22"
 },
 "CMCSA": {
 "industry": "Telecom Services",
 "name": "Comcast Corporation",
 "sector": "Communication Services",
 "shares": 3539192198,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CME": {
 "industry": "Financial Data & Stock Exchanges",
 "name": "CME Group Inc.",
 "sector": "Financial Services",
 "shares": 359576125,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CMG": {
 "industry": "Restaurants",
 "name": "Chipotle Mexican Grill, Inc.",
 "sector": "Consumer Cyclical",
 "shares": 1265418000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CMI": {
 "industry": "Specialty Industrial Machinery",
 "name": "Cummins Inc.",
 "sector": "Industrials",
 "shares": 137664487,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CMS": {
 "industry": "Utilities - Regulated Electric",
 "name": "CMS Energy Corporation",
 "sector": "Utilities",
 "shares": 313577136,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CNC": {
 "industry": "Healthcare Plans",
 "name": "Centene Corporation",
 "sector": "Healthcare",
 "shares": 493995000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CNP": {
 "industry": "Utilities - Regulated Electric",
 "name": "CenterPoint Energy, Inc (Holdin",
 "sector": "Utilities",
 "shares": 658720288,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "COF": {
 "industry": "Credit Services",
 "name": "Capital One Financial Corporati",
 "sector": "Financial Services",
 "shares": 613484836,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "COHR": {
 "industry": "Scientific & Technical Instruments",
 "name": "Coherent Corp.",
 "sector": "Technology",
-"shares": 195832246,
-"updated": "2026-09-06"
+"shares": 196931166,
+"updated": "2026-10-22"
 },
 "COIN": {
 "industry": "Financial Data & Stock Exchanges",
 "name": "Coinbase Global, Inc.",
 "sector": "Financial Services",
 "shares": 222803032,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "COO": {
 "industry": "Medical Instruments & Supplies",
 "name": "The Cooper Companies, Inc.",
 "sector": "Healthcare",
-"shares": 195030630,
-"updated": "2026-09-06"
+"shares": 190155294,
+"updated": "2026-10-22"
 },
 "COP": {
 "industry": "Oil & Gas E&P",
 "name": "ConocoPhillips",
 "sector": "Energy",
 "shares": 1201337479,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "COR": {
 "industry": "Medical Distribution",
 "name": "Cencora, Inc.",
 "sector": "Healthcare",
 "shares": 190827165,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "COST": {
 "industry": "Discount Stores",
 "name": "Costco Wholesale Corporation",
 "sector": "Consumer Defensive",
-"shares": 443478804,
-"updated": "2026-09-06"
+"shares": 443129349,
+"updated": "2026-10-22"
 },
 "CPAY": {
 "industry": "Software - Infrastructure",
 "name": "Corpay, Inc.",
 "sector": "Technology",
 "shares": 65659599,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CPRT": {
 "industry": "Specialty Business Services",
 "name": "Copart, Inc.",
 "sector": "Industrials",
-"shares": 925811482,
-"updated": "2026-09-06"
+"shares": 926330452,
+"updated": "2026-10-22"
 },
 "CPT": {
 "industry": "REIT - Residential",
 "name": "Camden Property Trust",
 "sector": "Real Estate",
 "shares": 115732578,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CRH": {
 "industry": "Building Materials",
 "name": "CRH PLC",
 "sector": "Basic Materials",
 "shares": 665284511,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CRL": {
 "industry": "Diagnostics & Research",
 "name": "Charles River Laboratories Inte",
 "sector": "Healthcare",
 "shares": 48167730,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CRM": {
 "industry": "Software - Application",
 "name": "Salesforce, Inc.",
 "sector": "Technology",
 "shares": 823000000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CRWD": {
 "industry": "Software - Infrastructure",
 "name": "CrowdStrike Holdings, Inc.",
 "sector": "Technology",
 "shares": 1023934842,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CSCO": {
 "industry": "Communication Equipment",
 "name": "Cisco Systems, Inc.",
 "sector": "Technology",
 "shares": 3942586873,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CSGP": {
 "industry": "Real Estate Services",
 "name": "CoStar Group, Inc.",
 "sector": "Real Estate",
 "shares": 405197588,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CSX": {
 "industry": "Railroads",
 "name": "CSX Corporation",
 "sector": "Industrials",
 "shares": 1852474917,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CTAS": {
 "industry": "Specialty Business Services",
 "name": "Cintas Corporation",
 "sector": "Industrials",
-"shares": 400169561,
-"updated": "2026-09-06"
+"shares": 397075093,
+"updated": "2026-10-22"
 },
 "CTSH": {
 "industry": "Information Technology Services",
 "name": "Cognizant Technology Solutions ",
 "sector": "Technology",
 "shares": 450444209,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CVNA": {
 "industry": "Auto & Truck Dealerships",
 "name": "Carvana Co.",
 "sector": "Consumer Cyclical",
 "shares": 719916415,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CVS": {
 "industry": "Healthcare Plans",
 "name": "CVS Health Corporation",
 "sector": "Healthcare",
 "shares": 1278970369,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "CVX": {
 "industry": "Oil & Gas Integrated",
 "name": "Chevron Corporation",
 "sector": "Energy",
 "shares": 1961603274,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "D": {
 "industry": "Utilities - Regulated Electric",
 "name": "Dominion Energy, Inc.",
 "sector": "Utilities",
 "shares": 879525949,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "DAL": {
 "industry": "Airlines",
 "name": "Delta Air Lines, Inc.",
 "sector": "Industrials",
-"shares": 657623030,
-"updated": "2026-09-06"
+"shares": 657912380,
+"updated": "2026-10-22"
 },
 "DASH": {
 "industry": "Internet Retail",
 "name": "DoorDash, Inc.",
 "sector": "Consumer Cyclical",
 "shares": 409082893,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "DD": {
 "industry": "Specialty Chemicals",
 "name": "DuPont de Nemours, Inc.",
 "sector": "Basic Materials",
 "shares": 135042975,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "DDOG": {
 "industry": "Software - Application",
 "name": "Datadog, Inc.",
 "sector": "Technology",
 "shares": 334904614,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "DE": {
 "industry": "Farm & Heavy Construction Machinery",
 "name": "Deere & Company",
 "sector": "Industrials",
 "shares": 269625412,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "DECK": {
 "industry": "Footwear & Accessories",
 "name": "Deckers Outdoor Corporation",
 "sector": "Consumer Cyclical",
 "shares": 136181857,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "DELL": {
 "industry": "Computer Hardware",
 "name": "Dell Technologies Inc.",
 "sector": "Technology",
-"shares": 325046693,
-"updated": "2026-09-06"
+"shares": 315433188,
+"updated": "2026-10-22"
 },
 "DG": {
 "industry": "Discount Stores",
 "name": "Dollar General Corporation",
 "sector": "Consumer Defensive",
 "shares": 220616790,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "DGX": {
 "industry": "Diagnostics & Research",
 "name": "Quest Diagnostics Incorporated",
 "sector": "Healthcare",
 "shares": 110373360,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "DHI": {
 "industry": "Residential Construction",
 "name": "D.R. Horton, Inc.",
 "sector": "Consumer Cyclical",
 "shares": 279701267,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "DHR": {
 "industry": "Diagnostics & Research",
 "name": "Danaher Corporation",
 "sector": "Healthcare",
 "shares": 702986054,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "DIS": {
 "industry": "Entertainment",
 "name": "Walt Disney Company (The)",
 "sector": "Communication Services",
 "shares": 1726686902,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "DLR": {
 "industry": "REIT - Specialty",
 "name": "Digital Realty Trust, Inc.",
 "sector": "Real Estate",
 "shares": 370998727,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "DLTR": {
 "industry": "Discount Stores",
 "name": "Dollar Tree, Inc.",
 "sector": "Consumer Defensive",
 "shares": 187630299,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "DOC": {
 "industry": "REIT - Healthcare Facilities",
 "name": "Healthpeak Properties, Inc.",
 "sector": "Real Estate",
 "shares": 689527260,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "DOV": {
 "industry": "Specialty Industrial Machinery",
 "name": "Dover Corporation",
 "sector": "Industrials",
 "shares": 134680225,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "DOW": {
 "industry": "Chemicals",
 "name": "Dow Inc.",
 "sector": "Basic Materials",
 "shares": 722340711,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "DPZ": {
 "industry": "Restaurants",
 "name": "Domino's Pizza Inc",
 "sector": "Consumer Cyclical",
-"shares": 33081735,
-"updated": "2026-09-06"
+"shares": 32896056,
+"updated": "2026-10-22"
 },
 "DRI": {
 "industry": "Restaurants",
 "name": "Darden Restaurants, Inc.",
 "sector": "Consumer Cyclical",
-"shares": 113541756,
-"updated": "2026-09-06"
+"shares": 113143224,
+"updated": "2026-10-22"
 },
 "DTE": {
 "industry": "Utilities - Regulated Electric",
 "name": "DTE Energy Company",
 "sector": "Utilities",
 "shares": 208088069,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "DUK": {
 "industry": "Utilities - Regulated Electric",
 "name": "Duke Energy Corporation (Holdin",
 "sector": "Utilities",
 "shares": 779702193,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "DVA": {
 "industry": "Medical Care Facilities",
 "name": "DaVita Inc.",
 "sector": "Healthcare",
 "shares": 63800000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "DVN": {
 "industry": "Oil & Gas E&P",
 "name": "Devon Energy Corporation",
 "sector": "Energy",
 "shares": 1100000000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "DXCM": {
 "industry": "Medical Devices",
 "name": "DexCom, Inc.",
 "sector": "Healthcare",
 "shares": 377360765,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "EBAY": {
 "industry": "Internet Retail",
 "name": "eBay Inc.",
 "sector": "Consumer Cyclical",
 "shares": 445000000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ECHO": {
 "industry": "Telecom Services",
 "name": "EchoStar Corporation",
 "sector": "Communication Services",
-"shares": 159142240,
-"updated": "2026-09-06"
+"shares": 159467376,
+"updated": "2026-10-22"
 },
 "ECL": {
 "industry": "Specialty Chemicals",
 "name": "Ecolab Inc.",
 "sector": "Basic Materials",
 "shares": 280328603,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ED": {
 "industry": "Utilities - Regulated Electric",
 "name": "Consolidated Edison, Inc.",
 "sector": "Utilities",
 "shares": 369828633,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "EFX": {
 "industry": "Consulting Services",
 "name": "Equifax, Inc.",
 "sector": "Industrials",
 "shares": 117484896,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "EG": {
 "industry": "Insurance - Reinsurance",
 "name": "Everest Group, Ltd.",
 "sector": "Financial Services",
 "shares": 38342734,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "EIX": {
 "industry": "Utilities - Regulated Electric",
 "name": "Edison International",
 "sector": "Utilities",
 "shares": 384813979,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "EL": {
 "industry": "Household & Personal Products",
 "name": "Estee Lauder Companies, Inc. (T",
 "sector": "Consumer Defensive",
-"shares": 247291223,
-"updated": "2026-09-06"
+"shares": 247815431,
+"updated": "2026-10-22"
 },
 "ELV": {
 "industry": "Healthcare Plans",
 "name": "Elevance Health, Inc.",
 "sector": "Healthcare",
 "shares": 216869290,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "EME": {
 "industry": "Engineering & Construction",
 "name": "EMCOR Group, Inc.",
 "sector": "Industrials",
 "shares": 44109901,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "EMR": {
 "industry": "Specialty Industrial Machinery",
 "name": "Emerson Electric Company",
 "sector": "Industrials",
 "shares": 557800000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "EOG": {
 "industry": "Oil & Gas E&P",
 "name": "EOG Resources, Inc.",
 "sector": "Energy",
 "shares": 524529176,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "EQIX": {
 "industry": "REIT - Specialty",
 "name": "Equinix, Inc.",
 "sector": "Real Estate",
 "shares": 98671686,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "EQT": {
 "industry": "Oil & Gas E&P",
 "name": "EQT Corporation",
 "sector": "Energy",
 "shares": 625516000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ERIE": {
 "industry": "Insurance Brokers",
 "name": "Erie Indemnity Company",
 "sector": "Financial Services",
 "shares": 46189068,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ES": {
 "industry": "Utilities - Regulated Electric",
 "name": "Eversource Energy (D/B/A)",
 "sector": "Utilities",
 "shares": 376674754,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ESS": {
 "industry": "REIT - Residential",
 "name": "Essex Property Trust, Inc.",
 "sector": "Real Estate",
 "shares": 64268439,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ETN": {
 "industry": "Specialty Industrial Machinery",
 "name": "Eaton Corporation, PLC",
 "sector": "Industrials",
 "shares": 388400000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ETR": {
 "industry": "Utilities - Regulated Electric",
 "name": "Entergy Corporation",
 "sector": "Utilities",
 "shares": 477777482,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "EVRG": {
 "industry": "Utilities - Regulated Electric",
 "name": "Evergy, Inc.",
 "sector": "Utilities",
 "shares": 230567172,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "EW": {
 "industry": "Medical Devices",
 "name": "Edwards Lifesciences Corporatio",
 "sector": "Healthcare",
 "shares": 576400000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "EXC": {
 "industry": "Utilities - Regulated Electric",
 "name": "Exelon Corporation",
 "sector": "Utilities",
 "shares": 1030253967,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "EXE": {
 "industry": "Oil & Gas E&P",
 "name": "Expand Energy Corporation",
 "sector": "Energy",
 "shares": 231503789,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "EXPD": {
 "industry": "Integrated Freight & Logistics",
 "name": "Expeditors International of Was",
 "sector": "Industrials",
 "shares": 129990622,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "EXPE": {
 "industry": "Travel Services",
 "name": "Expedia Group, Inc.",
 "sector": "Consumer Cyclical",
 "shares": 114498625,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "EXR": {
 "industry": "REIT - Industrial",
 "name": "Extra Space Storage Inc",
 "sector": "Real Estate",
 "shares": 211269558,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "F": {
 "industry": "Auto Manufacturers",
 "name": "Ford Motor Company",
 "sector": "Consumer Cyclical",
 "shares": 3916743591,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "FANG": {
 "industry": "Oil & Gas E&P",
 "name": "Diamondback Energy, Inc.",
 "sector": "Energy",
 "shares": 280019792,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "FAST": {
 "industry": "Industrial Distribution",
 "name": "Fastenal Company",
 "sector": "Industrials",
 "shares": 1147497573,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "FCX": {
 "industry": "Copper",
 "name": "Freeport-McMoRan, Inc.",
 "sector": "Basic Materials",
 "shares": 1436017523,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "FDS": {
 "industry": "Financial Data & Stock Exchanges",
 "name": "FactSet Research Systems Inc.",
 "sector": "Financial Services",
 "shares": 35565543,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "FDX": {
 "industry": "Integrated Freight & Logistics",
 "name": "FedEx Corporation",
 "sector": "Industrials",
 "shares": 236670435,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "FDXF": {
 "industry": "Integrated Freight & Logistics",
 "name": "FedEx Freight Holding Company, ",
 "sector": "Industrials",
 "shares": 149518133,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "FE": {
 "industry": "Utilities - Regulated Electric",
 "name": "FirstEnergy Corp.",
 "sector": "Utilities",
 "shares": 578639932,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "FERG": {
 "industry": "Industrial Distribution",
 "name": "Ferguson Enterprises Inc.",
 "sector": "Industrials",
 "shares": 193452717,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "FFIV": {
 "industry": "Software - Infrastructure",
 "name": "F5, Inc.",
 "sector": "Technology",
 "shares": 56627182,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "FICO": {
 "industry": "Software - Application",
 "name": "Fair Isaac Corporation",
 "sector": "Technology",
 "shares": 21597635,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "FIS": {
 "industry": "Information Technology Services",
 "name": "Fidelity National Information S",
 "sector": "Technology",
 "shares": 515705917,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "FISV": {
 "industry": null,
 "name": "Fiserv, Inc.",
 "sector": null,
 "shares": 531766721,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "FITB": {
 "industry": "Banks - Regional",
 "name": "Fifth Third Bancorp",
 "sector": "Financial Services",
 "shares": 906892564,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "FIX": {
 "industry": "Engineering & Construction",
 "name": "Comfort Systems USA, Inc.",
 "sector": "Industrials",
 "shares": 35194329,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "FLEX": {
 "industry": "Electronic Components",
 "name": "Flex Ltd.",
 "sector": "Technology",
-"shares": 369402978,
-"updated": "2026-09-06"
+"shares": 369460443,
+"updated": "2026-10-22"
 },
 "FOX": {
 "industry": "Entertainment",
 "name": "Fox Corporation",
 "sector": "Communication Services",
 "shares": 220248764,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "FOXA": {
 "industry": "Entertainment",
 "name": "Fox Corporation",
 "sector": "Communication Services",
-"shares": 200188712,
-"updated": "2026-09-06"
+"shares": 201424858,
+"updated": "2026-10-22"
 },
 "FRT": {
 "industry": "REIT - Retail",
 "name": "Federal Realty Investment Trust",
 "sector": "Real Estate",
 "shares": 86889133,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "FSLR": {
 "industry": "Solar",
 "name": "First Solar, Inc.",
 "sector": "Technology",
 "shares": 107469788,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "FTNT": {
 "industry": "Software - Infrastructure",
 "name": "Fortinet, Inc.",
 "sector": "Technology",
 "shares": 733713653,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "FTV": {
 "industry": "Scientific & Technical Instruments",
 "name": "Fortive Corporation",
 "sector": "Technology",
 "shares": 302017052,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "GD": {
 "industry": "Aerospace & Defense",
 "name": "General Dynamics Corporation",
 "sector": "Industrials",
 "shares": 270557195,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "GDDY": {
 "industry": "Software - Infrastructure",
 "name": "GoDaddy Inc.",
 "sector": "Technology",
 "shares": 126647704,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "GE": {
 "industry": "Aerospace & Defense",
 "name": "GE Aerospace",
 "sector": "Industrials",
 "shares": 1037562513,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "GEHC": {
 "industry": "Medical Devices",
 "name": "GE HealthCare Technologies Inc.",
 "sector": "Healthcare",
 "shares": 451686252,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "GEN": {
 "industry": "Software - Infrastructure",
 "name": "Gen Digital Inc.",
 "sector": "Technology",
 "shares": 598587032,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "GEV": {
 "industry": "Specialty Industrial Machinery",
 "name": "GE Vernova Inc.",
 "sector": "Industrials",
 "shares": 266333581,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "GILD": {
 "industry": "Drug Manufacturers - General",
 "name": "Gilead Sciences, Inc.",
 "sector": "Healthcare",
 "shares": 1239955155,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "GIS": {
 "industry": "Packaged Foods",
 "name": "General Mills, Inc.",
 "sector": "Consumer Defensive",
-"shares": 534629472,
-"updated": "2026-09-06"
+"shares": 534687144,
+"updated": "2026-10-22"
 },
 "GL": {
 "industry": "Insurance - Life",
 "name": "Globe Life Inc.",
 "sector": "Financial Services",
 "shares": 76849447,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "GLW": {
 "industry": "Electronic Components",
 "name": "Corning Incorporated",
 "sector": "Technology",
 "shares": 861388331,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "GM": {
 "industry": "Auto Manufacturers",
 "name": "General Motors Company",
 "sector": "Consumer Cyclical",
-"shares": 904451541,
-"updated": "2026-09-06"
+"shares": 877451541,
+"updated": "2026-10-22"
 },
 "GNRC": {
 "industry": "Specialty Industrial Machinery",
 "name": "Generac Holdlings Inc.",
 "sector": "Industrials",
-"shares": 59006361,
-"updated": "2026-09-06"
+"shares": 59063935,
+"updated": "2026-10-22"
 },
 "GOOG": {
 "industry": "Internet Content & Information",
 "name": "Alphabet Inc.",
 "sector": "Communication Services",
 "shares": 5527000000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "GOOGL": {
 "industry": "Internet Content & Information",
 "name": "Alphabet Inc.",
 "sector": "Communication Services",
 "shares": 5867155790,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "GPC": {
 "industry": "Auto Parts",
 "name": "Genuine Parts Company",
 "sector": "Consumer Cyclical",
 "shares": 137859758,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "GPN": {
 "industry": "Specialty Business Services",
 "name": "Global Payments Inc.",
 "sector": "Industrials",
 "shares": 264618390,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "GRMN": {
 "industry": "Scientific & Technical Instruments",
 "name": "Garmin Ltd.",
 "sector": "Technology",
 "shares": 192852536,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "GS": {
 "industry": "Capital Markets",
 "name": "Goldman Sachs Group, Inc. (The)",
 "sector": "Financial Services",
 "shares": 291171408,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "GWW": {
 "industry": "Industrial Distribution",
 "name": "W.W. Grainger, Inc.",
 "sector": "Industrials",
 "shares": 47100942,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "HAL": {
 "industry": "Oil & Gas Equipment & Services",
 "name": "Halliburton Company",
 "sector": "Energy",
 "shares": 833130367,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "HAS": {
 "industry": "Leisure",
 "name": "Hasbro, Inc.",
 "sector": "Consumer Cyclical",
 "shares": 141044467,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "HBAN": {
 "industry": "Banks - Regional",
 "name": "Huntington Bancshares Incorpora",
 "sector": "Financial Services",
 "shares": 2020414826,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "HCA": {
 "industry": "Medical Care Facilities",
 "name": "HCA Healthcare, Inc.",
 "sector": "Healthcare",
 "shares": 216501500,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "HD": {
 "industry": "Home Improvement Retail",
 "name": "Home Depot, Inc. (The)",
 "sector": "Consumer Cyclical",
 "shares": 997689626,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "HIG": {
 "industry": "Insurance - Diversified",
 "name": "The Hartford Insurance Group, I",
 "sector": "Financial Services",
 "shares": 270872002,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "HII": {
 "industry": "Aerospace & Defense",
 "name": "Huntington Ingalls Industries, ",
 "sector": "Industrials",
 "shares": 39404598,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "HLT": {
 "industry": "Lodging",
 "name": "Hilton Worldwide Holdings Inc.",
 "sector": "Consumer Cyclical",
 "shares": 225064910,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "HON": {
 "industry": "Conglomerates",
 "name": "Honeywell International Inc.",
 "sector": "Industrials",
 "shares": 316940010,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "HONA": {
 "industry": "Aerospace & Defense",
 "name": "Honeywell Aerospace Inc.",
 "sector": "Industrials",
 "shares": 316952725,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "HOOD": {
 "industry": "Capital Markets",
 "name": "Robinhood Markets, Inc.",
 "sector": "Financial Services",
 "shares": 790630234,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "HPE": {
 "industry": "Communication Equipment",
 "name": "Hewlett Packard Enterprise Comp",
 "sector": "Technology",
 "shares": 1327464779,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "HPQ": {
 "industry": "Computer Hardware",
 "name": "HP Inc.",
 "sector": "Technology",
 "shares": 901790969,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "HRL": {
 "industry": "Packaged Foods",
 "name": "Hormel Foods Corporation",
 "sector": "Consumer Defensive",
 "shares": 550350800,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "HSIC": {
 "industry": "Medical Distribution",
 "name": "Henry Schein, Inc.",
 "sector": "Healthcare",
 "shares": 111446542,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "HST": {
 "industry": "REIT - Hotel & Motel",
 "name": "Host Hotels & Resorts, Inc.",
 "sector": "Real Estate",
 "shares": 685124399,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "HSY": {
 "industry": "Confectioners",
 "name": "The Hershey Company",
 "sector": "Consumer Defensive",
 "shares": 146312143,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "HUBB": {
 "industry": "Electrical Equipment & Parts",
 "name": "Hubbell Inc",
 "sector": "Industrials",
 "shares": 52832571,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "HUM": {
 "industry": "Healthcare Plans",
 "name": "Humana Inc.",
 "sector": "Healthcare",
 "shares": 120080308,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "HWM": {
 "industry": "Aerospace & Defense",
 "name": "Howmet Aerospace Inc.",
 "sector": "Industrials",
 "shares": 398801399,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "IBKR": {
 "industry": "Capital Markets",
 "name": "Interactive Brokers Group, Inc.",
 "sector": "Financial Services",
 "shares": 453077771,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "IBM": {
 "industry": "Information Technology Services",
 "name": "International Business Machines",
 "sector": "Technology",
 "shares": 942134390,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ICE": {
 "industry": "Financial Data & Stock Exchanges",
 "name": "Intercontinental Exchange Inc.",
 "sector": "Financial Services",
 "shares": 561394487,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "IDXX": {
 "industry": "Diagnostics & Research",
 "name": "IDEXX Laboratories, Inc.",
 "sector": "Healthcare",
 "shares": 78781116,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "IEX": {
 "industry": "Specialty Industrial Machinery",
 "name": "IDEX Corporation",
 "sector": "Industrials",
 "shares": 73719896,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "IFF": {
 "industry": "Specialty Chemicals",
 "name": "International Flavors & Fragran",
 "sector": "Basic Materials",
 "shares": 255149963,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ILMN": {
 "industry": "Diagnostics & Research",
@@ -1705,770 +1705,770 @@
 "name": "Incyte Corporation",
 "sector": "Healthcare",
 "shares": 202697746,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "INTC": {
 "industry": "Semiconductors",
 "name": "Intel Corporation",
 "sector": "Technology",
 "shares": 5286105262,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "INTU": {
 "industry": "Software - Application",
 "name": "Intuit Inc.",
 "sector": "Technology",
-"shares": 273537000,
-"updated": "2026-09-06"
+"shares": 267236000,
+"updated": "2026-10-22"
 },
 "INVH": {
 "industry": "REIT - Residential",
 "name": "Invitation Homes Inc.",
 "sector": "Real Estate",
-"shares": 594041956,
-"updated": "2026-09-06"
+"shares": 590623226,
+"updated": "2026-10-22"
 },
 "IP": {
 "industry": "Packaging & Containers",
 "name": "International Paper Company",
 "sector": "Consumer Cyclical",
 "shares": 529569895,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "IQV": {
 "industry": "Diagnostics & Research",
 "name": "IQVIA Holdings, Inc.",
 "sector": "Healthcare",
 "shares": 164600000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "IR": {
 "industry": "Specialty Industrial Machinery",
 "name": "Ingersoll Rand Inc.",
 "sector": "Industrials",
 "shares": 387999429,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "IRM": {
 "industry": "REIT - Specialty",
 "name": "Iron Mountain Incorporated (Del",
 "sector": "Real Estate",
 "shares": 297702812,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ISRG": {
 "industry": "Medical Instruments & Supplies",
 "name": "Intuitive Surgical, Inc.",
 "sector": "Healthcare",
-"shares": 358278038,
-"updated": "2026-09-06"
+"shares": 353278038,
+"updated": "2026-10-22"
 },
 "IT": {
 "industry": "Information Technology Services",
 "name": "Gartner, Inc.",
 "sector": "Technology",
 "shares": 63148976,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ITW": {
 "industry": "Specialty Industrial Machinery",
 "name": "Illinois Tool Works Inc.",
 "sector": "Industrials",
 "shares": 284800000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "IVZ": {
 "industry": "Asset Management",
 "name": "Invesco Ltd",
 "sector": "Financial Services",
 "shares": 441499780,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "J": {
 "industry": "Engineering & Construction",
 "name": "Jacobs Solutions Inc.",
 "sector": "Industrials",
 "shares": 117038611,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "JBHT": {
 "industry": "Integrated Freight & Logistics",
 "name": "J.B. Hunt Transport Services, I",
 "sector": "Industrials",
 "shares": 93914939,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "JBL": {
 "industry": "Electronic Components",
 "name": "Jabil Inc.",
 "sector": "Technology",
 "shares": 104787089,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "JCI": {
 "industry": "Building Products & Equipment",
 "name": "Johnson Controls International ",
 "sector": "Industrials",
 "shares": 605741470,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "JKHY": {
 "industry": "Information Technology Services",
 "name": "Jack Henry & Associates, Inc.",
 "sector": "Technology",
-"shares": 70112608,
-"updated": "2026-09-06"
+"shares": 70111999,
+"updated": "2026-10-22"
 },
 "JNJ": {
 "industry": "Drug Manufacturers - General",
 "name": "Johnson & Johnson",
 "sector": "Healthcare",
 "shares": 2409898597,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "JPM": {
 "industry": "Banks - Diversified",
 "name": "JP Morgan Chase & Co.",
 "sector": "Financial Services",
-"shares": 2658186195,
-"updated": "2026-09-06"
+"shares": 2655600000,
+"updated": "2026-10-22"
 },
 "KDP": {
 "industry": "Beverages - Non-Alcoholic",
 "name": "Keurig Dr Pepper Inc.",
 "sector": "Consumer Defensive",
 "shares": 1360826038,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "KEY": {
 "industry": "Banks - Regional",
 "name": "KeyCorp",
 "sector": "Financial Services",
 "shares": 1067128554,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "KEYS": {
 "industry": "Scientific & Technical Instruments",
 "name": "Keysight Technologies Inc.",
 "sector": "Technology",
 "shares": 170244745,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "KHC": {
 "industry": "Packaged Foods",
 "name": "The Kraft Heinz Company",
 "sector": "Consumer Defensive",
 "shares": 1185823758,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "KIM": {
 "industry": "REIT - Retail",
 "name": "Kimco Realty Corporation (HC)",
 "sector": "Real Estate",
 "shares": 670789373,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "KKR": {
 "industry": "Asset Management",
 "name": "KKR & Co. Inc.",
 "sector": "Financial Services",
 "shares": 897635601,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "KLAC": {
 "industry": "Semiconductor Equipment & Materials",
 "name": "KLA Corporation",
 "sector": "Technology",
-"shares": 1306546783,
-"updated": "2026-09-06"
+"shares": 1305006492,
+"updated": "2026-10-22"
 },
 "KMB": {
 "industry": "Household & Personal Products",
 "name": "Kimberly-Clark Corporation",
 "sector": "Consumer Defensive",
 "shares": 332579038,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "KMI": {
 "industry": "Oil & Gas Midstream",
 "name": "Kinder Morgan, Inc.",
 "sector": "Energy",
 "shares": 2226802089,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "KO": {
 "industry": "Beverages - Non-Alcoholic",
 "name": "Coca-Cola Company (The)",
 "sector": "Consumer Defensive",
 "shares": 4302549243,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "KR": {
 "industry": "Grocery Stores",
 "name": "Kroger Company (The)",
 "sector": "Consumer Defensive",
-"shares": 612647282,
-"updated": "2026-09-06"
+"shares": 590588700,
+"updated": "2026-10-22"
 },
 "KVUE": {
 "industry": "Household & Personal Products",
 "name": "Kenvue Inc.",
 "sector": "Consumer Defensive",
 "shares": 1920773467,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "L": {
 "industry": "Insurance - Property & Casualty",
 "name": "Loews Corporation",
 "sector": "Financial Services",
 "shares": 204427720,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "LDOS": {
 "industry": "Information Technology Services",
 "name": "Leidos Holdings, Inc.",
 "sector": "Technology",
 "shares": 125492209,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "LEN": {
 "industry": "Residential Construction",
 "name": "Lennar Corporation",
 "sector": "Consumer Cyclical",
-"shares": 210506003,
-"updated": "2026-09-06"
+"shares": 207876222,
+"updated": "2026-10-22"
 },
 "LH": {
 "industry": "Diagnostics & Research",
 "name": "Labcorp Holdings Inc.",
 "sector": "Healthcare",
 "shares": 81100000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "LHX": {
 "industry": "Aerospace & Defense",
 "name": "L3Harris Technologies, Inc.",
 "sector": "Industrials",
 "shares": 186214616,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "LII": {
 "industry": "Building Products & Equipment",
 "name": "Lennox International, Inc.",
 "sector": "Industrials",
 "shares": 34560675,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "LIN": {
 "industry": "Specialty Chemicals",
 "name": "Linde plc",
 "sector": "Basic Materials",
 "shares": 460980163,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "LITE": {
 "industry": "Communication Equipment",
 "name": "Lumentum Holdings Inc.",
 "sector": "Technology",
-"shares": 89700000,
-"updated": "2026-09-06"
+"shares": 90582856,
+"updated": "2026-10-22"
 },
 "LLY": {
 "industry": "Drug Manufacturers - General",
 "name": "Eli Lilly and Company",
 "sector": "Healthcare",
 "shares": 891741406,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "LMT": {
 "industry": "Aerospace & Defense",
 "name": "Lockheed Martin Corporation",
 "sector": "Industrials",
 "shares": 230790753,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "LNT": {
 "industry": "Utilities - Regulated Electric",
 "name": "Alliant Energy Corporation",
 "sector": "Utilities",
 "shares": 259284699,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "LOW": {
 "industry": "Home Improvement Retail",
 "name": "Lowe's Companies, Inc.",
 "sector": "Consumer Cyclical",
 "shares": 561054019,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "LRCX": {
 "industry": "Semiconductor Equipment & Materials",
 "name": "Lam Research Corporation",
 "sector": "Technology",
-"shares": 1251321000,
-"updated": "2026-09-06"
+"shares": 1251424362,
+"updated": "2026-10-22"
 },
 "LULU": {
 "industry": "Apparel Retail",
 "name": "lululemon athletica inc.",
 "sector": "Consumer Cyclical",
 "shares": 105594064,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "LUV": {
 "industry": "Airlines",
 "name": "Southwest Airlines Company",
 "sector": "Industrials",
 "shares": 489208201,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "LVS": {
 "industry": "Resorts & Casinos",
 "name": "Las Vegas Sands Corp.",
 "sector": "Consumer Cyclical",
 "shares": 647701184,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "LYB": {
 "industry": "Specialty Chemicals",
 "name": "LyondellBasell Industries NV",
 "sector": "Basic Materials",
 "shares": 323037952,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "LYV": {
 "industry": "Entertainment",
 "name": "Live Nation Entertainment, Inc.",
 "sector": "Communication Services",
 "shares": 232959505,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MA": {
 "industry": "Credit Services",
 "name": "Mastercard Incorporated",
 "sector": "Financial Services",
 "shares": 869464115,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MAA": {
 "industry": "REIT - Residential",
 "name": "Mid-America Apartment Communiti",
 "sector": "Real Estate",
 "shares": 116021957,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MAR": {
 "industry": "Lodging",
 "name": "Marriott International",
 "sector": "Consumer Cyclical",
 "shares": 260766288,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MAS": {
 "industry": "Building Products & Equipment",
 "name": "Masco Corporation",
 "sector": "Industrials",
 "shares": 197187430,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MCD": {
 "industry": "Restaurants",
 "name": "McDonald's Corporation",
 "sector": "Consumer Cyclical",
 "shares": 707641531,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MCHP": {
 "industry": "Semiconductors",
 "name": "Microchip Technology Incorporat",
 "sector": "Technology",
 "shares": 543008691,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MCK": {
 "industry": "Medical Distribution",
 "name": "McKesson Corporation",
 "sector": "Healthcare",
 "shares": 116590363,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MCO": {
 "industry": "Financial Data & Stock Exchanges",
 "name": "Moody's Corporation",
 "sector": "Financial Services",
 "shares": 173180984,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MDLZ": {
 "industry": "Confectioners",
 "name": "Mondelez International, Inc.",
 "sector": "Consumer Defensive",
 "shares": 1276308057,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MDT": {
 "industry": "Medical Devices",
 "name": "Medtronic plc.",
 "sector": "Healthcare",
 "shares": 1279137890,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MET": {
 "industry": "Insurance - Life",
 "name": "MetLife, Inc.",
 "sector": "Financial Services",
 "shares": 635476927,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "META": {
 "industry": "Internet Content & Information",
 "name": "Meta Platforms, Inc.",
 "sector": "Communication Services",
 "shares": 2205128509,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MGM": {
 "industry": "Resorts & Casinos",
 "name": "MGM Resorts International",
 "sector": "Consumer Cyclical",
 "shares": 255851235,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MKC": {
 "industry": "Packaged Foods",
 "name": "McCormick & Company, Incorporat",
 "sector": "Consumer Defensive",
-"shares": 254055150,
-"updated": "2026-09-06"
+"shares": 254541615,
+"updated": "2026-10-22"
 },
 "MLM": {
 "industry": "Building Materials",
 "name": "Martin Marietta Materials, Inc.",
 "sector": "Basic Materials",
 "shares": 71019382,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MMM": {
 "industry": "Conglomerates",
 "name": "3M Company",
 "sector": "Industrials",
 "shares": 515722417,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MNST": {
 "industry": "Beverages - Non-Alcoholic",
 "name": "Monster Beverage Corporation",
 "sector": "Consumer Defensive",
 "shares": 1959051764,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MO": {
 "industry": "Tobacco",
 "name": "Altria Group, Inc.",
 "sector": "Consumer Defensive",
 "shares": 1669743926,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MOS": {
 "industry": "Agricultural Inputs",
 "name": "Mosaic Company (The)",
 "sector": "Basic Materials",
 "shares": 317895646,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MPC": {
 "industry": "Oil & Gas Refining & Marketing",
 "name": "Marathon Petroleum Corporation",
 "sector": "Energy",
 "shares": 280824763,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MPWR": {
 "industry": "Semiconductors",
 "name": "Monolithic Power Systems, Inc.",
 "sector": "Technology",
 "shares": 49143000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MRK": {
 "industry": "Drug Manufacturers - General",
 "name": "Merck & Company, Inc.",
 "sector": "Healthcare",
 "shares": 2467171638,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MRNA": {
 "industry": "Biotechnology",
 "name": "Moderna, Inc.",
 "sector": "Healthcare",
 "shares": 399235889,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MRSH": {
 "industry": "Insurance Brokers",
 "name": "Marsh",
 "sector": "Financial Services",
 "shares": 477211268,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MRVL": {
 "industry": "Semiconductors",
 "name": "Marvell Technology, Inc.",
 "sector": "Technology",
 "shares": 876926613,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MS": {
 "industry": "Capital Markets",
 "name": "Morgan Stanley",
 "sector": "Financial Services",
 "shares": 1570566292,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MSCI": {
 "industry": "Financial Data & Stock Exchanges",
 "name": "MSCI Inc.",
 "sector": "Financial Services",
 "shares": 72700000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MSFT": {
 "industry": "Software - Infrastructure",
 "name": "Microsoft Corporation",
 "sector": "Technology",
 "shares": 7425545491,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MSI": {
 "industry": "Communication Equipment",
 "name": "Motorola Solutions, Inc.",
 "sector": "Technology",
 "shares": 165493788,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MTB": {
 "industry": "Banks - Regional",
 "name": "M&T Bank Corporation",
 "sector": "Financial Services",
 "shares": 144416262,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MTD": {
 "industry": "Diagnostics & Research",
 "name": "Mettler-Toledo International, I",
 "sector": "Healthcare",
 "shares": 20036559,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "MU": {
 "industry": "Semiconductors",
 "name": "Micron Technology, Inc.",
 "sector": "Technology",
-"shares": 1129393151,
-"updated": "2026-09-06"
+"shares": 1131423212,
+"updated": "2026-10-22"
 },
 "NCLH": {
 "industry": "Travel Services",
 "name": "Norwegian Cruise Line Holdings ",
 "sector": "Consumer Cyclical",
 "shares": 459187846,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "NDAQ": {
 "industry": "Financial Data & Stock Exchanges",
 "name": "Nasdaq, Inc.",
 "sector": "Financial Services",
 "shares": 558977372,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "NDSN": {
 "industry": "Specialty Industrial Machinery",
 "name": "Nordson Corporation",
 "sector": "Industrials",
 "shares": 55699366,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "NEE": {
 "industry": "Utilities - Regulated Electric",
 "name": "NextEra Energy, Inc.",
 "sector": "Utilities",
 "shares": 2085978209,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "NEM": {
 "industry": "Gold",
 "name": "Newmont Corporation",
 "sector": "Basic Materials",
 "shares": 1053692271,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "NFLX": {
 "industry": "Entertainment",
 "name": "Netflix, Inc.",
 "sector": "Communication Services",
 "shares": 4163939676,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "NI": {
 "industry": "Utilities - Regulated Gas",
 "name": "NiSource Inc",
 "sector": "Utilities",
 "shares": 479560100,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "NKE": {
 "industry": "Footwear & Accessories",
 "name": "Nike, Inc.",
 "sector": "Consumer Cyclical",
-"shares": 1202110951,
-"updated": "2026-09-06"
+"shares": 1203921077,
+"updated": "2026-10-22"
 },
 "NOC": {
 "industry": "Aerospace & Defense",
 "name": "Northrop Grumman Corporation",
 "sector": "Industrials",
 "shares": 142063026,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "NOW": {
 "industry": "Software - Application",
 "name": "ServiceNow, Inc.",
 "sector": "Technology",
 "shares": 1033862000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "NRG": {
 "industry": "Utilities - Independent Power Producers",
 "name": "NRG Energy, Inc.",
 "sector": "Utilities",
 "shares": 210210483,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "NSC": {
 "industry": "Railroads",
 "name": "Norfolk Southern Corporation",
 "sector": "Industrials",
 "shares": 224608373,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "NTAP": {
 "industry": "Software - Infrastructure",
 "name": "NetApp, Inc.",
 "sector": "Technology",
 "shares": 196419005,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "NTRS": {
 "industry": "Asset Management",
 "name": "Northern Trust Corporation",
 "sector": "Financial Services",
 "shares": 182955653,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "NUE": {
 "industry": "Steel",
 "name": "Nucor Corporation",
 "sector": "Basic Materials",
 "shares": 226875676,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "NVDA": {
 "industry": "Semiconductors",
 "name": "NVIDIA Corporation",
 "sector": "Technology",
 "shares": 24147000000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "NVR": {
 "industry": "Residential Construction",
 "name": "NVR, Inc.",
 "sector": "Consumer Cyclical",
 "shares": 2678153,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "NWS": {
 "industry": "Entertainment",
 "name": "News Corporation",
 "sector": "Communication Services",
-"shares": 177588467,
-"updated": "2026-09-06"
+"shares": 179394896,
+"updated": "2026-10-22"
 },
 "NWSA": {
 "industry": "Entertainment",
 "name": "News Corporation",
 "sector": "Communication Services",
-"shares": 359111934,
-"updated": "2026-09-06"
+"shares": 359335193,
+"updated": "2026-10-22"
 },
 "NXPI": {
 "industry": "Semiconductors",
 "name": "NXP Semiconductors N.V.",
 "sector": "Technology",
 "shares": 252164174,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "O": {
 "industry": "REIT - Retail",
 "name": "Realty Income Corporation",
 "sector": "Real Estate",
 "shares": 946218033,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ODFL": {
 "industry": "Trucking",
 "name": "Old Dominion Freight Line, Inc.",
 "sector": "Industrials",
 "shares": 207968283,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "OKE": {
 "industry": "Oil & Gas Midstream",
 "name": "ONEOK, Inc.",
 "sector": "Energy",
-"shares": 630369667,
-"updated": "2026-09-06"
+"shares": 630409203,
+"updated": "2026-10-22"
 },
 "OMC": {
 "industry": "Advertising Agencies",
 "name": "Omnicom Group Inc.",
 "sector": "Communication Services",
 "shares": 274345967,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ON": {
 "industry": "Semiconductors",
 "name": "ON Semiconductor Corporation",
 "sector": "Technology",
 "shares": 389318613,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ORCL": {
 "industry": "Software - Infrastructure",
 "name": "Oracle Corporation",
 "sector": "Technology",
-"shares": 2880471000,
-"updated": "2026-09-06"
+"shares": 3031501149,
+"updated": "2026-10-22"
 },
 "ORLY": {
 "industry": "Auto Parts",
 "name": "O'Reilly Automotive, Inc.",
 "sector": "Consumer Cyclical",
 "shares": 808960792,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "OTIS": {
 "industry": "Specialty Industrial Machinery",
 "name": "Otis Worldwide Corporation",
 "sector": "Industrials",
 "shares": 380669339,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "OXY": {
 "industry": "Oil & Gas E&P",
 "name": "Occidental Petroleum Corporatio",
 "sector": "Energy",
 "shares": 999637371,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "P": {
 "industry": "Computer Hardware",
@@ -2481,351 +2481,351 @@
 "industry": "Software - Infrastructure",
 "name": "Palo Alto Networks, Inc.",
 "sector": "Technology",
-"shares": 815000000,
-"updated": "2026-09-06"
+"shares": 818000000,
+"updated": "2026-10-22"
 },
 "PAYX": {
 "industry": "Software - Application",
 "name": "Paychex, Inc.",
 "sector": "Technology",
 "shares": 355980473,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "PCAR": {
 "industry": "Farm & Heavy Construction Machinery",
 "name": "PACCAR Inc.",
 "sector": "Industrials",
 "shares": 526364953,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "PCG": {
 "industry": "Utilities - Regulated Electric",
 "name": "Pacific Gas & Electric Co.",
 "sector": "Utilities",
 "shares": 2202366906,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "PEG": {
 "industry": "Utilities - Regulated Electric",
 "name": "Public Service Enterprise Group",
 "sector": "Utilities",
 "shares": 498420030,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "PEP": {
 "industry": "Beverages - Non-Alcoholic",
 "name": "Pepsico, Inc.",
 "sector": "Consumer Defensive",
-"shares": 1366000000,
-"updated": "2026-09-06"
+"shares": 1362741092,
+"updated": "2026-10-22"
 },
 "PFE": {
 "industry": "Drug Manufacturers - General",
 "name": "Pfizer, Inc.",
 "sector": "Healthcare",
 "shares": 5699673589,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "PFG": {
 "industry": "Asset Management",
 "name": "Principal Financial Group Inc",
 "sector": "Financial Services",
 "shares": 214104641,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "PG": {
 "industry": "Household & Personal Products",
 "name": "Procter & Gamble Company (The)",
 "sector": "Consumer Defensive",
 "shares": 2322672312,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "PGR": {
 "industry": "Insurance - Property & Casualty",
 "name": "Progressive Corporation (The)",
 "sector": "Financial Services",
-"shares": 581100000,
-"updated": "2026-09-06"
+"shares": 580400000,
+"updated": "2026-10-22"
 },
 "PH": {
 "industry": "Specialty Industrial Machinery",
 "name": "Parker-Hannifin Corporation",
 "sector": "Industrials",
-"shares": 126047469,
-"updated": "2026-09-06"
+"shares": 126112415,
+"updated": "2026-10-22"
 },
 "PHM": {
 "industry": "Residential Construction",
 "name": "PulteGroup, Inc.",
 "sector": "Consumer Cyclical",
 "shares": 190486353,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "PKG": {
 "industry": "Packaging & Containers",
 "name": "Packaging Corporation of Americ",
 "sector": "Consumer Cyclical",
 "shares": 89098299,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "PLD": {
 "industry": "REIT - Industrial",
 "name": "Prologis, Inc.",
 "sector": "Real Estate",
 "shares": 950333372,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "PLTR": {
 "industry": "Software - Infrastructure",
 "name": "Palantir Technologies Inc.",
 "sector": "Technology",
 "shares": 2300713329,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "PM": {
 "industry": "Tobacco",
 "name": "Philip Morris International Inc",
 "sector": "Consumer Defensive",
 "shares": 1558613439,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "PNC": {
 "industry": "Banks - Regional",
 "name": "PNC Financial Services Group, I",
 "sector": "Financial Services",
 "shares": 398943667,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "PNR": {
 "industry": "Specialty Industrial Machinery",
 "name": "Pentair plc.",
 "sector": "Industrials",
 "shares": 159600000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "PNW": {
 "industry": "Utilities - Regulated Electric",
 "name": "Pinnacle West Capital Corporati",
 "sector": "Utilities",
 "shares": 121197234,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "PODD": {
 "industry": "Medical Devices",
 "name": "Insulet Corporation",
 "sector": "Healthcare",
 "shares": 69354199,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "PPG": {
 "industry": "Specialty Chemicals",
 "name": "PPG Industries, Inc.",
 "sector": "Basic Materials",
 "shares": 222300000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "PPL": {
 "industry": "Utilities - Regulated Electric",
 "name": "PPL Corporation",
 "sector": "Utilities",
 "shares": 752544841,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "PRU": {
 "industry": "Insurance - Life",
 "name": "Prudential Financial, Inc.",
 "sector": "Financial Services",
 "shares": 345000000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "PSA": {
 "industry": "REIT - Industrial",
 "name": "Public Storage",
 "sector": "Real Estate",
-"shares": 186745748,
-"updated": "2026-09-06"
+"shares": 186852295,
+"updated": "2026-10-22"
 },
 "PSX": {
 "industry": "Oil & Gas Refining & Marketing",
 "name": "Phillips 66",
 "sector": "Energy",
 "shares": 400935020,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "PTC": {
 "industry": "Software - Application",
 "name": "PTC Inc.",
 "sector": "Technology",
-"shares": 108506261,
-"updated": "2026-09-06"
+"shares": 108632228,
+"updated": "2026-10-22"
 },
 "PWR": {
 "industry": "Engineering & Construction",
 "name": "Quanta Services, Inc.",
 "sector": "Industrials",
 "shares": 150343393,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "PYPL": {
 "industry": "Credit Services",
 "name": "PayPal Holdings, Inc.",
 "sector": "Financial Services",
 "shares": 855460874,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "Q": {
 "industry": "Semiconductor Equipment & Materials",
 "name": "Qnity Electronics, Inc.",
 "sector": "Technology",
 "shares": 209208543,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "QCOM": {
 "industry": "Semiconductors",
 "name": "QUALCOMM Incorporated",
 "sector": "Technology",
-"shares": 1068060487,
-"updated": "2026-09-06"
+"shares": 1067839507,
+"updated": "2026-10-22"
 },
 "RCL": {
 "industry": "Travel Services",
 "name": "Royal Caribbean Cruises Ltd.",
 "sector": "Consumer Cyclical",
 "shares": 267452084,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "RDDT": {
 "industry": "Internet Content & Information",
 "name": "Reddit, Inc.",
 "sector": "Communication Services",
 "shares": 146103200,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "REG": {
 "industry": "REIT - Retail",
 "name": "Regency Centers Corporation",
 "sector": "Real Estate",
 "shares": 183120547,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "REGN": {
 "industry": "Biotechnology",
 "name": "Regeneron Pharmaceuticals, Inc.",
 "sector": "Healthcare",
 "shares": 101137842,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "RF": {
 "industry": "Banks - Regional",
 "name": "Regions Financial Corporation",
 "sector": "Financial Services",
 "shares": 851929506,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "RJF": {
 "industry": "Asset Management",
 "name": "Raymond James Financial, Inc.",
 "sector": "Financial Services",
 "shares": 192100000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "RL": {
 "industry": "Apparel Manufacturing",
 "name": "Ralph Lauren Corporation",
 "sector": "Consumer Cyclical",
 "shares": 37700963,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "RMD": {
 "industry": "Medical Instruments & Supplies",
 "name": "ResMed Inc.",
 "sector": "Healthcare",
-"shares": 144252306,
-"updated": "2026-09-06"
+"shares": 140639243,
+"updated": "2026-10-22"
 },
 "ROK": {
 "industry": "Specialty Industrial Machinery",
 "name": "Rockwell Automation, Inc.",
 "sector": "Industrials",
 "shares": 111273953,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ROL": {
 "industry": "Personal Services",
 "name": "Rollins, Inc.",
 "sector": "Consumer Cyclical",
 "shares": 481145404,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ROP": {
 "industry": "Software - Application",
 "name": "Roper Technologies, Inc.",
 "sector": "Technology",
 "shares": 98900874,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ROST": {
 "industry": "Apparel Retail",
 "name": "Ross Stores, Inc.",
 "sector": "Consumer Cyclical",
 "shares": 320781076,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "RSG": {
 "industry": "Waste Management",
 "name": "Republic Services, Inc.",
 "sector": "Industrials",
 "shares": 306212978,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "RTX": {
 "industry": "Aerospace & Defense",
 "name": "RTX Corporation",
 "sector": "Industrials",
 "shares": 1347758144,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "RVTY": {
 "industry": "Diagnostics & Research",
 "name": "Revvity, Inc.",
 "sector": "Healthcare",
 "shares": 111586401,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "SBAC": {
 "industry": "REIT - Specialty",
 "name": "SBA Communications Corporation",
 "sector": "Real Estate",
 "shares": 106088110,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "SBUX": {
 "industry": "Restaurants",
 "name": "Starbucks Corporation",
 "sector": "Consumer Cyclical",
 "shares": 1140000000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "SCHW": {
 "industry": "Capital Markets",
 "name": "Charles Schwab Corporation (The",
 "sector": "Financial Services",
 "shares": 1729335714,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "SHW": {
 "industry": "Specialty Chemicals",
 "name": "Sherwin-Williams Company (The)",
 "sector": "Basic Materials",
 "shares": 242758151,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "SJM": {
 "industry": "Packaged Foods",
 "name": "The J.M. Smucker Company",
 "sector": "Consumer Defensive",
 "shares": 106823183,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "SKYD": {
 "industry": "Entertainment",
@@ -2839,308 +2839,308 @@
 "name": "SLB Limited",
 "sector": "Energy",
 "shares": 1484143231,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "SMCI": {
 "industry": "Computer Hardware",
 "name": "Super Micro Computer, Inc.",
 "sector": "Technology",
 "shares": 656965384,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "SNA": {
 "industry": "Tools & Accessories",
 "name": "Snap-On Incorporated",
 "sector": "Industrials",
 "shares": 51727124,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "SNDK": {
 "industry": "Computer Hardware",
 "name": "Sandisk Corporation",
 "sector": "Technology",
-"shares": 146419001,
-"updated": "2026-09-06"
+"shares": 144527564,
+"updated": "2026-10-22"
 },
 "SNPS": {
 "industry": "Software - Infrastructure",
 "name": "Synopsys, Inc.",
 "sector": "Technology",
 "shares": 191636646,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "SO": {
 "industry": "Utilities - Regulated Electric",
 "name": "Southern Company (The)",
 "sector": "Utilities",
 "shares": 1150362966,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "SOLV": {
 "industry": "Medical Instruments & Supplies",
 "name": "Solventum Corporation",
 "sector": "Healthcare",
 "shares": 170223729,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "SPG": {
 "industry": "REIT - Retail",
 "name": "Simon Property Group, Inc.",
 "sector": "Real Estate",
 "shares": 323551515,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "SPGI": {
 "industry": "Financial Data & Stock Exchanges",
 "name": "S&P Global Inc.",
 "sector": "Financial Services",
 "shares": 294800000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "SRE": {
 "industry": "Utilities - Diversified",
 "name": "DBA Sempra",
 "sector": "Utilities",
 "shares": 653900348,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "STE": {
 "industry": "Medical Devices",
 "name": "STERIS plc (Ireland)",
 "sector": "Healthcare",
 "shares": 97500110,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "STLD": {
 "industry": "Steel",
 "name": "Steel Dynamics, Inc.",
 "sector": "Basic Materials",
 "shares": 143328088,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "STT": {
 "industry": "Asset Management",
 "name": "State Street Corporation",
 "sector": "Financial Services",
 "shares": 274701765,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "STX": {
 "industry": "Computer Hardware",
 "name": "Seagate Technology Holdings PLC",
 "sector": "Technology",
-"shares": 226644518,
-"updated": "2026-09-06"
+"shares": 227393014,
+"updated": "2026-10-22"
 },
 "STZ": {
 "industry": "Beverages - Brewers",
 "name": "Constellation Brands, Inc.",
 "sector": "Consumer Defensive",
-"shares": 170752511,
-"updated": "2026-09-06"
+"shares": 169198487,
+"updated": "2026-10-22"
 },
 "SW": {
 "industry": "Packaging & Containers",
 "name": "Smurfit WestRock plc",
 "sector": "Consumer Cyclical",
 "shares": 524522908,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "SWK": {
 "industry": "Tools & Accessories",
 "name": "Stanley Black & Decker, Inc.",
 "sector": "Industrials",
 "shares": 151016641,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "SWKS": {
 "industry": "Semiconductors",
 "name": "Skyworks Solutions, Inc.",
 "sector": "Technology",
-"shares": 150472782,
-"updated": "2026-09-06"
+"shares": 235165549,
+"updated": "2026-10-22"
 },
 "SYF": {
 "industry": "Credit Services",
 "name": "Synchrony Financial",
 "sector": "Financial Services",
 "shares": 325370840,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "SYK": {
 "industry": "Medical Devices",
 "name": "Stryker Corporation",
 "sector": "Healthcare",
 "shares": 383573046,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "SYY": {
 "industry": "Food Distribution",
 "name": "Sysco Corporation",
 "sector": "Consumer Defensive",
-"shares": 479096016,
-"updated": "2026-09-06"
+"shares": 491913960,
+"updated": "2026-10-22"
 },
 "T": {
 "industry": "Telecom Services",
 "name": "AT&T Inc.",
 "sector": "Communication Services",
 "shares": 6852385650,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "TDG": {
 "industry": "Aerospace & Defense",
 "name": "Transdigm Group Incorporated",
 "sector": "Industrials",
 "shares": 55276525,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "TDY": {
 "industry": "Scientific & Technical Instruments",
 "name": "Teledyne Technologies Incorpora",
 "sector": "Technology",
 "shares": 46355673,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "TECH": {
 "industry": "Biotechnology",
 "name": "Bio-Techne Corp",
 "sector": "Healthcare",
 "shares": 156818238,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "TEL": {
 "industry": "Electronic Components",
 "name": "TE Connectivity plc",
 "sector": "Technology",
 "shares": 289513228,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "TER": {
 "industry": "Semiconductor Equipment & Materials",
 "name": "Teradyne, Inc.",
 "sector": "Technology",
 "shares": 156340750,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "TFC": {
 "industry": "Banks - Regional",
 "name": "Truist Financial Corporation",
 "sector": "Financial Services",
 "shares": 1221626188,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "TGT": {
 "industry": "Discount Stores",
 "name": "Target Corporation",
 "sector": "Consumer Defensive",
 "shares": 454296736,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "TJX": {
 "industry": "Apparel Retail",
 "name": "TJX Companies, Inc. (The)",
 "sector": "Consumer Cyclical",
 "shares": 1099974061,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "TKO": {
 "industry": "Entertainment",
 "name": "TKO Group Holdings, Inc.",
 "sector": "Communication Services",
 "shares": 73111098,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "TMO": {
 "industry": "Diagnostics & Research",
 "name": "Thermo Fisher Scientific Inc",
 "sector": "Healthcare",
 "shares": 369747286,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "TMUS": {
 "industry": "Telecom Services",
 "name": "T-Mobile US, Inc.",
 "sector": "Communication Services",
 "shares": 1072671613,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "TPL": {
 "industry": "Oil & Gas E&P",
 "name": "Texas Pacific Land Corporation",
 "sector": "Energy",
 "shares": 68974683,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "TPR": {
 "industry": "Luxury Goods",
 "name": "Tapestry, Inc.",
 "sector": "Consumer Cyclical",
-"shares": 199391678,
-"updated": "2026-09-06"
+"shares": 198435342,
+"updated": "2026-10-22"
 },
 "TRGP": {
 "industry": "Oil & Gas Midstream",
 "name": "Targa Resources, Inc.",
 "sector": "Energy",
 "shares": 214431021,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "TRMB": {
 "industry": "Scientific & Technical Instruments",
 "name": "Trimble Inc.",
 "sector": "Technology",
 "shares": 233179848,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "TROW": {
 "industry": "Asset Management",
 "name": "T. Rowe Price Group, Inc.",
 "sector": "Financial Services",
 "shares": 213315850,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "TRV": {
 "industry": "Insurance - Property & Casualty",
 "name": "The Travelers Companies, Inc.",
 "sector": "Financial Services",
 "shares": 208575022,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "TSCO": {
 "industry": "Specialty Retail",
 "name": "Tractor Supply Company",
 "sector": "Consumer Cyclical",
 "shares": 521040137,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "TSLA": {
 "industry": "Auto Manufacturers",
 "name": "Tesla, Inc.",
 "sector": "Consumer Cyclical",
 "shares": 3949547394,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "TSN": {
 "industry": "Farm Products",
 "name": "Tyson Foods, Inc.",
 "sector": "Consumer Defensive",
 "shares": 281792507,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "TT": {
 "industry": "Building Products & Equipment",
 "name": "Trane Technologies plc",
 "sector": "Industrials",
 "shares": 220023177,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "TTWO": {
 "industry": "Electronic Gaming & Multimedia",
 "name": "Take-Two Interactive Software, ",
 "sector": "Communication Services",
 "shares": 186980443,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "TWLO": {
 "industry": "Software - Infrastructure",
@@ -3154,189 +3154,189 @@
 "name": "Texas Instruments Incorporated",
 "sector": "Technology",
 "shares": 913247686,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "TXT": {
 "industry": "Aerospace & Defense",
 "name": "Textron Inc.",
 "sector": "Industrials",
 "shares": 171986917,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "TYL": {
 "industry": "Software - Application",
 "name": "Tyler Technologies, Inc.",
 "sector": "Technology",
 "shares": 40952274,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "UAL": {
 "industry": "Airlines",
 "name": "United Airlines Holdings, Inc.",
 "sector": "Industrials",
-"shares": 324569728,
-"updated": "2026-09-06"
+"shares": 324583772,
+"updated": "2026-10-22"
 },
 "UBER": {
 "industry": "Software - Application",
 "name": "Uber Technologies, Inc.",
 "sector": "Technology",
 "shares": 2042560121,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "UDR": {
 "industry": "REIT - Residential",
 "name": "UDR, Inc.",
 "sector": "Real Estate",
 "shares": 321264222,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "UHS": {
 "industry": "Medical Care Facilities",
 "name": "Universal Health Services, Inc.",
 "sector": "Healthcare",
 "shares": 51687770,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ULTA": {
 "industry": "Specialty Retail",
 "name": "Ulta Beauty, Inc.",
 "sector": "Consumer Cyclical",
 "shares": 42757471,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "UNH": {
 "industry": "Healthcare Plans",
 "name": "UnitedHealth Group Incorporated",
 "sector": "Healthcare",
 "shares": 897594847,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "UNP": {
 "industry": "Railroads",
 "name": "Union Pacific Corporation",
 "sector": "Industrials",
 "shares": 594075498,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "UPS": {
 "industry": "Integrated Freight & Logistics",
 "name": "United Parcel Service, Inc.",
 "sector": "Industrials",
 "shares": 749349405,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "URI": {
 "industry": "Rental & Leasing Services",
 "name": "United Rentals, Inc.",
 "sector": "Industrials",
 "shares": 62242489,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "USB": {
 "industry": "Banks - Regional",
 "name": "U.S. Bancorp",
 "sector": "Financial Services",
 "shares": 1558051446,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "V": {
 "industry": "Credit Services",
 "name": "Visa Inc.",
 "sector": "Financial Services",
 "shares": 1704112694,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "VEEV": {
 "industry": "Health Information Services",
 "name": "Veeva Systems Inc.",
 "sector": "Healthcare",
 "shares": 161908850,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "VICI": {
 "industry": "REIT - Diversified",
 "name": "VICI Properties Inc.",
 "sector": "Real Estate",
 "shares": 1101077562,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "VLO": {
 "industry": "Oil & Gas Refining & Marketing",
 "name": "Valero Energy Corporation",
 "sector": "Energy",
 "shares": 287927461,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "VLTO": {
 "industry": "Pollution & Treatment Controls",
 "name": "Veralto Corp",
 "sector": "Industrials",
 "shares": 243793344,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "VMC": {
 "industry": "Building Materials",
 "name": "Vulcan Materials Company (Holdi",
 "sector": "Basic Materials",
 "shares": 129578739,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "VMRK": {
 "industry": "REIT - Residential",
 "name": "Vivmark Residential",
 "sector": "Real Estate",
 "shares": 773779120,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "VRSK": {
 "industry": "Consulting Services",
 "name": "Verisk Analytics, Inc.",
 "sector": "Industrials",
 "shares": 130156012,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "VRSN": {
 "industry": "Software - Infrastructure",
 "name": "VeriSign, Inc.",
 "sector": "Technology",
 "shares": 90400000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "VRT": {
 "industry": "Electrical Equipment & Parts",
 "name": "Vertiv Holdings, LLC",
 "sector": "Industrials",
 "shares": 384988173,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "VRTX": {
 "industry": "Biotechnology",
 "name": "Vertex Pharmaceuticals Incorpor",
 "sector": "Healthcare",
 "shares": 253460924,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "VST": {
 "industry": "Utilities - Independent Power Producers",
 "name": "Vistra Corp.",
 "sector": "Utilities",
 "shares": 335635195,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "VTR": {
 "industry": "REIT - Healthcare Facilities",
 "name": "Ventas, Inc.",
 "sector": "Real Estate",
 "shares": 512946359,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "VTRS": {
 "industry": "Drug Manufacturers - Specialty & Generic",
 "name": "Viatris Inc.",
 "sector": "Healthcare",
 "shares": 1148590864,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "VYLR": {
 "industry": "Shell Companies",
@@ -3350,174 +3350,174 @@
 "name": "Verizon Communications Inc.",
 "sector": "Communication Services",
 "shares": 4154775202,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "WAB": {
 "industry": "Railroads",
 "name": "Westinghouse Air Brake Technolo",
 "sector": "Industrials",
 "shares": 168910851,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "WAT": {
 "industry": "Diagnostics & Research",
 "name": "Waters Corporation",
 "sector": "Healthcare",
 "shares": 98185855,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "WDAY": {
 "industry": "Software - Application",
 "name": "Workday, Inc.",
 "sector": "Technology",
 "shares": 196000000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "WDC": {
 "industry": "Computer Hardware",
 "name": "Western Digital Corporation",
 "sector": "Technology",
-"shares": 360540944,
-"updated": "2026-09-06"
+"shares": 374323269,
+"updated": "2026-10-22"
 },
 "WEC": {
 "industry": "Utilities - Regulated Electric",
 "name": "WEC Energy Group, Inc.",
 "sector": "Utilities",
 "shares": 325849383,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "WELL": {
 "industry": "REIT - Healthcare Facilities",
 "name": "Welltower Inc.",
 "sector": "Real Estate",
 "shares": 720572011,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "WFC": {
 "industry": "Banks - Diversified",
 "name": "Wells Fargo & Company",
 "sector": "Financial Services",
-"shares": 3023999336,
-"updated": "2026-09-06"
+"shares": 3001638935,
+"updated": "2026-10-22"
 },
 "WM": {
 "industry": "Waste Management",
 "name": "Waste Management, Inc.",
 "sector": "Industrials",
 "shares": 399715184,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "WMB": {
 "industry": "Oil & Gas Midstream",
 "name": "Williams Companies, Inc. (The)",
 "sector": "Energy",
 "shares": 1223167472,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "WMT": {
 "industry": "Discount Stores",
 "name": "Walmart Inc.",
 "sector": "Consumer Defensive",
 "shares": 7958079155,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "WRB": {
 "industry": "Insurance - Property & Casualty",
 "name": "W.R. Berkley Corporation",
 "sector": "Financial Services",
 "shares": 371227529,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "WSM": {
 "industry": "Specialty Retail",
 "name": "Williams-Sonoma, Inc.",
 "sector": "Consumer Cyclical",
 "shares": 117779173,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "WST": {
 "industry": "Medical Instruments & Supplies",
 "name": "West Pharmaceutical Services, I",
 "sector": "Healthcare",
 "shares": 70375762,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "WTW": {
 "industry": "Insurance Brokers",
 "name": "Willis Towers Watson Public Lim",
 "sector": "Financial Services",
 "shares": 92871937,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "WY": {
 "industry": "REIT - Specialty",
 "name": "Weyerhaeuser Company",
 "sector": "Real Estate",
 "shares": 720736000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "WYNN": {
 "industry": "Resorts & Casinos",
 "name": "Wynn Resorts, Limited",
 "sector": "Consumer Cyclical",
 "shares": 102973891,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "XEL": {
 "industry": "Utilities - Regulated Electric",
 "name": "Xcel Energy Inc.",
 "sector": "Utilities",
 "shares": 624634306,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "XOM": {
 "industry": "Oil & Gas Integrated",
 "name": "ExxonMobil Holdings Corporation",
 "sector": "Energy",
 "shares": 4111911960,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "XYL": {
 "industry": "Specialty Industrial Machinery",
 "name": "Xylem Inc.",
 "sector": "Industrials",
 "shares": 233486812,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "XYZ": {
 "industry": "Software - Infrastructure",
 "name": "Block, Inc.",
 "sector": "Technology",
 "shares": 540816000,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "YUM": {
 "industry": "Restaurants",
 "name": "Yum! Brands, Inc.",
 "sector": "Consumer Cyclical",
 "shares": 272901085,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ZBH": {
 "industry": "Medical Devices",
 "name": "Zimmer Biomet Holdings, Inc.",
 "sector": "Healthcare",
 "shares": 190737689,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ZBRA": {
 "industry": "Communication Equipment",
 "name": "Zebra Technologies Corporation",
 "sector": "Technology",
 "shares": 47310660,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 },
 "ZTS": {
 "industry": "Drug Manufacturers - Specialty & Generic",
 "name": "Zoetis Inc.",
 "sector": "Healthcare",
 "shares": 413223602,
-"updated": "2026-09-06"
+"updated": "2026-10-22"
 }
 }
