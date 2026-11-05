@@ -1910,13 +1910,6 @@
 "shares": 590588700,
 "updated": "2026-10-22"
 },
-"KVUE": {
-"industry": "Household & Personal Products",
-"name": "Kenvue Inc.",
-"sector": "Consumer Defensive",
-"shares": 1920773467,
-"updated": "2026-10-22"
-},
 "L": {
 "industry": "Insurance - Property & Casualty",
 "name": "Loews Corporation",
@@ -2427,6 +2420,13 @@
 "sector": "Energy",
 "shares": 630409203,
 "updated": "2026-10-22"
+},
+"OKTA": {
+"industry": "Software - Infrastructure",
+"name": "Okta, Inc.",
+"sector": "Technology",
+"shares": 167139757,
+"updated": "2026-11-05"
 },
 "OMC": {
 "industry": "Advertising Agencies",
